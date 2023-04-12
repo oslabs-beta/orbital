@@ -61,7 +61,11 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
-    const signUpHandler = () => console.log("Sign Up");
+    const [userId, setUserId] = useState("")
+    const signUpHandler = () => {
+        console.log('hello')
+			axios.post('http://localhost:3001/user/signup', {email, password}).then((response) => setUserId(response.data)).catch(e => console.log('oopsie'))
+		};
     return (
         <Box sx={styles.root}>
             <Card sx={styles.card}>

@@ -6,6 +6,7 @@ const UserController = {
         const { email, password } = req.body;
         User.create({ email, password })
             .then((data) => {
+								res.locals.user = data;
                 return next();
             })
             .catch((err) => {
@@ -18,12 +19,11 @@ const UserController = {
         User.findOne({ email: email })
             .then((user) => {
                 if (!user) {
-                    res.locals.status = false;
+                    res.locals.user = false;
                     return next();
                 } else {
                     user.comparePassword(password, (err, isMatch) => {
                         if (err) return next(err);
-                        res.locals.status = isMatch;
                         res.locals.user = user;
                         console.log("user is verified");
                         return next();
