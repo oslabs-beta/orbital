@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const userRouter = require('./routes/userRouter.js');
 const kafkaRouter = require('./routes/kafkaRouter.js');
 const metricsRouter = require('./routes/metricsRouter.js');
+const clusterRouter = require('./routes/clusterRouter.js');
 
 const cors = require('cors');
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
 app.use('/kafka', kafkaRouter);
 app.use('/jmx', metricsRouter);
+app.use('/cluster', clusterRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
