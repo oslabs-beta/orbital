@@ -56,8 +56,16 @@ const styles = {
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [login, setLogin] = useState(false);
-    const loginHandler = () => console.log("Login");
+
+    const loginHandler = () => {
+			axios.post('http://localhost:3001/user/login', {email, password})
+			  .then((response) => {
+					console.log(response.data);
+					localStorage.setItem('loggedIn', "true");
+					localStorage.setItem('userId', `${response.data._id}`);
+				})
+				.catch(e => console.log('oopsie'));
+		}
     const navigate = useNavigate();
     return (
         <Box sx={styles.root}>

@@ -7,10 +7,4 @@ router.post('/metrics', KafkaController.getMetrics, (req, res) => {
 	res.status(200).json(res.locals.metrics);
 })
 
-
-
-
-
-
-
 module.exports = router;
