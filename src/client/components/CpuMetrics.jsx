@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,7 @@ import { Bar } from 'react-chartjs-2';
 
 
 const CpuMetrics = () => {
+
 	ChartJS.register(
 		CategoryScale,
 		LinearScale,
@@ -52,7 +53,17 @@ const CpuMetrics = () => {
   ],
 };
 
-
+	useEffect(() => {
+		fetch('http://localhost:3001/jmx/metrics', {
+				method: 'POST', 
+				body: {broker: 'http://localhost:9090'}, 
+				// headers: {'Content-Type': 'application/json'}
+		})
+		  .then(res => res.json())
+			.then(data => {
+				console.log(data);
+			})
+	}, [])
 
  
 
