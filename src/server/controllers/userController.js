@@ -34,6 +34,17 @@ const UserController = {
                 return next(err);
             });
     },
+		getUser(req, res, next) {
+			const {id} = req.params;
+			console.log({id})
+			User.findOne({_id: id})
+			.then(data => {
+				res.locals.user = data;
+				next();
+			}).catch(err => {
+				return next(err)
+			});
+		}
 };
 
 module.exports = UserController;
