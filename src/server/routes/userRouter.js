@@ -11,4 +11,8 @@ router.post("/signup", userController.createUser, (req, res) => {
     res.json(res.locals.user);
 });
 
+router.get('/:id', userController.getUser, (req, res) => {
+	res.json(res.locals.user)
+})
+
 module.exports = router;

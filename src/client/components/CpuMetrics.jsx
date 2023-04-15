@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,8 @@ import { Bar } from 'react-chartjs-2';
 
 
 const CpuMetrics = () => {
+
+	const [currentUsage, setCurrentUsage] = useState(0)
 
 	ChartJS.register(
 		CategoryScale,
@@ -33,6 +35,15 @@ const CpuMetrics = () => {
 				text: 'Current CPU Usage',
 			},
 		},
+		scales: {
+			y: {
+				max: 100,
+				ticks: {
+					stepSize: 10, // Adjust this to reflect the units you want to display
+					beginAtZero: true,
+				},
+			},
+		},
 	};
 
 	const labels = ['CPU Usage %'];
@@ -42,34 +53,63 @@ const CpuMetrics = () => {
   datasets: [
     {
       label: 'Current',
-      data: labels.map(() => 6.4),
+      data: labels.map(() => currentUsage),
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
-    {
-      label: 'Past Hour',
-      data: labels.map(() => 92.8),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
+    // {
+    //   label: 'Past Hour',
+    //   data: labels.map(() => 92.8),
+    //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    // },
   ],
 };
 
 	useEffect(() => {
-		fetch('http://localhost:3001/jmx/metrics', {
-				method: 'POST', 
-				body: {broker: 'http://localhost:9090'}, 
-				// headers: {'Content-Type': 'application/json'}
-		})
-		  .then(res => res.json())
-			.then(data => {
-				console.log(data);
-			})
+		/*
+		response example {
+			"status":"success",
+			"data":{
+				"resultType":"vector",
+				"result":[
+					{
+						"metric":{},
+						"value":[1681327260.737,"0.06945679231863441"]
+					}
+				]
+			}
+		}
+		*/
+		
+		const id = setInterval(() => {
+			// fetch('http://localhost:3001/jmx/metrics', {
+			// 		method: 'POST', 
+			// 		body: {broker: 'http://localhost:9090'}, 
+			// 		// headers: {'Content-Type': 'application/json'}
+			// })
+			//  .then(res => res.json())
+			// 	.then(json => {
+			// 	setCurrentUsage(json.data.result[0].value[1] * 100)
+			// 	})
+			const mockResponse = {
+				"status":"success",
+				"data":{
+					"resultType":"vector",
+					"result":[
+						{
+							"metric":{},
+							"value":[1681327260.737,"0.06945679231863441"]
+						}
+					]
+				}
+			}
+			setCurrentUsage(mockResponse.data.result[0].value[1] * 100)
+		}, 1000);
+		return () => clearInterval(id);
 	}, [])
-
- 
 
   return (
     <div>
-      <Bar options={options} data={data} style={{margin: 'auto'}} />
+      <Bar options={options} data={data} style={{margin: 'auto', height: 'auto', width: 500}} />
     </div>
   );
 };

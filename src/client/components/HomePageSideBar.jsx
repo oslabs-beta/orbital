@@ -23,6 +23,8 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Card, CardContent, TextField } from "@mui/material";
+import axios from "axios";
+import ClusterOverview from "./ClusterOverview";
 
 const drawerWidth = 240;
 
@@ -112,19 +114,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({user}) {
     const theme = useTheme();
     const [open, setOpen] = useState(true);
-    const [clusterArr, setClusterArr] = useState([
-        { name: "cluster1" },
-        { name: "cluster2" },
-        { name: "cluster3" },
-    ]);
     const [showModal, setShowModal] = useState(false);
     const [clusterName, setClusterName] = useState("");
     const [brokers, setBrokers] = useState("");
+		const [currentCluster, setCurrentCluster] = useState({});
     // const [brokersArr, setBrokersArr] = useState([]);
-
+		console.log('sidebar user: ', user)
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -140,13 +138,18 @@ export default function PersistentDrawerLeft() {
         setShowModal(true);
     };
 
-    const handleCreateCluster = () => {
+    const handleCreateCluster = async () => {
         const brokersArr = brokers.split(", ");
         const newCluster = { name: clusterName, brokers: brokersArr };
-        // send to backend
-        setClusterArr([...clusterArr, newCluster]);
-        console.log(newCluster);
-        console.log(clusterArr);
+				await axios.post(
+					'http://localhost:3001/cluster', {
+						cluster_name: clusterName, 
+						prom_port: brokers, 
+						owner: user._id
+					}
+				);
+        setShowModal(false);
+        window.location.reload()
     };
 
     return (
@@ -199,9 +202,9 @@ export default function PersistentDrawerLeft() {
                     </ListItem>
                 </List>
                 <List>
-                    {clusterArr.map((text, index) => (
-                        <ListItem key={text.name} disablePadding>
-                            <ListItemButton>
+                    {user?.clusters?.map((cluster, index) => (
+                        <ListItem key={cluster._id} disablePadding>
+                            <ListItemButton onClick={() => setCurrentCluster(cluster)}>
                                 <ListItemIcon>
                                     {index % 2 === 0 ? (
                                         <InboxIcon />
@@ -209,7 +212,7 @@ export default function PersistentDrawerLeft() {
                                         <MailIcon />
                                     )}
                                 </ListItemIcon>
-                                <ListItemText primary={text.name} />
+                                <ListItemText primary={cluster.name} />
                             </ListItemButton>
                         </ListItem>
                     ))}
@@ -271,7 +274,7 @@ export default function PersistentDrawerLeft() {
                                         }
                                     />
                                     <Button
-                                        sx={styles.submitButton}
+                                        sx={styles.submitButton}xxx
                                         variant="contained"
                                         size="large"
                                         fullWidth
@@ -284,6 +287,7 @@ export default function PersistentDrawerLeft() {
                         </Modal>
                     )}
                 </Box>
+            <ClusterOverview cluster={currentCluster}/>
             </Main>
         </Box>
     );
