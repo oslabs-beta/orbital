@@ -120,7 +120,7 @@ export default function PersistentDrawerLeft({user}) {
     const [showModal, setShowModal] = useState(false);
     const [clusterName, setClusterName] = useState("");
     const [brokers, setBrokers] = useState("");
-		const [currentCluster, setCurrentCluster] = useState({});
+		const [currentCluster, setCurrentCluster] = useState(null);
     // const [brokersArr, setBrokersArr] = useState([]);
 		console.log('sidebar user: ', user)
     const handleDrawerOpen = () => {
@@ -202,21 +202,21 @@ export default function PersistentDrawerLeft({user}) {
                     </ListItem>
                 </List>
                 <List>
-                    {user?.clusters?.map((cluster, index) => (
-                        <ListItem key={cluster._id} disablePadding>
-                            <ListItemButton onClick={() => setCurrentCluster(cluster)}>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? (
-                                        <InboxIcon />
-                                    ) : (
-                                        <MailIcon />
-                                    )}
-                                </ListItemIcon>
-                                <ListItemText primary={cluster.name} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+    {user?.clusters?.map((cluster, index) => {
+        const icon = <InboxIcon />;
+        return (
+            <ListItem key={cluster._id} disablePadding>
+                <ListItemButton onClick={() => setCurrentCluster(cluster)}>
+                    <ListItemIcon>
+                        {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={cluster.name} />
+                </ListItemButton>
+            </ListItem>
+        )
+    })}
+</List>
+
                 <Divider />
             </Drawer>
             <Main open={open}>
