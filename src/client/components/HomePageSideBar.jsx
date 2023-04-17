@@ -120,9 +120,10 @@ export default function PersistentDrawerLeft({user}) {
     const [showModal, setShowModal] = useState(false);
     const [clusterName, setClusterName] = useState("");
     const [brokers, setBrokers] = useState("");
-		const [currentCluster, setCurrentCluster] = useState(null);
+    const [currentCluster, setCurrentCluster] = useState(null);
     // const [brokersArr, setBrokersArr] = useState([]);
-		console.log('sidebar user: ', user)
+    const [currentIndex, setCurrentIndex] = useState(0)
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -149,7 +150,8 @@ export default function PersistentDrawerLeft({user}) {
 					}
 				);
         setShowModal(false);
-        window.location.reload()
+        window.location.reload();
+        console.log('user: ', user)
     };
 
     return (
@@ -206,7 +208,11 @@ export default function PersistentDrawerLeft({user}) {
         const icon = <InboxIcon />;
         return (
             <ListItem key={cluster._id} disablePadding>
-                <ListItemButton onClick={() => setCurrentCluster(cluster)}>
+                <ListItemButton onClick={() => {
+                    setCurrentCluster(cluster)
+                    setCurrentIndex(index);
+                }
+                    }>
                     <ListItemIcon>
                         {icon}
                     </ListItemIcon>
@@ -287,7 +293,7 @@ export default function PersistentDrawerLeft({user}) {
                         </Modal>
                     )}
                 </Box>
-            <ClusterOverview cluster={currentCluster}/>
+            <ClusterOverview cluster={currentCluster} index={currentIndex}/>
             </Main>
         </Box>
     );

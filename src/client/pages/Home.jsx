@@ -36,7 +36,7 @@ const Home = ({setUser, user}) => {
 				setUser(response.data)
 			}).catch(e => console.log(e))
 		}
-	}, [user])
+	}, [user]);
 
 	// useEffect(() => {
 	// 	const data = {

@@ -47,6 +47,14 @@ const styles = {
 const ClusterOverview = ({ cluster }) => {
   const [metrics, setMetrics] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState(cluster?.name);
+  const [promUrl, setPromUrl] = useState(cluster?.prometheusUrl);
+
+  useEffect(() => {
+    if (!cluster) return;
+    setName(cluster.name)
+    setPromUrl(cluster.prometheusUrl)
+}, [cluster])
   
   useEffect(() => {
   if (!cluster) return;  
@@ -57,9 +65,18 @@ const ClusterOverview = ({ cluster }) => {
           setMetrics(res.data);
           console.log(res.data.cpumetric.data.result[0].value[1]);
         });
-    }, 1000);
+    }, 100000);
     return () => clearInterval(id);
   });
+
+  const handleUpdateCluster = async () => {
+    await axios.patch('http://localhost:3001/cluster', {
+      cluster_name: name,
+      prom_port: promUrl,
+      cluster_id: cluster._id,
+      owner: localStorage.getItem('userId')
+    })
+  }
 
   return (
     <>
@@ -94,9 +111,10 @@ const ClusterOverview = ({ cluster }) => {
                       variant="outlined"
                       size="small"
                       fullWidth
-                      // onChange={(e) =>
-                      //     setClusterName(e.target.value)
-                      // }
+                     value={name}
+                      onChange={(e) =>
+                          setName(e.target.value)
+                      }
                   />
                   <TextField
                       sx={styles.input}
@@ -106,16 +124,17 @@ const ClusterOverview = ({ cluster }) => {
                       multiline
                       rows={5}
                       fullWidth
-                      // onChange={(e) =>
-                      //     setBrokers(e.target.value)
-                      // }
+                      value={promUrl}
+                      onChange={(e) =>
+                        setPromUrl(e.target.value)
+                    }
                   />
                   <Button
-                      sx={styles.submitButton}xxx
+                      sx={styles.submitButton}
                       variant="contained"
                       size="large"
                       fullWidth
-                      // onClick={handleCreateCluster}
+                      onClick={handleUpdateCluster}
                   >
                       Confirm Changes
                   </Button>
