@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import {Card, CardHeader} from '@mui/material'
 
 const CpuMetrics = ({ cpuMetrics }) => {
   //   const [currentUsage, setCurrentUsage] = useState(0);
@@ -107,13 +108,15 @@ const CpuMetrics = ({ cpuMetrics }) => {
   }, []);
 
   return (
-    <div>
+    <Card>
+   <CardHeader title="CPU Metrics" style={{ textAlign: 'center' }} />
       <Bar
         options={options}
         data={data}
         style={{ margin: 'auto', height: 'auto', width: 500 }}
       />
-    </div>
+    
+    </Card>
   );
 };
 
