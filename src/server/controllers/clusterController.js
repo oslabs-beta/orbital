@@ -32,12 +32,26 @@ const clusterController = {
     }
   },
   async updateCluster(req, res, next) {
-    const { cluster_id, cluster_name, prom_port, owner } = req.body;
+    const { cluster_id, cluster_name, prom_port, owner, index } = req.body;
     try {
       const cluster = await Cluster.findOneAndUpdate(
         { _id: cluster_id },
         { name: cluster_name, prometheusUrl: prom_port, owner: owner },
         { new: true }
+      );
+      if (!cluster) {
+        throw new Error('Cluster not found');
+      }
+      const user = await User.findOne({ _id: owner });
+      if (!user) {
+        throw new Error('User not found');
+      }
+      await User.updateOne(
+        { _id: owner },
+        { $set: { 'clusters.$[element]': cluster } },
+        {
+          arrayFilters: [{ 'element._id': cluster._id }],
+        }
       );
       res.locals.cluster = cluster;
       return next();
