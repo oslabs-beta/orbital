@@ -31,6 +31,33 @@ const clusterController = {
       console.log(error);
     }
   },
+  async updateCluster(req, res, next) {
+    const { cluster_id, cluster_name, prom_port, owner } = req.body;
+    try {
+      const cluster = await Cluster.findOneAndUpdate(
+        { _id: cluster_id },
+        { name: cluster_name, prometheusUrl: prom_port, owner: owner },
+        { new: true }
+      );
+      res.locals.cluster = cluster;
+      return next();
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteCluster(req, res, next) {
+    const { cluster_id } = req.params;
+    try {
+      const deletedCluster = await Cluster.findByIdAndDelete(cluster_id);
+      if (!deletedCluster) {
+        return res.status(404).send({ message: 'Cluster not found' });
+      }
+      res.locals.deletedCluster = deletedCluster;
+      return next();
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 module.exports = clusterController;

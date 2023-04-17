@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { Kafka } = require('kafkajs');
 
 // const cpuQuery =
 //   'http://localhost:9090/api/v1/query?query=sum(rate(process_cpu_seconds_total[1m])) * 100';

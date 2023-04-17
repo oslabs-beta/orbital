@@ -11,5 +11,10 @@ router.post(
     res.status(200).json(res.locals.savedcluster);
   }
 );
-
+router.patch('/', clusterController.updateCluster, (req, res) => {
+  res.status(200).json(res.locals.cluster);
+});
+router.delete('/', clusterController.deleteCluster, (req, res) => {
+  res.status(200).json(res.locals.deletedCluster);
+});
 module.exports = router;
