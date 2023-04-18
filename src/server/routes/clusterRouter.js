@@ -11,14 +11,9 @@ router.get("clusterById/:id", clusterController.getClusterById, (req, res) => {
     res.json(res.locals.cluster);
 });
 
-router.post(
-    "/",
-    clusterController.createCluster,
-    clusterController.saveClusterToUser,
-    (req, res) => {
-        res.status(200).json(res.locals.savedcluster);
-    }
-);
+router.post("/", clusterController.createCluster, (req, res) => {
+    res.status(200).json(res.locals.savedcluster);
+});
 router.patch("/", clusterController.updateCluster, (req, res) => {
     res.status(200).json(res.locals.cluster);
 });
