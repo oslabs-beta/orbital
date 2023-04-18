@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CpuMetrics from './CpuMetrics';
+import RamMetrics from './RamMetrics';
 import BytesMetrics from './BytesMetrics';
 import {
   Box,
@@ -11,6 +12,8 @@ import {
   TextField,
   CardContent,
 } from '@mui/material';
+
+import NetworkMetrics from './NetworkMetrics';
 
 const styles = {
   root: {
@@ -83,9 +86,7 @@ const ClusterOverview = ({
         })
         .then((res) => {
           setMetrics(res.data);
-          console.log(res.data.cpumetric.data.result[0].value[1]);
-          console.log(res.data.bytesOutMetric.data.result[0].value[1]);
-          console.log(res.data.bytesintotalmetric.data.result[0].value[1]);
+          console.log(res.data);
         });
     }, 1000);
     return () => clearInterval(id);
@@ -127,10 +128,16 @@ const ClusterOverview = ({
     }
   };
 
-  return (
+  return !cluster ? (
+    <div>Please select a cluster</div>
+  ) : (
     <>
       <Box>
-        <Button variant='contained' onClick={() => setShowModal(true)}>
+        <Button
+          sx={{ marginRight: 5 }}
+          variant='contained'
+          onClick={() => setShowModal(true)}
+        >
           Edit Cluster
         </Button>
         <Modal
@@ -154,7 +161,6 @@ const ClusterOverview = ({
                 }}
               >
                 Edit Cluster
-                <Button onClick={() => setShowModal(false)}>x</Button>
               </Typography>
               <TextField
                 sx={styles.input}
@@ -176,15 +182,21 @@ const ClusterOverview = ({
                 value={promUrl}
                 onChange={(e) => setPromUrl(e.target.value)}
               />
-              <Button
-                sx={styles.submitButton}
-                variant='contained'
-                size='large'
-                fullWidth
-                onClick={handleUpdateCluster}
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
               >
-                Confirm Changes
-              </Button>
+                <Button onClick={() => setShowModal(false)}>Cancel</Button>
+                <Button
+                  sx={styles.submitButton}
+                  variant='contained'
+                  onClick={handleUpdateCluster}
+                >
+                  Confirm Changes
+                </Button>
+              </Box>
             </CardContent>
           </Card>
         </Modal>
@@ -257,11 +269,19 @@ const ClusterOverview = ({
       <div style={{ margin: 'auto' }}>
         {cluster ? cluster.name : 'Loading...'}
       </div>
-      <CpuMetrics cpuMetrics={metrics.cpumetric} />
-      <BytesMetrics
-        bytesOutMetrics={metrics.bytesOutMetric}
-        bytesInMetrics={metrics.bytesintotalmetric}
-      />
+      <div style={{ display: 'flex', gap: 10 }}>
+        <Box>
+          <CpuMetrics cpuMetrics={metrics.cpumetric} />
+          <BytesMetrics
+            bytesOutMetrics={metrics.bytesOutMetric}
+            bytesInMetrics={metrics.bytesintotalmetric}
+          />
+        </Box>
+        <Box>
+          <RamMetrics ramUsage={metrics.ramUsageMetric} />
+          <NetworkMetrics latency={metrics.latency} />
+        </Box>
+      </div>
     </>
   );
 };

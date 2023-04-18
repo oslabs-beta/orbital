@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import Chart from 'chart.js/auto';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,12 +9,11 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import { Card, CardHeader } from '@mui/material';
+import { Bar } from 'react-chartjs-2';
 
-const CpuMetrics = ({ cpuMetrics }) => {
-  //   const [currentUsage, setCurrentUsage] = useState(0);
-  const cpuMetric = cpuMetrics?.data?.result[0].value[1] * 100;
+const RamMetrics = ({ ramUsage }) => {
+  const ramUsageMetric = ramUsage?.data?.result[0].value[1] / 1000 || 0;
 
   ChartJS.register(
     CategoryScale,
@@ -33,14 +33,14 @@ const CpuMetrics = ({ cpuMetrics }) => {
     },
     scales: {
       y: {
-        max: 100,
+        max: 4000,
         ticks: {
-          stepSize: 10, // Adjust this to reflect the units you want to display
+          stepSize: 300,
           beginAtZero: true,
         },
         title: {
           display: true,
-          text: 'Percentage',
+          text: 'Megabytes',
           font: {
             size: 14,
           },
@@ -53,8 +53,8 @@ const CpuMetrics = ({ cpuMetrics }) => {
     labels: [''],
     datasets: [
       {
-        label: 'Current CPU',
-        data: [cpuMetric],
+        label: 'Current RAM Usage',
+        data: [ramUsageMetric],
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],
@@ -62,7 +62,7 @@ const CpuMetrics = ({ cpuMetrics }) => {
 
   return (
     <Card sx={{ width: 500, mb: 2, boxShadow: '0px 0px 4px black' }}>
-      <CardHeader title='CPU Metrics' style={{ textAlign: 'center' }} />
+      <CardHeader title='RAM Usage' style={{ textAlign: 'center' }} />
       <Bar
         options={options}
         data={data}
@@ -72,4 +72,4 @@ const CpuMetrics = ({ cpuMetrics }) => {
   );
 };
 
-export default CpuMetrics;
+export default RamMetrics;

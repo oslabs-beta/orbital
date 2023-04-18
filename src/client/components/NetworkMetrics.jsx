@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { Card, CardHeader } from '@mui/material';
 
-const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
+const NetworkMetrics = ({ latency }) => {
   const chartRef = useRef(null);
   const [labels, setLabels] = useState([
     '-15s',
@@ -30,10 +30,8 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newBytesInValue = bytesInMetrics?.data?.result[0].value[1];
-      const newBytesOutValue = bytesOutMetrics?.data?.result[0].value[1];
+      const newBytesInValue = latency?.data?.result[0].value[1];
       setBytesInData([...bytesInData.slice(1), newBytesInValue]);
-      setBytesOutData([...bytesOutData.slice(1), newBytesOutValue]);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -49,7 +47,7 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
         labels: labels,
         datasets: [
           {
-            label: 'Bytes In',
+            label: 'Latency',
             data: bytesInData,
             borderColor: 'rgba(255, 206, 86, 1)',
             backgroundColor: 'rgba(255, 206, 86, 0.2)',
@@ -57,29 +55,20 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
             pointBorderColor: 'rgba(255, 206, 86, 1)',
             borderWidth: 3,
           },
-          {
-            label: 'Bytes Out',
-            data: bytesOutData,
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-            pointBorderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 3,
-          },
         ],
       },
       options: {
         scales: {
           y: {
-            max: 5000,
+            max: 2000,
             min: 0,
             ticks: {
-              stepSize: 150,
+              stepSize: 50,
               beginAtZero: true,
             },
             title: {
               display: true,
-              text: 'Bytes',
+              text: 'Milliseconds',
               font: {
                 size: 14,
               },
@@ -111,10 +100,10 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
 
   return (
     <Card sx={{ width: 500, boxShadow: '0px 0px 4px black' }}>
-      <CardHeader title='Bytes Metrics' style={{ textAlign: 'center' }} />
+      <CardHeader title='Network Latency' style={{ textAlign: 'center' }} />
       <canvas ref={chartRef} style={{ width: 500 }} />
     </Card>
   );
 };
 
-export default BytesMetrics;
+export default NetworkMetrics;
