@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Modal } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Card, CardContent, TextField } from "@mui/material";
@@ -114,15 +114,17 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft({user}) {
+export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const [open, setOpen] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [clusterName, setClusterName] = useState("");
     const [brokers, setBrokers] = useState("");
     const [currentCluster, setCurrentCluster] = useState(null);
-    // const [brokersArr, setBrokersArr] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const [userClusters, setUserClusters] = useState([]);
+    const [updatingCluster, setUpdatingCluster] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -139,19 +141,36 @@ export default function PersistentDrawerLeft({user}) {
         setShowModal(true);
     };
 
+    // Get array of clusters based on userID
+    useEffect(() => {
+        console.log("useEffect GETS CLUSTER ARRAY fired.");
+        try {
+            axios
+                .get(
+                    `http://localhost:3001/cluster/${localStorage.getItem(
+                        "userId"
+                    )}`
+                )
+                .then((response) => {
+                    setUserClusters(response.data);
+                    console.log(response.data);
+                });
+        } catch (e) {
+            console.error("Error in HomePageSideBar.jsx: Lines 143 - 155");
+        }
+    }, [showModal, updatingCluster]);
+
     const handleCreateCluster = async () => {
         const brokersArr = brokers.split(", ");
         const newCluster = { name: clusterName, brokers: brokersArr };
-				await axios.post(
-					'http://localhost:3001/cluster', {
-						cluster_name: clusterName, 
-						prom_port: brokers, 
-						owner: user._id
-					}
-				);
+        await axios.post("http://localhost:3001/cluster", {
+            cluster_name: clusterName,
+            prom_port: brokers,
+            owner: localStorage.getItem("userId"),
+        });
         setShowModal(false);
-        window.location.reload();
-        console.log('user: ', user)
+        // window.location.reload();
+        // console.log("user: ", user);
     };
 
     return (
@@ -169,7 +188,7 @@ export default function PersistentDrawerLeft({user}) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Welcome First Name!
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -204,24 +223,24 @@ export default function PersistentDrawerLeft({user}) {
                     </ListItem>
                 </List>
                 <List>
-    {user?.clusters?.map((cluster, index) => {
-        const icon = <InboxIcon />;
-        return (
-            <ListItem key={cluster._id} disablePadding>
-                <ListItemButton onClick={() => {
-                    setCurrentCluster(cluster)
-                    setCurrentIndex(index);
-                }
-                    }>
-                    <ListItemIcon>
-                        {icon}
-                    </ListItemIcon>
-                    <ListItemText primary={cluster.name} />
-                </ListItemButton>
-            </ListItem>
-        )
-    })}
-</List>
+                    {userClusters.map((cluster, index) => {
+                        const icon = <InboxIcon />;
+
+                        return (
+                            <ListItem key={cluster._id} disablePadding>
+                                <ListItemButton
+                                    onClick={() => {
+                                        setCurrentCluster(cluster);
+                                        setCurrentIndex(index);
+                                    }}
+                                >
+                                    <ListItemIcon>{icon}</ListItemIcon>
+                                    <ListItemText primary={cluster.name} />
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })}
+                </List>
 
                 <Divider />
             </Drawer>
@@ -280,7 +299,8 @@ export default function PersistentDrawerLeft({user}) {
                                         }
                                     />
                                     <Button
-                                        sx={styles.submitButton}xxx
+                                        sx={styles.submitButton}
+                                        xxx
                                         variant="contained"
                                         size="large"
                                         fullWidth
@@ -293,7 +313,12 @@ export default function PersistentDrawerLeft({user}) {
                         </Modal>
                     )}
                 </Box>
-            <ClusterOverview cluster={currentCluster} index={currentIndex}/>
+                <ClusterOverview
+                    cluster={currentCluster}
+                    index={currentIndex}
+                    setUpdatingCluster={setUpdatingCluster}
+                    setCluster={setCurrentCluster}
+                />
             </Main>
         </Box>
     );
