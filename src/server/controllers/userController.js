@@ -1,17 +1,17 @@
 const User = require("../models/userModel.js");
 
 const UserController = {
-    createUser(req, res, next) {
-        console.log("body: ", req.body);
-        const { email, password } = req.body;
-        User.create({ email, password })
-            .then((data) => {
-								res.locals.user = data;
-                return next();
-            })
-            .catch((err) => {
-                return next(err);
-            });
+    async createUser(req, res, next) {
+        try {
+            const { email, password } = req.body;
+            const user = new User({ email: email, password: password });
+            await user.save();
+            res.locals.account_created = user;
+            return next();
+        } catch (err) {
+            err.message = "Error in UserController.createUser middleware.";
+            return next(err);
+        }
     },
 
     verifyUser(req, res, next) {
@@ -34,17 +34,18 @@ const UserController = {
                 return next(err);
             });
     },
-		getUser(req, res, next) {
-			const {id} = req.params;
-			console.log({id})
-			User.findOne({_id: id})
-			.then(data => {
-				res.locals.user = data;
-				next();
-			}).catch(err => {
-				return next(err)
-			});
-		}
+    getUser(req, res, next) {
+        const { id } = req.params;
+        console.log({ id });
+        User.findOne({ _id: id })
+            .then((data) => {
+                res.locals.user = data;
+                next();
+            })
+            .catch((err) => {
+                return next(err);
+            });
+    },
 };
 
 module.exports = UserController;
