@@ -9,6 +9,7 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
     root: {
@@ -62,9 +63,16 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
     const [userId, setUserId] = useState("")
+    const nav = useNavigate();
+
     const signUpHandler = () => {
         console.log('hello')
-			axios.post('http://localhost:3001/user/signup', {email, password}).then((response) => setUserId(response.data)).catch(e => console.log('oopsie'))
+			axios.post('http://localhost:3001/user/signup', {email, password}).then((response) => {
+                setUserId(response.data);
+                localStorage.setItem('userId', `${response.data._id}`)
+                localStorage.setItem('loggedIn', 'true')
+                nav('/');
+            }).catch(e => console.log('oopsie'))
 		};
     return (
         <Box sx={styles.root}>

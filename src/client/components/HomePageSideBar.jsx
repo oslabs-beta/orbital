@@ -23,6 +23,8 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Card, CardContent, TextField } from "@mui/material";
+import axios from "axios";
+import ClusterOverview from "./ClusterOverview";
 
 const drawerWidth = 240;
 
@@ -112,18 +114,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({user}) {
     const theme = useTheme();
     const [open, setOpen] = useState(true);
-    const [clusterArr, setClusterArr] = useState([
-        { name: "cluster1" },
-        { name: "cluster2" },
-        { name: "cluster3" },
-    ]);
     const [showModal, setShowModal] = useState(false);
     const [clusterName, setClusterName] = useState("");
     const [brokers, setBrokers] = useState("");
+    const [currentCluster, setCurrentCluster] = useState(null);
     // const [brokersArr, setBrokersArr] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -140,13 +139,19 @@ export default function PersistentDrawerLeft() {
         setShowModal(true);
     };
 
-    const handleCreateCluster = () => {
+    const handleCreateCluster = async () => {
         const brokersArr = brokers.split(", ");
         const newCluster = { name: clusterName, brokers: brokersArr };
-        // send to backend
-        setClusterArr([...clusterArr, newCluster]);
-        console.log(newCluster);
-        console.log(clusterArr);
+				await axios.post(
+					'http://localhost:3001/cluster', {
+						cluster_name: clusterName, 
+						prom_port: brokers, 
+						owner: user._id
+					}
+				);
+        setShowModal(false);
+        window.location.reload();
+        console.log('user: ', user)
     };
 
     return (
@@ -199,21 +204,25 @@ export default function PersistentDrawerLeft() {
                     </ListItem>
                 </List>
                 <List>
-                    {clusterArr.map((text, index) => (
-                        <ListItem key={text.name} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? (
-                                        <InboxIcon />
-                                    ) : (
-                                        <MailIcon />
-                                    )}
-                                </ListItemIcon>
-                                <ListItemText primary={text.name} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+    {user?.clusters?.map((cluster, index) => {
+        const icon = <InboxIcon />;
+        return (
+            <ListItem key={cluster._id} disablePadding>
+                <ListItemButton onClick={() => {
+                    setCurrentCluster(cluster)
+                    setCurrentIndex(index);
+                }
+                    }>
+                    <ListItemIcon>
+                        {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={cluster.name} />
+                </ListItemButton>
+            </ListItem>
+        )
+    })}
+</List>
+
                 <Divider />
             </Drawer>
             <Main open={open}>
@@ -271,7 +280,7 @@ export default function PersistentDrawerLeft() {
                                         }
                                     />
                                     <Button
-                                        sx={styles.submitButton}
+                                        sx={styles.submitButton}xxx
                                         variant="contained"
                                         size="large"
                                         fullWidth
@@ -284,6 +293,7 @@ export default function PersistentDrawerLeft() {
                         </Modal>
                     )}
                 </Box>
+            <ClusterOverview cluster={currentCluster} index={currentIndex}/>
             </Main>
         </Box>
     );

@@ -53,9 +53,10 @@ const styles = {
         cursor: "pointer",
     },
 };
-const Login = () => {
+const Login = ({setUser}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const loginHandler = () => {
 			axios.post('http://localhost:3001/user/login', {email, password})
@@ -63,10 +64,11 @@ const Login = () => {
 					console.log(response.data);
 					localStorage.setItem('loggedIn', "true");
 					localStorage.setItem('userId', `${response.data._id}`);
+					setUser(response.data)
+					navigate('/');
 				})
 				.catch(e => console.log('oopsie'));
 		}
-    const navigate = useNavigate();
     return (
         <Box sx={styles.root}>
             <Card sx={styles.card}>
