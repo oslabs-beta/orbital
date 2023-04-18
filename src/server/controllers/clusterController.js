@@ -1,6 +1,6 @@
 const Cluster = require("../models/clusterModel.js");
 const User = require("../models/userModel.js");
-const { ObjectId } = require("mongoose");
+
 const clusterController = {
     async createCluster(req, res, next) {
         const { cluster_name, prom_port, owner } = req.body;
@@ -59,9 +59,9 @@ const clusterController = {
             res.locals.deletedCluster = deletedCluster;
             return next();
         } catch (error) {
-            err.message =
+            error.message =
                 "Error in clusterController.deleteCluster middleware.";
-            return next(err);
+            return next(error);
         }
     },
     async getUserClusters(req, res, next) {

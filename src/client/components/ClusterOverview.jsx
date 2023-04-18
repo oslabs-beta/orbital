@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CpuMetrics from "./CpuMetrics";
+import BytesMetrics from './BytesMetrics';
 import {
     Box,
     Button,
@@ -264,6 +265,7 @@ const ClusterOverview = ({
                 {cluster ? cluster.name : "Loading..."}
             </div>
             <CpuMetrics cpuMetrics={metrics.cpumetric} />
+            <BytesMetrics />
         </>
     );
 };

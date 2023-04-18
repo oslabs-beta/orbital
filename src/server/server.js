@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const URI =
-    "mongodb+srv://karbutov00:karbutov00@cluster0.3npv9wz.mongodb.net/orbitaltest";
+    "mongodb+srv://cowboysintvland:mypassword11@cluster0.kniri3w.mongodb.net/test";
 
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once("open", () => {
