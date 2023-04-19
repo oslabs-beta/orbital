@@ -53,26 +53,22 @@ const styles = {
         cursor: "pointer",
     },
 };
-const Login = ({ setUser }) => {
+const Login = ({setUser}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const loginHandler = () => {
-        if (!email || !password) {
-            return;
-        }
-        axios
-            .post("http://localhost:3001/user/login", { email, password })
-            .then((response) => {
-                console.log(response.data);
-                localStorage.setItem("isLoggedIn", "true");
-                localStorage.setItem("userId", `${response.data._id}`);
-                setUser(response.data);
-                navigate("/");
-            })
-            .catch((e) => console.log("oopsie"));
-    };
+			axios.post('http://localhost:3001/user/login', {email, password})
+			  .then((response) => {
+					console.log(response.data);
+					localStorage.setItem('loggedIn', "true");
+					localStorage.setItem('userId', `${response.data._id}`);
+					setUser(response.data)
+					navigate('/');
+				})
+				.catch(e => console.log('oopsie'));
+		}
     return (
         <Box sx={styles.root}>
             <Card sx={styles.card}>

@@ -62,24 +62,18 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
-    const [userId, setUserId] = useState("");
-    const navigate = useNavigate();
+    const [userId, setUserId] = useState("")
+    const nav = useNavigate();
 
     const signUpHandler = () => {
-        if (!email || !password || !firstName || !lastName) {
-            return;
-        } else if (password !== confirmPass) {
-            return;
-        }
-        axios
-            .post("http://localhost:3001/user/signup", { email, password })
-            .then((response) => {
-                localStorage.setItem("userId", response.data._id);
-                localStorage.setItem("isLoggedIn", "true");
-                navigate("/");
-            })
-            .catch((e) => console.log("oopsie"));
-    };
+        console.log('hello')
+			axios.post('http://localhost:3001/user/signup', {email, password}).then((response) => {
+                setUserId(response.data);
+                localStorage.setItem('userId', `${response.data._id}`)
+                localStorage.setItem('loggedIn', 'true')
+                nav('/');
+            }).catch(e => console.log('oopsie'))
+		};
     return (
         <Box sx={styles.root}>
             <Card sx={styles.card}>
