@@ -129,10 +129,10 @@ const ClusterOverview = ({
   };
 
   return !cluster ? (
-    <div>Please select a cluster</div>
+    <div></div>
   ) : (
     <>
-      <Box>
+      <Box sx={{textAlign: 'right', mb: 2}}>
         <Button
           sx={{ marginRight: 5 }}
           variant='contained'
@@ -266,18 +266,18 @@ const ClusterOverview = ({
           </Card>
         </Modal>
       </Box>
-      <div style={{ margin: 'auto' }}>
-        {cluster ? cluster.name : 'Loading...'}
+      <div style={{ margin: 'auto', textAlign: 'center' }}>
+        
       </div>
-      <div style={{ display: 'flex', gap: 10 }}>
-        <Box>
+      <div style={{ display: 'flex', gap: 10, backgroundColor: '#484995', width: 'fit-content', margin: 'auto' }}>
+        <Box sx={{backgroundColor: '#484995'}}>
           <CpuMetrics cpuMetrics={metrics.cpumetric} />
           <BytesMetrics
             bytesOutMetrics={metrics.bytesOutMetric}
             bytesInMetrics={metrics.bytesintotalmetric}
           />
         </Box>
-        <Box>
+        <Box sx={{backgroundColor: '#484995'}}>
           <RamMetrics ramUsage={metrics.ramUsageMetric} />
           <NetworkMetrics latency={metrics.latency} />
         </Box>

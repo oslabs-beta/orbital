@@ -51,19 +51,19 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
           {
             label: 'Bytes In',
             data: bytesInData,
-            borderColor: 'rgba(255, 206, 86, 1)',
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-            pointBorderColor: 'rgba(255, 206, 86, 1)',
+            borderColor: '#9695ff',
+            backgroundColor: 'rgba(150, 149, 255, 0.2)',
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#484995',
             borderWidth: 3,
           },
           {
             label: 'Bytes Out',
             data: bytesOutData,
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-            pointBorderColor: 'rgba(54, 162, 235, 1)',
+            borderColor: '#6968d4',
+            backgroundColor: 'rgba(105, 104, 212, 0.2)',
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#1f2044',
             borderWidth: 3,
           },
         ],
@@ -96,12 +96,32 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
           },
         },
         animation: false,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              font: {
+                size: 14,
+              },
+            },
+          },
+          tooltip: {
+            titleFont: {
+              size: 16,
+            },
+            bodyFont: {
+              size: 14,
+            },
+          },
+        },
+        backgroundColor: 'rgba(105, 104, 212, 0.2)',
       },
       title: {
         display: true,
         text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
       },
     });
+    
 
     // Destroy previous chart instance before creating a new one
     return () => {
@@ -110,7 +130,7 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
   }, [bytesInData, bytesOutData]);
 
   return (
-    <Card sx={{ width: 500, boxShadow: '0px 0px 4px black' }}>
+    <Card sx={{ width: 500, boxShadow: '0px 0px 4px black',  }}>
       <CardHeader title='Bytes Metrics' style={{ textAlign: 'center' }} />
       <canvas ref={chartRef} style={{ width: 500 }} />
     </Card>

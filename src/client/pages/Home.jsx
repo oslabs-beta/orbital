@@ -38,7 +38,7 @@ const Home = ({ setUser, user }) => {
 
     return (
         <div>
-            <HomePageSideBar />
+            <HomePageSideBar user={user} />
         </div>
     );
 };

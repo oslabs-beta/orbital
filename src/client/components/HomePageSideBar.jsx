@@ -117,7 +117,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({user}) {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -177,8 +177,8 @@ export default function PersistentDrawerLeft() {
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
-          <Typography textAlign='center' variant='h6' noWrap component='div'>
-            Cluster Name
+          <Typography sx={{m: 'auto', textAlign: 'right'}} variant='h6' noWrap component='div'>
+            {currentCluster?.name || 'Select a cluster'}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -203,8 +203,9 @@ export default function PersistentDrawerLeft() {
             component='div'
             textAlign='center'
             color='white'
+            margin='auto'
           >
-            Welcome First Name!
+            {'Orbital'}
           </Typography>
         </DrawerHeader>
         <Divider />
