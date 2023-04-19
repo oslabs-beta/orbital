@@ -132,9 +132,9 @@ const ClusterOverview = ({
     <div></div>
   ) : (
     <>
-      <Box sx={{textAlign: 'right', mb: 2}}>
+      <Box sx={{textAlign: 'right', p: 2, backgroundColor: '#9695ff'}}>
         <Button
-          sx={{ marginRight: 5 }}
+          sx={{ marginRight: 5, backgroundColor: '#484995' }}
           variant='contained'
           onClick={() => setShowModal(true)}
         >
@@ -156,7 +156,7 @@ const ClusterOverview = ({
               <Typography
                 variant='h5'
                 sx={{
-                  mb: '16px',
+                  // mb: '16px',
                   textAlign: 'center',
                 }}
               >
@@ -226,7 +226,7 @@ const ClusterOverview = ({
               <Typography
                 variant='h5'
                 sx={{
-                  mb: '16px',
+                  // mb: '16px',
                   textAlign: 'center',
                 }}
               >
@@ -266,18 +266,15 @@ const ClusterOverview = ({
           </Card>
         </Modal>
       </Box>
-      <div style={{ margin: 'auto', textAlign: 'center' }}>
-        
-      </div>
-      <div style={{ display: 'flex', gap: 10, backgroundColor: '#484995', width: 'fit-content', margin: 'auto' }}>
-        <Box sx={{backgroundColor: '#484995'}}>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', gap: 10, backgroundColor: '#9695ff', margin: 'auto' }}>
+        <Box sx={{backgroundColor: '#9695ff'}}>
           <CpuMetrics cpuMetrics={metrics.cpumetric} />
           <BytesMetrics
             bytesOutMetrics={metrics.bytesOutMetric}
             bytesInMetrics={metrics.bytesintotalmetric}
           />
         </Box>
-        <Box sx={{backgroundColor: '#484995'}}>
+        <Box sx={{backgroundColor: '#9695ff'}}>
           <RamMetrics ramUsage={metrics.ramUsageMetric} />
           <NetworkMetrics latency={metrics.latency} />
         </Box>

@@ -168,8 +168,6 @@ export default function PersistentDrawerLeft({user}) {
       owner: localStorage.getItem('userId'),
     });
     setShowModal(false);
-    // window.location.reload();
-    // console.log("user: ", user);
   };
 
   return (
