@@ -16,6 +16,7 @@
     "bcrypt": "^5.1.0",
     "chart.js": "^4.2.1",
     "chartjs": "^0.3.24",
+    "chartjs-chart-radial-gauge": "^1.1.0",
     "cloudinary": "^1.35.0",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",

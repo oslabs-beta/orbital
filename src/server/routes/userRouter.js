@@ -8,11 +8,11 @@ router.post("/login", userController.verifyUser, (req, res) => {
 });
 
 router.post("/signup", userController.createUser, (req, res) => {
-    res.json(res.locals.user);
+    res.json(res.locals.account_created);
 });
 
-router.get('/:id', userController.getUser, (req, res) => {
-	res.json(res.locals.user)
-})
+router.get("/:id", userController.getUser, (req, res) => {
+    res.json(res.locals.user);
+});
 
 module.exports = router;
