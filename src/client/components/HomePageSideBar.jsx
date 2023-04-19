@@ -80,12 +80,14 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: '#484995',
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      backgroundColor: '#484995',
       marginLeft: 0,
     }),
   })
@@ -98,6 +100,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+
+  backgroundColor: '#444444',
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -115,6 +119,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
+  backgroundColor: '#444444'
 }));
 
 export default function PersistentDrawerLeft({user}) {
@@ -171,7 +176,7 @@ export default function PersistentDrawerLeft({user}) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', fontWeight: 'bold'}}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
@@ -183,7 +188,9 @@ export default function PersistentDrawerLeft({user}) {
       <Drawer
         sx={{
           width: drawerWidth,
-					p: 5
+					p: 5,
+          backgroundColor: '#484995'
+
         }}
         variant='persistent'
         anchor='left'
@@ -191,7 +198,8 @@ export default function PersistentDrawerLeft({user}) {
       >
         <DrawerHeader
           sx={{
-            backgroundColor: '#1976d2',
+            // background color for top left Orbital text
+            backgroundColor: '#444444',
 						p: 2
           }}
         >
@@ -202,12 +210,13 @@ export default function PersistentDrawerLeft({user}) {
             textAlign='center'
             color='white'
             margin='auto'
+            fontWeight='bold'
           >
             {'Orbital'}
           </Typography>
         </DrawerHeader>
-        <Divider />
-        <List>
+        <Divider sx={{backgroundColor: 'black'}} />
+        <List sx={{backgroundColor: '#484995', color:'white'}}>
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
               <ListItemText primary='Add New Cluster' />
@@ -215,12 +224,13 @@ export default function PersistentDrawerLeft({user}) {
             </ListItemButton>
           </ListItem>
         </List>
-        <List>
+        <Divider sx={{backgroundColor: 'black'}} />
+        <List sx={{backgroundColor: '#484995', p: 3}}>
           {userClusters.map((cluster, index) => {
             const icon = <SchemaIcon />;
 
             return (
-              <ListItem key={cluster._id} disablePadding>
+              <ListItem key={cluster._id} disablePadding sx={{backgroundColor: '#484995', color: 'white'}}>
                 <ListItemButton
                   onClick={() => {
                     setCurrentCluster(cluster);
@@ -228,22 +238,30 @@ export default function PersistentDrawerLeft({user}) {
                   }}
                 >
                   <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={cluster.name} />
+                  <Typography
+                    variant='h6'
+                    component='div'
+                    color='white'
+                    fontWeight={500}
+                  >
+                    {cluster.name}
+                  </Typography>
+                  
                 </ListItemButton>
               </ListItem>
             );
           })}
+          <Divider />
+          <LogoutButton />
         </List>
 
-        <Divider />
-				<LogoutButton />
       </Drawer>
       <Main open={open}>
-        <DrawerHeader />
+        <DrawerHeader sx={{backgroundColor: '#484995'}} />
         <Box
           sx={{
             width: '500px',
-            border: '1px solid white',
+            backgroundColor: '#484995'
           }}
         >
           {showModal && (
@@ -290,7 +308,6 @@ export default function PersistentDrawerLeft({user}) {
                   />
                   <Button
                     sx={styles.submitButton}
-                    xxx
                     variant='contained'
                     size='large'
                     fullWidth
