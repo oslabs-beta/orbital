@@ -132,7 +132,7 @@ const ClusterOverview = ({
     <div></div>
   ) : (
     <>
-      <Box sx={{textAlign: 'right', p: 2, backgroundColor: '#7573cc'}}>
+      <Box sx={{textAlign: 'right', p: 2, backgroundColor: '#7573cc' }}>
         <Button
           sx={{ marginRight: 5, backgroundColor: '#9695ff' }}
           variant='contained'

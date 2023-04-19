@@ -28,24 +28,16 @@ import ClusterOverview from './ClusterOverview';
 import SchemaIcon from '@mui/icons-material/Schema';
 import LogoutButton from './LogoutButton';
 import AddIcon from '@mui/icons-material/Add';
+import './drawercss.css'
 
 const drawerWidth = 250;
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    overflow: 'hidden',
+  paper: {
+    backgroundColor: 'black', // Change this to the color you want
   },
   card: {
     backgroundColor: 'white',
-
     borderRadius: '8px',
     width: '100%',
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
@@ -80,7 +72,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: '#484995',
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create('margin', {
@@ -109,6 +100,7 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    backgroundColor: '#444444',
   }),
 }));
 
@@ -165,8 +157,6 @@ export default function PersistentDrawerLeft({user}) {
   }, [showModal, updatingCluster]);
 
   const handleCreateCluster = async () => {
-    const brokersArr = brokers.split(', ');
-    const newCluster = { name: clusterName, brokers: brokersArr };
     await axios.post('http://localhost:3001/cluster', {
       cluster_name: clusterName,
       prom_port: brokers,
@@ -176,7 +166,7 @@ export default function PersistentDrawerLeft({user}) {
   };
 
   return (
-    <Box sx={{ display: 'flex', fontWeight: 'bold'}}>
+    <Box sx={{ display: 'flex', boxSizing: 'border-box', fontWeight: 'bold' }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
@@ -186,11 +176,11 @@ export default function PersistentDrawerLeft({user}) {
         </Toolbar>
       </AppBar>
       <Drawer
+      className='custom-Drawer'
         sx={{
           width: drawerWidth,
-					p: 5,
-          backgroundColor: '#484995'
-
+          height: '100vh',
+          backgroundColor: 'black',
         }}
         variant='persistent'
         anchor='left'
@@ -225,7 +215,7 @@ export default function PersistentDrawerLeft({user}) {
           </ListItem>
         </List>
         <Divider sx={{backgroundColor: 'black'}} />
-        <List sx={{backgroundColor: '#484995', p: 3}}>
+        <List sx={{backgroundColor: '#484995', p: 3, height: '100vh'}}>
           {userClusters.map((cluster, index) => {
             const icon = <SchemaIcon />;
 
@@ -251,12 +241,11 @@ export default function PersistentDrawerLeft({user}) {
               </ListItem>
             );
           })}
-          <Divider />
+          <Divider sx={{borderColor: 'black'}} />
           <LogoutButton />
         </List>
-
       </Drawer>
-      <Main open={open}>
+      <Main open={open} >
         <DrawerHeader sx={{backgroundColor: '#484995'}} />
         <Box
           sx={{
@@ -273,7 +262,6 @@ export default function PersistentDrawerLeft({user}) {
               sx={{
                 width: 500,
                 height: 500,
-
                 margin: 'auto',
               }}
             >

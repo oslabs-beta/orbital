@@ -37,7 +37,7 @@ const Home = ({ setUser, user }) => {
     // }, [user])
 
     return (
-        <div>
+        <div style={{backgroundColor: 'black'}}>
             <HomePageSideBar user={user} />
         </div>
     );
