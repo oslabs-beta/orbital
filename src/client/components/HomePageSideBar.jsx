@@ -26,8 +26,10 @@ import { Card, CardContent, TextField } from '@mui/material';
 import axios from 'axios';
 import ClusterOverview from './ClusterOverview';
 import SchemaIcon from '@mui/icons-material/Schema';
+import LogoutButton from './LogoutButton';
+import AddIcon from '@mui/icons-material/Add';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const styles = {
   root: {
@@ -183,11 +185,7 @@ export default function PersistentDrawerLeft() {
       <Drawer
         sx={{
           width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
+					p: 5
         }}
         variant='persistent'
         anchor='left'
@@ -196,6 +194,7 @@ export default function PersistentDrawerLeft() {
         <DrawerHeader
           sx={{
             backgroundColor: '#1976d2',
+						p: 2
           }}
         >
           <Typography
@@ -213,6 +212,7 @@ export default function PersistentDrawerLeft() {
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
               <ListItemText primary='Add New Cluster' />
+							<AddIcon />
             </ListItemButton>
           </ListItem>
         </List>
@@ -237,6 +237,7 @@ export default function PersistentDrawerLeft() {
         </List>
 
         <Divider />
+				<LogoutButton />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
