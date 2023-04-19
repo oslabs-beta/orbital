@@ -68,7 +68,7 @@ const NetworkMetrics = ({ latency }) => {
             },
             title: {
               display: true,
-              text: 'Millisecondss',
+              text: 'Milliseconds',
               font: {
                 size: 14,
               },
