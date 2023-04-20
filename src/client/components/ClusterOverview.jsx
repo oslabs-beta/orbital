@@ -61,6 +61,7 @@ const ClusterOverview = ({
   setUpdatingCluster,
   clusterId,
   setCluster,
+  setIntervalId
 }) => {
   const [metrics, setMetrics] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -88,9 +89,10 @@ const ClusterOverview = ({
           setMetrics(res.data);
           console.log(res.data);
         });
-    }, 1000);
+    }, 1500);
+    setIntervalId(id);
     return () => clearInterval(id);
-  });
+  }, [cluster]);
 
   const handleUpdateCluster = async () => {
     try {

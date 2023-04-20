@@ -22,7 +22,7 @@ const metricsController = {
       );
       const latency = await axios.get(
         `http://${broker}/api/v1/query?query=sum(rate(kafka_network_requestmetrics_totaltimems{}[1m]) - rate(kafka_network_requestmetrics_localtimems{}[1m]))`
-      );
+      )
       res.locals.metric = {
         cpumetric: cpuMetric.data,
         bytesintotalmetric: bytesintotalmetric.data,
@@ -33,6 +33,7 @@ const metricsController = {
       return next();
     } catch (error) {
       console.log(error, 'Error in getMetrics');
+      return next();
     }
   },
 };

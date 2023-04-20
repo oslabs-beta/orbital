@@ -122,9 +122,9 @@ export default function PersistentDrawerLeft({user}) {
   const [brokers, setBrokers] = useState('');
   const [currentCluster, setCurrentCluster] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const [userClusters, setUserClusters] = useState([]);
   const [updatingCluster, setUpdatingCluster] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
 
   const handleClose = () => {
     setShowModal(false);
@@ -217,6 +217,7 @@ export default function PersistentDrawerLeft({user}) {
                   onClick={() => {
                     setCurrentCluster(cluster);
                     setCurrentIndex(index);
+                    clearInterval(intervalId)
                   }}
                 >
                   <ListItemIcon>{icon}</ListItemIcon>
@@ -305,6 +306,7 @@ export default function PersistentDrawerLeft({user}) {
           index={currentIndex}
           setUpdatingCluster={setUpdatingCluster}
           setCluster={setCurrentCluster}
+          setIntervalId={setIntervalId}
         />
       </Main>
     </Box>
