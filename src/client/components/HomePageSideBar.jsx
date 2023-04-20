@@ -126,14 +126,6 @@ export default function PersistentDrawerLeft({user}) {
   const [userClusters, setUserClusters] = useState([]);
   const [updatingCluster, setUpdatingCluster] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setShowModal(false);
   };
@@ -168,7 +160,7 @@ export default function PersistentDrawerLeft({user}) {
   return (
     <Box sx={{ display: 'flex', boxSizing: 'border-box', fontWeight: 'bold' }}>
       <CssBaseline />
-      <AppBar position='fixed' open={open}>
+      <AppBar position='fixed' open={open} sx={{borderBottom: '1px solid black'}}>
         <Toolbar>
           <Typography sx={{m: 'auto', textAlign: 'right'}} variant='h6' noWrap component='div'>
             {currentCluster?.name || 'Select a cluster'}
