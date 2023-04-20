@@ -28,24 +28,16 @@ import ClusterOverview from './ClusterOverview';
 import SchemaIcon from '@mui/icons-material/Schema';
 import LogoutButton from './LogoutButton';
 import AddIcon from '@mui/icons-material/Add';
+import './drawercss.css'
 
 const drawerWidth = 250;
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    overflow: 'hidden',
+  paper: {
+    backgroundColor: 'black', // Change this to the color you want
   },
   card: {
     backgroundColor: 'white',
-
     borderRadius: '8px',
     width: '100%',
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
@@ -86,6 +78,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      backgroundColor: '#484995',
       marginLeft: 0,
     }),
   })
@@ -98,6 +91,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+
+  backgroundColor: '#444444',
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -105,6 +100,7 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    backgroundColor: '#444444',
   }),
 }));
 
@@ -115,9 +111,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
+  backgroundColor: '#444444'
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({user}) {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -160,32 +157,30 @@ export default function PersistentDrawerLeft() {
   }, [showModal, updatingCluster]);
 
   const handleCreateCluster = async () => {
-    const brokersArr = brokers.split(', ');
-    const newCluster = { name: clusterName, brokers: brokersArr };
     await axios.post('http://localhost:3001/cluster', {
       cluster_name: clusterName,
       prom_port: brokers,
       owner: localStorage.getItem('userId'),
     });
     setShowModal(false);
-    // window.location.reload();
-    // console.log("user: ", user);
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', boxSizing: 'border-box', fontWeight: 'bold' }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
-          <Typography textAlign='center' variant='h6' noWrap component='div'>
-            Cluster Name
+          <Typography sx={{m: 'auto', textAlign: 'right'}} variant='h6' noWrap component='div'>
+            {currentCluster?.name || 'Select a cluster'}
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
+      className='custom-Drawer'
         sx={{
           width: drawerWidth,
-					p: 5
+          height: '100vh',
+          backgroundColor: 'black',
         }}
         variant='persistent'
         anchor='left'
@@ -193,7 +188,8 @@ export default function PersistentDrawerLeft() {
       >
         <DrawerHeader
           sx={{
-            backgroundColor: '#1976d2',
+            // background color for top left Orbital text
+            backgroundColor: '#444444',
 						p: 2
           }}
         >
@@ -203,12 +199,14 @@ export default function PersistentDrawerLeft() {
             component='div'
             textAlign='center'
             color='white'
+            margin='auto'
+            fontWeight='bold'
           >
-            Welcome First Name!
+            {'Orbital'}
           </Typography>
         </DrawerHeader>
-        <Divider />
-        <List>
+        <Divider sx={{backgroundColor: 'black'}} />
+        <List sx={{backgroundColor: '#484995', color:'white'}}>
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
               <ListItemText primary='Add New Cluster' />
@@ -216,12 +214,13 @@ export default function PersistentDrawerLeft() {
             </ListItemButton>
           </ListItem>
         </List>
-        <List>
+        <Divider sx={{backgroundColor: 'black'}} />
+        <List sx={{backgroundColor: '#484995', p: 3, height: '100vh'}}>
           {userClusters.map((cluster, index) => {
             const icon = <SchemaIcon />;
 
             return (
-              <ListItem key={cluster._id} disablePadding>
+              <ListItem key={cluster._id} disablePadding sx={{backgroundColor: '#484995', color: 'white'}}>
                 <ListItemButton
                   onClick={() => {
                     setCurrentCluster(cluster);
@@ -229,22 +228,29 @@ export default function PersistentDrawerLeft() {
                   }}
                 >
                   <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={cluster.name} />
+                  <Typography
+                    variant='h6'
+                    component='div'
+                    color='white'
+                    fontWeight={500}
+                  >
+                    {cluster.name}
+                  </Typography>
+                  
                 </ListItemButton>
               </ListItem>
             );
           })}
+          <Divider sx={{borderColor: 'black'}} />
+          <LogoutButton />
         </List>
-
-        <Divider />
-				<LogoutButton />
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+      <Main open={open} >
+        <DrawerHeader sx={{backgroundColor: '#484995'}} />
         <Box
           sx={{
             width: '500px',
-            border: '1px solid white',
+            backgroundColor: '#484995'
           }}
         >
           {showModal && (
@@ -256,7 +262,6 @@ export default function PersistentDrawerLeft() {
               sx={{
                 width: 500,
                 height: 500,
-
                 margin: 'auto',
               }}
             >
@@ -291,7 +296,6 @@ export default function PersistentDrawerLeft() {
                   />
                   <Button
                     sx={styles.submitButton}
-                    xxx
                     variant='contained'
                     size='large'
                     fullWidth

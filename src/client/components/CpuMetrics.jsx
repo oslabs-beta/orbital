@@ -55,7 +55,7 @@ const CpuMetrics = ({ cpuMetrics }) => {
       {
         label: 'Current CPU',
         data: [cpuMetric],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: 'rgba(150, 149, 255, 0.5)',
       },
     ],
   };

@@ -129,12 +129,12 @@ const ClusterOverview = ({
   };
 
   return !cluster ? (
-    <div>Please select a cluster</div>
+    <div></div>
   ) : (
     <>
-      <Box>
+      <Box sx={{textAlign: 'right', p: 2, backgroundColor: '#7573cc' }}>
         <Button
-          sx={{ marginRight: 5 }}
+          sx={{ marginRight: 5, backgroundColor: '#9695ff' }}
           variant='contained'
           onClick={() => setShowModal(true)}
         >
@@ -156,7 +156,7 @@ const ClusterOverview = ({
               <Typography
                 variant='h5'
                 sx={{
-                  mb: '16px',
+                  // mb: '16px',
                   textAlign: 'center',
                 }}
               >
@@ -226,7 +226,7 @@ const ClusterOverview = ({
               <Typography
                 variant='h5'
                 sx={{
-                  mb: '16px',
+                  // mb: '16px',
                   textAlign: 'center',
                 }}
               >
@@ -266,10 +266,7 @@ const ClusterOverview = ({
           </Card>
         </Modal>
       </Box>
-      <div style={{ margin: 'auto' }}>
-        {cluster ? cluster.name : 'Loading...'}
-      </div>
-      <div style={{ display: 'flex', gap: 10 }}>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', gap: 10, backgroundColor: '#7573cc', margin: 'auto' }}>
         <Box>
           <CpuMetrics cpuMetrics={metrics.cpumetric} />
           <BytesMetrics
@@ -277,7 +274,7 @@ const ClusterOverview = ({
             bytesInMetrics={metrics.bytesintotalmetric}
           />
         </Box>
-        <Box>
+        <Box >
           <RamMetrics ramUsage={metrics.ramUsageMetric} />
           <NetworkMetrics latency={metrics.latency} />
         </Box>
