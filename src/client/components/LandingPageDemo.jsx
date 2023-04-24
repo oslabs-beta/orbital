@@ -8,7 +8,7 @@ const DemoSection = () => {
           sx={{
             bgcolor: "white",
             color: "black",
-            minHeight: "70vh",
+            minHeight: "60vh",
             display: "flex",
             alignItems: "center",
             px: { xs: 2, md: 0 },
