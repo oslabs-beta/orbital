@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import LandingPageHero from "../components/LandingPageHero";
 import LandingPageDemo from "../components/LandingPageDemo";
 import LandingPageTechStack from '../components/LandingPageTechStack'
-
+import LandingPageTeam from '../components/LandingPageTeam'
 const LandingPage = () => {
   
 return (<Box>
@@ -13,6 +13,7 @@ return (<Box>
     <LandingPageHero />
     <LandingPageDemo />
     <LandingPageTechStack />
+    <LandingPageTeam />
 </Box>)
 }
 

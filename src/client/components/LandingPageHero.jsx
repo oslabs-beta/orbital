@@ -6,10 +6,6 @@ import {useNavigate} from 'react-router-dom';
 import Space from '../assets/Space.jpg';
 
 
-
-
-
-
 const LandingPageHero = () => {
     const navigate = useNavigate()
     

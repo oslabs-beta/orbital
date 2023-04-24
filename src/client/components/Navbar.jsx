@@ -12,11 +12,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import {useNavigate} from 'react-router-dom'
 const pages = ['Docs', 'Our Team'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const pagess = [{name: "Docs", url: "/docs"}]
+
 function Navbar() {
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,7 +39,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{backgroundColor: "#0D0818"}}>
+    <AppBar position="sticky" sx={{backgroundColor: "#0D0818"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -55,7 +58,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Orbital
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -87,9 +90,9 @@ function Navbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pagess.map((page) => (
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -114,13 +117,13 @@ function Navbar() {
             ORBITAL
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+            {pagess.map((page) => (
+              <Button onClick={()=>navigate(page.url)}
+                key={page.name}
+        
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
