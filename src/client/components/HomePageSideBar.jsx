@@ -28,9 +28,9 @@ import ClusterOverview from './ClusterOverview';
 import SchemaIcon from '@mui/icons-material/Schema';
 import LogoutButton from './LogoutButton';
 import AddIcon from '@mui/icons-material/Add';
-import './drawercss.css'
+import './drawercss.css';
 
-const drawerWidth = 250;
+const drawerWidth = 100;
 
 const styles = {
   paper: {
@@ -111,10 +111,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
-  backgroundColor: '#444444'
+  backgroundColor: '#444444',
 }));
 
-export default function PersistentDrawerLeft({user}) {
+export default function PersistentDrawerLeft({ user }) {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -160,15 +160,24 @@ export default function PersistentDrawerLeft({user}) {
   return (
     <Box sx={{ display: 'flex', boxSizing: 'border-box', fontWeight: 'bold' }}>
       <CssBaseline />
-      <AppBar position='fixed' open={open} sx={{borderBottom: '1px solid black'}}>
+      <AppBar
+        position='fixed'
+        open={open}
+        sx={{ borderBottom: '1px solid black' }}
+      >
         <Toolbar>
-          <Typography sx={{m: 'auto', textAlign: 'right'}} variant='h6' noWrap component='div'>
+          <Typography
+            sx={{ m: 'auto', textAlign: 'right' }}
+            variant='h6'
+            noWrap
+            component='div'
+          >
             {currentCluster?.name || 'Select a cluster'}
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
-      className='custom-Drawer'
+        className='custom-Drawer'
         sx={{
           width: drawerWidth,
           height: '100vh',
@@ -182,7 +191,7 @@ export default function PersistentDrawerLeft({user}) {
           sx={{
             // background color for top left Orbital text
             backgroundColor: '#444444',
-						p: 2
+            p: 2,
           }}
         >
           <Typography
@@ -197,27 +206,31 @@ export default function PersistentDrawerLeft({user}) {
             {'Orbital'}
           </Typography>
         </DrawerHeader>
-        <Divider sx={{backgroundColor: 'black'}} />
-        <List sx={{backgroundColor: '#484995', color:'white'}}>
+        <Divider sx={{ backgroundColor: 'black' }} />
+        <List sx={{ backgroundColor: '#484995', color: 'white' }}>
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
               <ListItemText primary='Add New Cluster' />
-							<AddIcon />
+              <AddIcon />
             </ListItemButton>
           </ListItem>
         </List>
-        <Divider sx={{backgroundColor: 'black'}} />
-        <List sx={{backgroundColor: '#484995', p: 3, height: '100vh'}}>
+        <Divider sx={{ backgroundColor: 'black' }} />
+        <List sx={{ backgroundColor: '#484995', p: 3, height: '100vh' }}>
           {userClusters.map((cluster, index) => {
             const icon = <SchemaIcon />;
 
             return (
-              <ListItem key={cluster._id} disablePadding sx={{backgroundColor: '#484995', color: 'white'}}>
+              <ListItem
+                key={cluster._id}
+                disablePadding
+                sx={{ backgroundColor: '#484995', color: 'white' }}
+              >
                 <ListItemButton
                   onClick={() => {
                     setCurrentCluster(cluster);
                     setCurrentIndex(index);
-                    clearInterval(intervalId)
+                    clearInterval(intervalId);
                   }}
                 >
                   <ListItemIcon>{icon}</ListItemIcon>
@@ -229,21 +242,20 @@ export default function PersistentDrawerLeft({user}) {
                   >
                     {cluster.name}
                   </Typography>
-                  
                 </ListItemButton>
               </ListItem>
             );
           })}
-          <Divider sx={{borderColor: 'black'}} />
+          <Divider sx={{ borderColor: 'black' }} />
           <LogoutButton />
         </List>
       </Drawer>
-      <Main open={open} >
-        <DrawerHeader sx={{backgroundColor: '#484995'}} />
+      <Main open={open}>
+        <DrawerHeader sx={{ backgroundColor: '#484995' }} />
         <Box
           sx={{
             width: '500px',
-            backgroundColor: '#484995'
+            backgroundColor: '#484995',
           }}
         >
           {showModal && (

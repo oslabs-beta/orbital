@@ -33,7 +33,7 @@ const RamMetrics = ({ ramUsage }) => {
     },
     scales: {
       y: {
-        max: 4000,
+        max: 2000,
         ticks: {
           stepSize: 300,
           beginAtZero: true,
