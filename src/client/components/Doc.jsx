@@ -164,35 +164,33 @@ const Doc = () => {
     </Box>
   </Grid>
   <Grid item xs={12} sm={6}>
+
     <Paper sx={{ bgcolor: "#1E1E1E", color: "#FFF", p: 2, borderRadius: 1 }}>
-      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
-        {`Request
-{
-  "id": 123
-}`}
-      </pre>
-      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
-        {`Response
-[
-  {
-    "id": 1,
-    "name": "cluster1",
-    "created_at": "2022-05-02T15:44:59.000Z",
-    "user_id": 123
-  },
-  {
-    "id": 2,
-    "name": "cluster2",
-    "created_at": "2022-05-02T15:45:19.000Z",
-    "user_id": 123
-  }
-]`}
-      </pre>
-    </Paper>
+          <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                {`Request
+            {
+              "id": 123,
+            }`}
+              </pre>
+              <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                {`Response
+            [
+                {
+                    "id": 1,
+                    "name": "cluster1",
+                    "user_id": 123
+                  },
+                  {
+                    "id": 2,
+                    "name": "cluster2",
+                    "user_id": 123
+                  }
+            ]`}
+              </pre>
+        </Paper>
   </Grid>
-  <Divider
-    sx={{ width: "80%", margin: "auto", marginTop: 4, marginBottom: 4, borderColor: 'rgba(255, 255, 255, 0.2)', borderWidth: '2px' }}
-  />
+  
+  <Divider sx={{ width: '80%', margin: 'auto', marginTop: 4, marginBottom: 4 }} />
 
   <Grid item xs={12} sm={6}>
     <Box sx={{ py: 2 }}>
@@ -213,13 +211,14 @@ const Doc = () => {
       </List>
     </Box>
   </Grid>
+  
   <Grid item xs={12} sm={6}>
     <Paper sx={{ bgcolor: "#1E1E1E", color: "#FFF", p: 2, borderRadius: 1 }}>
       <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
         {`Request
-{
-  "id": 1
-}`}
+            {
+                "id": 1
+            }`}
       </pre>
       <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
         {`Response
@@ -233,6 +232,197 @@ const Doc = () => {
     </Paper>
   </Grid>
   </Grid>
+
+  <Divider sx={{  margin: 'auto', marginTop: 4, marginBottom: 4, border: '1px solid #333' }} />
+
+  <Typography variant="h4" component="h2" align="center" sx={{ pb: "20px" }}>
+  Metrics Router
+</Typography>
+<Grid container spacing={4}>
+  <Grid item xs={12} sm={6}>
+    <Box sx={{ py: 2 }}>
+      <Typography variant="h5" component="h3">
+        /metrics
+      </Typography>
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Get cluster overview metrics associated with a Prometheus port.
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        Required Fields:
+      </Typography>
+
+      <List>
+        <ListItem>
+          <ListItemText primary="Broker port" />
+        </ListItem>
+      </List>
+    </Box>
+  </Grid>
+  <Grid item xs={12} sm={6}>
+
+    <Paper sx={{ bgcolor: "#1E1E1E", color: "#FFF", p: 2, borderRadius: 1 }}>
+          <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                {`Request
+            {
+              "id": 123,
+            }`}
+              </pre>
+              <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                {`Response
+            [
+                {
+                    "id": 1,
+                    "name": "cluster1",
+                    "user_id": 123
+                  },
+                  {
+                    "id": 2,
+                    "name": "cluster2",
+                    "user_id": 123
+                  }
+            ]`}
+              </pre>
+        </Paper>
+  </Grid>
+  
+  <Divider sx={{ width: '80%', margin: 'auto', marginTop: 4, marginBottom: 4 }} />
+
+  <Grid item xs={12} sm={6}>
+    <Box sx={{ py: 2 }}>
+      <Typography variant="h5" component="h3">
+        /metrics/broker
+      </Typography>
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Get cluster metrics information by ID.
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        Required Fields:
+      </Typography>
+
+      <List>
+        <ListItem>
+          <ListItemText primary="Id" />
+        </ListItem>
+      </List>
+    </Box>
+  </Grid>
+  
+  <Grid item xs={12} sm={6}>
+    <Paper sx={{ bgcolor: "#1E1E1E", color: "#FFF", p: 2, borderRadius: 1 }}>
+      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+        {`Request
+            {
+                "id": 1
+            }`}
+      </pre>
+      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+        {`Response
+          {
+            "id": 1,
+            "name": "cluster1",
+            "created_at": "2022-05-02T15:44:59.000Z",
+            "user_id": 123
+          }`}
+      </pre>
+    </Paper>
+  </Grid>
+  </Grid>
+
+  <Divider sx={{  margin: 'auto', marginTop: 4, marginBottom: 4, border: '1px solid #333' }} />
+
+  <Typography variant="h4" component="h2" align="center" sx={{ pb: "20px" }}>
+  Cluster Router
+</Typography>
+<Grid container spacing={4}>
+  <Grid item xs={12} sm={6}>
+    <Box sx={{ py: 2 }}>
+      <Typography variant="h5" component="h3">
+        /cluster
+      </Typography>
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Get cluster overview metrics associated with a Prometheus port.
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        Required Fields:
+      </Typography>
+
+      <List>
+        <ListItem>
+          <ListItemText primary="Broker port" />
+        </ListItem>
+      </List>
+    </Box>
+  </Grid>
+  <Grid item xs={12} sm={6}>
+
+    <Paper sx={{ bgcolor: "#1E1E1E", color: "#FFF", p: 2, borderRadius: 1 }}>
+          <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                {`Request
+            {
+              "id": 123,
+            }`}
+              </pre>
+              <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                {`Response
+            [
+                {
+                    "id": 1,
+                    "name": "cluster1",
+                    "user_id": 123
+                  },
+                  {
+                    "id": 2,
+                    "name": "cluster2",
+                    "user_id": 123
+                  }
+            ]`}
+              </pre>
+        </Paper>
+  </Grid>
+  
+  <Divider sx={{ width: '80%', margin: 'auto', marginTop: 4, marginBottom: 4 }} />
+
+  <Grid item xs={12} sm={6}>
+    <Box sx={{ py: 2 }}>
+      <Typography variant="h5" component="h3">
+        /metrics/broker
+      </Typography>
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Get cluster metrics information by ID.
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        Required Fields:
+      </Typography>
+
+      <List>
+        <ListItem>
+          <ListItemText primary="Id" />
+        </ListItem>
+      </List>
+    </Box>
+  </Grid>
+  
+  <Grid item xs={12} sm={6}>
+    <Paper sx={{ bgcolor: "#1E1E1E", color: "#FFF", p: 2, borderRadius: 1 }}>
+      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+        {`Request
+            {
+                "id": 1
+            }`}
+      </pre>
+      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+        {`Response
+          {
+            "id": 1,
+            "name": "cluster1",
+            "created_at": "2022-05-02T15:44:59.000Z",
+            "user_id": 123
+          }`}
+      </pre>
+    </Paper>
+  </Grid>
+  </Grid>
+
 </Container>
 </Box>
   )}
