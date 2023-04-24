@@ -62,7 +62,7 @@ const CpuMetrics = ({ cpuMetrics }) => {
 
   return (
     <Card sx={{ width: 500, mb: 2, boxShadow: '0px 0px 4px black' }}>
-      <CardHeader title='CPU Metrics' style={{ textAlign: 'center' }} />
+      <CardHeader title='CPU Usage' style={{ textAlign: 'center' }} />
       <Bar
         options={options}
         data={data}
