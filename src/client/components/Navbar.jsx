@@ -13,9 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {useNavigate} from 'react-router-dom'
-const pages = ['Docs', 'Our Team'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const pagess = [{name: "Docs", url: "/docs"}]
 
 function Navbar() {
@@ -91,8 +90,8 @@ function Navbar() {
               }}
             >
               {pagess.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu} >
+                  <Typography textAlign="center" onClick={()=>navigate(page.url)}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

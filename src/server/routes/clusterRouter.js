@@ -20,4 +20,5 @@ router.patch("/", clusterController.updateCluster, (req, res) => {
 router.delete("/:id", clusterController.deleteCluster, (req, res) => {
     res.status(200).json(res.locals.deletedCluster);
 });
+
 module.exports = router;

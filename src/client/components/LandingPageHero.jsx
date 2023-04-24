@@ -34,7 +34,7 @@ const LandingPageHero = () => {
                 The ultimate solution for monitoring Apache Kafka clusters. Get real-time insights and alerts on key metrics to optimize performance and troubleshoot issues quickly.
               </Typography>
               <Box sx={{ mt: { xs: 2, md: 4 } }}>
-                <Button variant="contained" color="secondary" onClick={() => navigate('/login')} >
+                <Button variant="contained" color="secondary" onClick={() => navigate('/signup')} >
                   Get started
                 </Button>
               </Box>
