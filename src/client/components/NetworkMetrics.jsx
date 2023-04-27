@@ -30,7 +30,7 @@ const NetworkMetrics = ({ latency }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newBytesInValue = latency?.data?.result[0].value[1];
+      const newBytesInValue = latency;
       setBytesInData([...bytesInData.slice(1), newBytesInValue]);
     }, 1000);
 

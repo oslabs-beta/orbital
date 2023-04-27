@@ -24,11 +24,11 @@ const metricsController = {
         `http://${broker}/api/v1/query?query=sum(rate(kafka_network_requestmetrics_totaltimems{}[1m]) - rate(kafka_network_requestmetrics_localtimems{}[1m]))`
       );
       res.locals.metric = {
-        cpumetric: cpuMetric.data,
-        bytesintotalmetric: bytesintotalmetric.data,
-        bytesOutMetric: bytesOutMetric.data,
-        ramUsageMetric: ramUsage.data,
-        latency: latency.data,
+        cpumetric: cpuMetric.data.data.result[0].value[1],
+        bytesintotalmetric: bytesintotalmetric.data.data.result[0].value[1],
+        bytesOutMetric: bytesOutMetric.data.data.result[0].value[1],
+        ramUsageMetric: ramUsage.data.data.result[0].value[1],
+        latency: latency.data.data.result[0].value[1],
       };
       return next();
     } catch (error) {
@@ -76,16 +76,16 @@ const metricsController = {
       `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_fetchmessageconversions_total[1m])`
     );
     res.locals.metric = {
-      producers: {
-        producerConversionsTotal: producerConversionsTotal.data,
-        producerRequestsTotal: producerRequestsTotal.data,
-        producersMessagesInTotal: producersMessagesInTotal.data,
-      },
-      consumers: {
-        consumerConversionsTotal: consumerConversionsTotal.data,
-        consumerFailedRequestsTotal: consumerFailedRequestsTotal.data,
-        consumerRequestsTotal: consumerRequestsTotal.data,
-      },
+      producerConversionsTotal:
+        producerConversionsTotal.data.data.result[0].value[1],
+      producerRequestsTotal: producerRequestsTotal.data.data.result[0].value[1],
+      producersMessagesInTotal:
+        producersMessagesInTotal.data.data.result[0].value[1],
+      consumerConversionsTotal:
+        consumerConversionsTotal.data.data.result[0].value[1],
+      consumerFailedRequestsTotal:
+        consumerFailedRequestsTotal.data.data.result[0].value[1],
+      consumerRequestsTotal: consumerRequestsTotal.data.data.result[0].value[1],
     };
     return next();
   },

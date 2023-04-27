@@ -1,6 +1,22 @@
 import React, { useEffect } from "react";
 import {
-    Chart as ChartJS,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { Card, CardHeader } from '@mui/material';
+
+const CpuMetrics = ({ cpuMetrics }) => {
+  //   const [currentUsage, setCurrentUsage] = useState(0);
+  const cpuMetric = cpuMetrics * 100;
+
+  ChartJS.register(
+
     CategoryScale,
     LinearScale,
     BarElement,
