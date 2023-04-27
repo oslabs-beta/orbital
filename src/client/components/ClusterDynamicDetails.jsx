@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ClusterOverview from "./ClusterOverview";
+import DynamicOverview from "./DynamicOverview";
 const ClusterDynamicDetails = ({ currentTab }) => {
     const [metrics, setMetrics] = useState(0);
     const [intervalId, setIntervalId] = useState(null);
@@ -21,13 +23,15 @@ const ClusterDynamicDetails = ({ currentTab }) => {
     }, [clusterName]);
     switch (currentTab) {
         case "overview":
-            return (
-                <img
-                    style={{ height: "300px" }}
-                    src="https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?cs=srgb&dl=pexels-simona-kidri%C4%8D-2607544.jpg&fm=jpg"
-                    alt=""
-                />
-            );
+            return <DynamicOverview />;
+
+        /* 
+            cluster,
+            setUpdatingCluster,
+            clusterId,
+            setCluster,
+            setIntervalId,
+            */
         case "health":
             return (
                 <img
