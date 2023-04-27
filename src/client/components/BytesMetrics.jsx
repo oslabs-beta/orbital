@@ -30,8 +30,8 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newBytesInValue = bytesInMetrics?.data?.result[0].value[1];
-      const newBytesOutValue = bytesOutMetrics?.data?.result[0].value[1];
+      const newBytesInValue = bytesInMetrics;
+      const newBytesOutValue = bytesOutMetrics;
       setBytesInData([...bytesInData.slice(1), newBytesInValue]);
       setBytesOutData([...bytesOutData.slice(1), newBytesOutValue]);
     }, 1000);
@@ -121,7 +121,6 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
         text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
       },
     });
-    
 
     // Destroy previous chart instance before creating a new one
     return () => {
@@ -130,8 +129,8 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
   }, [bytesInData, bytesOutData]);
 
   return (
-    <Card sx={{ width: 500, boxShadow: '0px 0px 4px black',  }}>
-      <CardHeader title='Bytes Metrics' style={{ textAlign: 'center' }} />
+    <Card sx={{ width: 500, boxShadow: '0px 0px 4px black' }}>
+      <CardHeader title='Bytes In/Out' style={{ textAlign: 'center' }} />
       <canvas ref={chartRef} style={{ width: 500 }} />
     </Card>
   );

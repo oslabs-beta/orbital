@@ -13,7 +13,7 @@ import { Card, CardHeader } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
 const RamMetrics = ({ ramUsage }) => {
-  const ramUsageMetric = ramUsage?.data?.result[0].value[1] / 1000 || 0;
+  const ramUsageMetric = ramUsage / 1000 || 0;
 
   ChartJS.register(
     CategoryScale,
@@ -33,7 +33,7 @@ const RamMetrics = ({ ramUsage }) => {
     },
     scales: {
       y: {
-        max: 4000,
+        max: 2000,
         ticks: {
           stepSize: 300,
           beginAtZero: true,

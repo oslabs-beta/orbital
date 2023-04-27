@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     Box,
     Button,
@@ -14,17 +14,38 @@ import Background from '../assets/Login-background.jpg';
 import TransparentOrbital from '../assets/transparent-orbital.png';
 import TransparentTextLogo from '../assets/Transparent-Logo.png';
 
+
 const styles = {
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        // backgroundImage: `url(${signupbg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "hidden",
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    // backgroundImage: `url(${signupbg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    overflow: 'hidden',
+  },
+  card: {
+    backgroundColor: 'transparent',
+    backdropFilter: 'blur(24px) brightness(125%)',
+    borderRadius: '8px',
+    maxWidth: '400px',
+    width: '100%',
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+    padding: '16px',
+  },
+  input: {
+    marginBottom: '16px',
+  },
+  submitButton: {
+    marginTop: '16px',
+    marginBottom: '8px',
+    backgroundColor: '#227BA5',
+    color: '#ffffff',
+    '&:hover': {
+      backgroundColor: '#1D6490',
     },
     card: {
         backgroundColor: "white",
@@ -57,12 +78,15 @@ const styles = {
             textDecoration: "underline",
         },
         cursor: "pointer",
+
     },
+    cursor: 'pointer',
+  },
 };
 const Login = ({ setUser }) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
     const loginHandler = () => {
         if (!email || !password) {
