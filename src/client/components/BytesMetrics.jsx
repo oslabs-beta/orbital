@@ -30,8 +30,8 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newBytesInValue = bytesInMetrics?.data?.result[0].value[1];
-      const newBytesOutValue = bytesOutMetrics?.data?.result[0].value[1];
+      const newBytesInValue = bytesInMetrics;
+      const newBytesOutValue = bytesOutMetrics;
       setBytesInData([...bytesInData.slice(1), newBytesInValue]);
       setBytesOutData([...bytesOutData.slice(1), newBytesOutValue]);
     }, 1000);

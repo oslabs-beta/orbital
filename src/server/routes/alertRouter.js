@@ -3,8 +3,8 @@ const alertController = require('../controllers/alertController.js');
 
 const router = express.Router();
 
-router.post('/', alertController.sendAlert, (req, res) => {
-  res.json(res.locals.clusterArr);
+router.post('/', alertController.createAlert, (req, res) => {
+  res.sendStatus(200);
 });
 
 module.exports = router;

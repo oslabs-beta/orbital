@@ -13,7 +13,7 @@ import { Card, CardHeader } from '@mui/material';
 
 const CpuMetrics = ({ cpuMetrics }) => {
   //   const [currentUsage, setCurrentUsage] = useState(0);
-  const cpuMetric = cpuMetrics?.data?.result[0].value[1] * 100;
+  const cpuMetric = cpuMetrics * 100;
 
   ChartJS.register(
     CategoryScale,
