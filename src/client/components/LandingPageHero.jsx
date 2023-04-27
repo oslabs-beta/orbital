@@ -1,10 +1,9 @@
 import React from 'react';
 import { Box, Typography, Button, Container, Card, CardMedia } from '@mui/material';
 import { Grid } from '@mui/material';
-import Logo from '../assets/Logo.png';
 import {useNavigate} from 'react-router-dom';
 import Space from '../assets/Space.jpg';
-
+import TransparentTextLogo from '../assets/Transparent-Logo.png';
 
 const LandingPageHero = () => {
     const navigate = useNavigate()
@@ -25,7 +24,9 @@ const LandingPageHero = () => {
         }}
       >
         <Container maxWidth="lg">
+
           <Grid container spacing={2} alignItems="center" sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
+            
             <Grid item xs={12} md={6}>
               <Typography variant="h2" component="h2" gutterBottom>
                 Orbital
@@ -41,7 +42,8 @@ const LandingPageHero = () => {
             </Grid>
             <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <Box sx={{ maxWidth: "100%", maxHeight: "100%" }}>
-              <img src={Logo} alt="Orbital logo" style={{ height: "auto", maxWidth: "100%", objectFit: "contain" }} />
+             
+              
               </Box>
             </Grid>
           </Grid>
