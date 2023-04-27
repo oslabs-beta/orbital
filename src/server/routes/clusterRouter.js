@@ -7,7 +7,7 @@ router.get("/:id", clusterController.getUserClusters, (req, res) => {
     res.json(res.locals.clusterArr);
 });
 
-router.get("clusterById/:id", clusterController.getClusterById, (req, res) => {
+router.get("/clusterById/:id", clusterController.getClusterById, (req, res) => {
     res.json(res.locals.cluster);
 });
 

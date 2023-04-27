@@ -24,11 +24,18 @@ import { Button } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Card, CardContent, TextField } from "@mui/material";
 import axios from "axios";
-import ClusterOverview from "./ClusterOverview";
+import ClusterOverview from "../components/ClusterOverview";
 import SchemaIcon from "@mui/icons-material/Schema";
-import LogoutButton from "./LogoutButton";
+import LogoutButton from "../components/LogoutButton";
 import AddIcon from "@mui/icons-material/Add";
-import "./drawercss.css";
+import "../components/drawercss.css";
+import CpuMetrics from "../components/CpuMetrics";
+import BytesMetrics from "../components/BytesMetrics";
+import RamMetrics from "../components/RamMetrics";
+import NetworkMetrics from "../components/NetworkMetrics";
+import { useParams } from "react-router-dom";
+import ClusterDynamicDetails from "../components/ClusterDynamicDetails";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 100;
 
@@ -125,8 +132,11 @@ export default function PersistentDrawerLeft({ user }) {
     const [userClusters, setUserClusters] = useState([]);
     const [updatingCluster, setUpdatingCluster] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
+    const [metrics, setMetrics] = useState(0);
     const [currentTab, setCurrentTab] = useState("overview");
-
+    const params = useParams();
+    const navigate = useNavigate();
+    console.log(params);
     const handleClose = () => {
         setShowModal(false);
     };
@@ -135,32 +145,6 @@ export default function PersistentDrawerLeft({ user }) {
     };
 
     // Get array of clusters based on userID
-    useEffect(() => {
-        console.log("useEffect GETS CLUSTER ARRAY fired.");
-        try {
-            axios
-                .get(
-                    `http://localhost:3001/cluster/${localStorage.getItem(
-                        "userId"
-                    )}`
-                )
-                .then((response) => {
-                    setUserClusters(response.data);
-                    console.log(response.data);
-                });
-        } catch (e) {
-            console.error("Error in HomePageSideBar.jsx: Lines 143 - 155");
-        }
-    }, [showModal, updatingCluster]);
-
-    const handleCreateCluster = async () => {
-        await axios.post("http://localhost:3001/cluster", {
-            cluster_name: clusterName,
-            prom_port: brokers,
-            owner: localStorage.getItem("userId"),
-        });
-        setShowModal(false);
-    };
 
     return (
         <Box
@@ -205,6 +189,7 @@ export default function PersistentDrawerLeft({ user }) {
                         p: 2,
                     }}
                 >
+                    <Button onClick={() => navigate("/home")}>Home</Button>
                     <Typography
                         variant="h6"
                         noWrap
@@ -218,126 +203,100 @@ export default function PersistentDrawerLeft({ user }) {
                     </Typography>
                 </DrawerHeader>
                 <Divider sx={{ backgroundColor: "black" }} />
-                <List sx={{ backgroundColor: "#484995", color: "white" }}>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={handleOpen}>
-                            <ListItemText primary="Add New Cluster" />
-                            <AddIcon />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
+
                 <Divider sx={{ backgroundColor: "black" }} />
                 <List
                     sx={{ backgroundColor: "#484995", p: 3, height: "100vh" }}
                 >
-                    {userClusters.map((cluster, index) => {
-                        const icon = <SchemaIcon />;
-
-                        return (
-                            <ListItem
-                                key={cluster._id}
-                                disablePadding
-                                sx={{
-                                    backgroundColor: "#484995",
-                                    color: "white",
-                                }}
+                    <ListItem
+                        disablePadding
+                        sx={{
+                            backgroundColor: "#484995",
+                            color: "white",
+                        }}
+                    >
+                        <ListItemButton
+                            onClick={() => setCurrentTab("overview")}
+                        >
+                            <ListItemIcon></ListItemIcon>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                color="white"
+                                fontWeight={500}
                             >
-                                <ListItemButton
-                                    onClick={() => {
-                                        setCurrentCluster(cluster);
-                                        setCurrentIndex(index);
-                                        clearInterval(intervalId);
-                                    }}
-                                >
-                                    <ListItemIcon>{icon}</ListItemIcon>
-                                    <Typography
-                                        variant="h6"
-                                        component="div"
-                                        color="white"
-                                        fontWeight={500}
-                                    >
-                                        {cluster.name}
-                                    </Typography>
-                                </ListItemButton>
-                            </ListItem>
-                        );
-                    })}
-                    <Divider sx={{ borderColor: "black" }} />
+                                Overview
+                            </Typography>
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider sx={{ borderColor: "white" }} />
+                    <ListItem
+                        disablePadding
+                        sx={{
+                            backgroundColor: "#484995",
+                            color: "white",
+                        }}
+                    >
+                        <ListItemButton onClick={() => setCurrentTab("health")}>
+                            <ListItemIcon></ListItemIcon>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                color="white"
+                                fontWeight={500}
+                            >
+                                Health Metrics
+                            </Typography>
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider sx={{ borderColor: "white" }} />
+                    <ListItem
+                        disablePadding
+                        sx={{
+                            backgroundColor: "#484995",
+                            color: "white",
+                        }}
+                    >
+                        <ListItemButton>
+                            <ListItemIcon></ListItemIcon>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                color="white"
+                                fontWeight={500}
+                            >
+                                Broker Metrics
+                            </Typography>
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider sx={{ borderColor: "white" }} />
+                    <ListItem
+                        disablePadding
+                        sx={{
+                            backgroundColor: "#484995",
+                            color: "white",
+                        }}
+                    >
+                        <ListItemButton>
+                            <ListItemIcon></ListItemIcon>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                color="white"
+                                fontWeight={500}
+                            >
+                                Topic Metrics
+                            </Typography>
+                        </ListItemButton>
+                    </ListItem>
+
                     <LogoutButton />
                 </List>
             </Drawer>
             <Main open={open}>
-                <DrawerHeader sx={{ backgroundColor: "#484995" }} />
-                <Box
-                    sx={{
-                        width: "500px",
-                        backgroundColor: "#484995",
-                    }}
-                >
-                    {showModal && (
-                        <Modal
-                            open={true}
-                            onClose={handleClose}
-                            aria-labelledby="parent-modal-title"
-                            aria-describedby="parent-modal-description"
-                            sx={{
-                                width: 500,
-                                height: 500,
-                                margin: "auto",
-                            }}
-                        >
-                            <Card sx={styles.card}>
-                                <CardContent>
-                                    <Typography
-                                        variant="h5"
-                                        sx={{
-                                            mb: "16px",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        Create Cluster
-                                    </Typography>
-                                    <TextField
-                                        sx={styles.input}
-                                        label="Cluster Name"
-                                        variant="outlined"
-                                        size="small"
-                                        fullWidth
-                                        onChange={(e) =>
-                                            setClusterName(e.target.value)
-                                        }
-                                    />
-                                    <TextField
-                                        sx={styles.input}
-                                        label="Enter Brokers"
-                                        variant="outlined"
-                                        size="large"
-                                        multiline
-                                        rows={5}
-                                        fullWidth
-                                        onChange={(e) =>
-                                            setBrokers(e.target.value)
-                                        }
-                                    />
-                                    <Button
-                                        sx={styles.submitButton}
-                                        variant="contained"
-                                        size="large"
-                                        fullWidth
-                                        onClick={handleCreateCluster}
-                                    >
-                                        Create
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        </Modal>
-                    )}
-                </Box>
-                <ClusterOverview
-                    cluster={currentCluster}
-                    index={currentIndex}
-                    setUpdatingCluster={setUpdatingCluster}
-                    setCluster={setCurrentCluster}
+                <ClusterDynamicDetails
+                    currentTab={currentTab}
+                    setMetrics={setMetrics}
                     setIntervalId={setIntervalId}
                 />
             </Main>
