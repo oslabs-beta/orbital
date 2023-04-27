@@ -10,6 +10,8 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Background from '../assets/Login-background.jpg';
+import TransparentTextLogo from '../assets/Transparent-Logo.png';
 
 const styles = {
     root: {
@@ -24,30 +26,31 @@ const styles = {
         overflow: "hidden",
     },
     card: {
-        backgroundColor: "transparent",
-        backdropFilter: "blur(24px) brightness(110%)",
+        backgroundColor: "white",
+        backdropFilter: "blur(40px) brightness(170%)",
         borderRadius: "8px",
-        maxWidth: "400px",
+        maxWidth: "500px",
         width: "100%",
         boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
         padding: "16px",
+        display: "flex", 
+        justifyContent: "center", 
+        alignItems: "center"
     },
     input: {
         marginBottom: "16px",
-        backgroundColor: "rgba(255, 255, 255, .7)",
-        borderRadius: "4px",
     },
     submitButton: {
         marginTop: "16px",
         marginBottom: "8px",
-        backgroundColor: "#7D8B47",
+        backgroundColor: "#227BA5",
         color: "#ffffff",
         "&:hover": {
-            backgroundColor: "#526137",
+            backgroundColor: "#1D6490",
         },
     },
     signupLink: {
-        color: "#white",
+        color: "##227BA5",
         textDecoration: "none",
         "&:hover": {
             textDecoration: "underline",
@@ -81,15 +84,26 @@ const Signup = () => {
             .catch((e) => console.log("oopsie"));
     };
     return (
-        <Box sx={styles.root}>
+        <Box  sx={{
+            backgroundImage: `url(${Background})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            minHeight: '100vh',
+            display: "flex",
+          }}>
             <Card sx={styles.card}>
-                <CardContent>
-                    <Typography
+          
+                <CardContent sx={{ mb: "75px" }}>
+                    <Typography 
+                        sx={{ mb: "1px", textAlign: "center", fontSize:"50px" }}>
+                        <img src={TransparentTextLogo} alt="Orbital logo" height="325px" width="325px"/> 
+                    </Typography> 
+                <Typography
                         variant="h5"
                         sx={{
                             mb: "16px",
                             textAlign: "center",
-                            color: "white",
+                            color: "black",
                         }}
                     >
                         Sign Up
@@ -139,7 +153,8 @@ const Signup = () => {
                         onChange={(e) => setConfirmPass(e.target.value)}
                     />
                     <Button
-                        sx={styles.submitButton}
+                        color="secondary"
+                    
                         variant="contained"
                         size="large"
                         fullWidth
@@ -149,15 +164,11 @@ const Signup = () => {
                     </Button>
                     <Typography
                         variant="body2"
-                        sx={{
-                            textAlign: "center",
-                            mt: "16px",
-                            color: "white",
-                        }}
+                        sx={{ textAlign: "center", mt: "25px", fontSize:"20px" }}
                     >
                         Already have an account?{" "}
                         <a href="/login" sx={styles.signupLink}>
-                            Log in
+                            Log In
                         </a>
                     </Typography>
                 </CardContent>
