@@ -89,6 +89,22 @@ const metricsController = {
     };
     return next();
   },
+	getFakeMetrics(req, res, next) {
+		res.locals.metric = {
+			producerConversionsTotal: 57485,
+			producerRequestsTotal: 6,
+			producersMessagesInTotal: 847,
+			consumerConversionsTotal: 8923,
+			consumerFailedRequestsTotal: 465,
+			consumerRequestsTotal: 567,
+			cpumetric: 4,
+			bytesintotalmetric: 475847483,  
+			bytesOutMetric: 283974893,
+			ramUsageMetric: 4223,
+			latency: 900
+		}
+		return next();
+	}
 };
 
 module.exports = metricsController;

@@ -44,15 +44,18 @@ const alertController = {
 	async checkRanges(req, res, next) {
 		const {userId} = req.body; 
 		const metrics = res.locals.metric;
+		console.log('checking ranges of ' + metrics)
 		let outOfRangeMessage = '';
 	
 		try {
 			// Fetch the user object using the user ID
 			const user = await User.findById(userId);
+
+			console.log('number: ', user.phoneNumber)
 	
 			// Fetch the alerts associated with the user
 			const userAlerts = await Alert.find({ owner: userId });
-	
+			console.log('userAlerts: ', userAlerts)
 			// Iterate through the user alerts and check if any metric is out of range
 			for (const alert of userAlerts) {
 				const metricKey = alert.metric;
@@ -60,6 +63,7 @@ const alertController = {
 	
 				if (metricValue < alert.under || metricValue > alert.over) {
 					outOfRangeMessage += `Metric "${metricKey}" is out of range with a value of ${metricValue}. `;
+					
 				}
 			}
 	
@@ -67,14 +71,14 @@ const alertController = {
 				res.locals.outOfRangeMessage = outOfRangeMessage;
 				const phoneNumber = user.phoneNumber;
 				await axios.post(ZAPIER_HOOK_URL, {
-					phone: phoneNumber,
+					phoneNumber: phoneNumber,
 					message: outOfRangeMessage,
 				});
 			}
-	
+			console.log(outOfRangeMessage)
 			next();
 		} catch (error) {
-			next(error); // Pass the error to the error handling middleware
+			next(error);
 		}
 	}
 };
