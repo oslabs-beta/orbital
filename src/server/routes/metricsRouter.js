@@ -3,6 +3,7 @@ const metricsController = require('../controllers/metricsController.js');
 const alertController = require('../controllers/alertController.js');
 const router = express.Router();
 
+
 router.post('/metrics', metricsController.getCPUMetrics, alertController.checkRanges, (req, res) => {
   res.status(200).json(res.locals.metric);
 });
