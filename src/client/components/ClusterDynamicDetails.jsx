@@ -21,7 +21,13 @@ const ClusterDynamicDetails = ({ currentTab }) => {
   }, [clusterName]);
   switch (currentTab) {
     case 'overview':
-      return <DynamicOverview cluster={cluster} />;
+      return (
+        <DynamicOverview
+          cluster={cluster}
+          setIntervalId={setIntervalId}
+          intervalId={intervalId}
+        />
+      );
     /* 
             cluster,
             setUpdatingCluster,
@@ -30,16 +36,12 @@ const ClusterDynamicDetails = ({ currentTab }) => {
             setIntervalId,
             */
     case 'health':
-      return <DynamicHealth />;
-
-    case 'broker':
       return (
-        <div>
-          <img
-            src='https://media-be.chewy.com/wp-content/uploads/2022/09/27110948/cute-dogs-hero-1024x615.jpg'
-            alt=''
-          />
-        </div>
+        <DynamicHealth
+          cluster={cluster}
+          setIntervalId={setIntervalId}
+          intervalId={intervalId}
+        />
       );
 
     case 'topic':

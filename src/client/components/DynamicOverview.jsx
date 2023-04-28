@@ -41,37 +41,44 @@ const metricsBoxStyle = {
   margin: 'auto',
 };
 
-const DynamicOverview = ({ cluster }) => {
+const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
   const [metrics, setMetrics] = useState(0);
   //   const [count, setCount] = useState(0);
   //   setTimeout(() => setCount(count + 1), 1500);
   useEffect(() => {
     if (!cluster) return;
+    const id = setInterval(() => {
+      axios
+        .post('http://localhost:3001/jmx/metrics', {
+          broker: cluster.prometheusUrl,
+          userId: localStorage.getItem('userId'),
+        })
+        .then((res) => {
+          setMetrics(res.data);
+          console.log(res.data);
+        });
+    }, 1500);
+    setIntervalId(id);
+    return () => clearInterval(id);
+  }, [cluster]);
 
-    axios
-      .post('http://localhost:3001/jmx/metrics', {
-        broker: cluster.prometheusUrl,
-        userId: localStorage.getItem('userId'),
-      })
-      .then((res) => {
-        setMetrics(res.data);
-        console.log(res.data);
-      });
-  }, []);
   return (
     <Box style={containerStyle}>
       <Box style={chartsContainerStyle}>
         <Box style={chartStyle}>
-          <BytesMetrics />
+          <BytesMetrics
+            bytesOutMetrics={metrics.bytesOutMetric}
+            bytesInMetrics={metrics.bytesintotalmetric}
+          />
         </Box>
         <Box style={chartStyle}>
-          <RamMetrics />
+          <RamMetrics ramUsage={metrics.ramUsageMetric} />
         </Box>
         <Box style={chartStyle}>
-          <NetworkMetrics />
+          <NetworkMetrics latency={metrics.latency} />
         </Box>
         <Box style={chartStyle}>
-          <CpuMetrics />
+          <CpuMetrics cpuMetrics={metrics.cpumetric} />
         </Box>
       </Box>
       <Box style={metricsBoxStyle}>
@@ -88,7 +95,7 @@ const DynamicOverview = ({ cluster }) => {
           <Card sx={{ border: 'none', boxShadow: 'none' }}>
             <Typography variant='h5'>CPU</Typography>
             <Typography variant='h5' sx={{ textAlign: 'center' }}>
-              10%
+              {Number((metrics.cpumetric * 100).toFixed(2))}%
             </Typography>
           </Card>
           <Card sx={{ border: 'none', boxShadow: 'none' }}>
