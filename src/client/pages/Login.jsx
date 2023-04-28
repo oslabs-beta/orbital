@@ -98,7 +98,7 @@ const Login = ({ setUser }) => {
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("userId", `${response.data._id}`);
                 setUser(response.data);
-                navigate("/");
+                navigate("/home");
             })
             .catch((e) => console.log("oopsie"));
     };

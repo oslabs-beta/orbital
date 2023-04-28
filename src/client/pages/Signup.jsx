@@ -79,7 +79,7 @@ const Signup = () => {
             .then((response) => {
                 localStorage.setItem("userId", response.data._id);
                 localStorage.setItem("isLoggedIn", "true");
-                navigate("/");
+                navigate("/home");
             })
             .catch((e) => console.log("oopsie"));
     };
