@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import HomePageSideBar from "../components/HomePageSideBar";
-import { useNavigate } from "react-router-dom";
-import CpuMetrics from "../components/CpuMetrics.jsx";
-import axios from "axios";
-import ClusterOverview from "../components/ClusterOverview";
+import React, { useEffect, useState } from 'react';
+import HomePageSideBar from '../components/HomePageSideBar';
+import { useNavigate } from 'react-router-dom';
+import CpuMetrics from '../allMetrics/CpuMetrics.jsx';
+import axios from 'axios';
+import ClusterOverview from '../components/ClusterOverview';
 const Home = ({ setUser, user }) => {
-    const [userId, setUserId] = useState(localStorage.getItem("userId"));
-    /*
+  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  /*
 	{
 		email: "email@email.com",
 		_id: "12345",
@@ -20,27 +20,27 @@ const Home = ({ setUser, user }) => {
 		"__v":{"$numberInt":"0"}
 	}
 	*/
-    const nav = useNavigate();
-    useEffect(() => {
-        if (localStorage.getItem("isLoggedIn") !== "true") {
-            nav("/login");
-        }
-    }, []);
+  const nav = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      nav('/login');
+    }
+  }, []);
 
-    // useEffect(() => {
-    // 	const data = {
-    // 		userId: userId
-    // 	}
-    // 	const url = '3001/users/getUserInfo'
-    // 	axios.post(url, {data}).then(response => setUser(response.data)).catch(e => console.log(e))
+  // useEffect(() => {
+  // 	const data = {
+  // 		userId: userId
+  // 	}
+  // 	const url = '3001/users/getUserInfo'
+  // 	axios.post(url, {data}).then(response => setUser(response.data)).catch(e => console.log(e))
 
-    // }, [user])
+  // }, [user])
 
-    return (
-        <div style={{backgroundColor: 'black'}}>
-            <HomePageSideBar user={user} />
-        </div>
-    );
+  return (
+    <div style={{ backgroundColor: 'black' }}>
+      <HomePageSideBar user={user} />
+    </div>
+  );
 };
 
 export default Home;
