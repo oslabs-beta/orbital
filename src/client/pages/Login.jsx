@@ -115,7 +115,8 @@ const Login = ({ setUser }) => {
                 <CardContent sx={{ mb: "75px" }}>
                     
                      <Typography 
-                        sx={{ mb: "1px", textAlign: "center", fontSize:"50px" }}>
+                        onClick={() => navigate('/')}
+                        sx={{ mb: "1px", textAlign: "center", fontSize:"50px", cursor:"pointer" }}>
                         <img src={TransparentTextLogo} alt="Orbital logo" height="325px" width="325px"/> 
                     </Typography> 
 
