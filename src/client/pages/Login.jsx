@@ -28,7 +28,7 @@ const styles = {
     overflow: 'hidden',
   },
   card: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     backdropFilter: 'blur(24px) brightness(125%)',
     borderRadius: '8px',
     maxWidth: '400px',
