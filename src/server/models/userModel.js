@@ -6,6 +6,7 @@ const UserSchema = new Schema(
     {
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
+        phoneNumber: { type: String, required: false },
     },
     { collection: "users" }
 );
