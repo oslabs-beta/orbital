@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ClusterOverview from "./ClusterOverview";
 import DynamicOverview from "./DynamicOverview";
+import DynamicHealth from "./DynamicHealth";
 const ClusterDynamicDetails = ({ currentTab }) => {
     const [metrics, setMetrics] = useState(0);
     const [intervalId, setIntervalId] = useState(null);
@@ -24,7 +25,6 @@ const ClusterDynamicDetails = ({ currentTab }) => {
     switch (currentTab) {
         case "overview":
             return <DynamicOverview />;
-
         /* 
             cluster,
             setUpdatingCluster,
@@ -33,12 +33,26 @@ const ClusterDynamicDetails = ({ currentTab }) => {
             setIntervalId,
             */
         case "health":
+            return <DynamicHealth />;
+
+        case "broker":
             return (
-                <img
-                    style={{ height: "300px" }}
-                    src="https://cdn.pixabay.com/photo/2016/02/19/15/46/labrador-retriever-1210559__480.jpg"
-                    alt=""
-                />
+                <div>
+                    <img
+                        src="https://media-be.chewy.com/wp-content/uploads/2022/09/27110948/cute-dogs-hero-1024x615.jpg"
+                        alt=""
+                    />
+                </div>
+            );
+
+        case "topic":
+            return (
+                <div>
+                    <img
+                        src="https://paradepets.com/.image/t_share/MTkxMzY1Nzg4Njc2NzI4NDE4/golden-retriever.jpg"
+                        alt=""
+                    />
+                </div>
             );
     }
 };

@@ -167,7 +167,7 @@ export default function PersistentDrawerLeft({ user }) {
                         noWrap
                         component="div"
                     >
-                        {currentCluster?.name || "Select a cluster"}
+                        {currentTab[0].toUpperCase() + currentTab.slice(1)}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -257,7 +257,7 @@ export default function PersistentDrawerLeft({ user }) {
                             color: "white",
                         }}
                     >
-                        <ListItemButton>
+                        <ListItemButton onClick={() => setCurrentTab("broker")}>
                             <ListItemIcon></ListItemIcon>
                             <Typography
                                 variant="h6"
@@ -277,7 +277,7 @@ export default function PersistentDrawerLeft({ user }) {
                             color: "white",
                         }}
                     >
-                        <ListItemButton>
+                        <ListItemButton onClick={() => setCurrentTab("topic")}>
                             <ListItemIcon></ListItemIcon>
                             <Typography
                                 variant="h6"

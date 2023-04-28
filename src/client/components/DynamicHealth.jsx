@@ -1,9 +1,4 @@
 import { Box, Paper, Card, Typography } from "@mui/material";
-import Chart from "chart.js";
-import CpuMetrics from "./CpuMetrics";
-import RamMetrics from "./RamMetrics";
-import NetworkMetrics from "./NetworkMetrics";
-import BytesMetrics from "./BytesMetrics";
 
 const containerStyle = {
     display: "flex",
@@ -20,9 +15,8 @@ const chartsContainerStyle = {
     justifyContent: "space-around",
     flexWrap: "wrap",
     padding: "16px",
-
     width: "80%",
-    height: "80%",
+    height: "auto",
     margin: "auto",
     marginTop: "50px",
 };
@@ -40,22 +34,14 @@ const metricsBoxStyle = {
     margin: "auto",
 };
 
-const DynamicOverview = () => {
+const HealthMetrics = () => {
     return (
         <Box style={containerStyle}>
             <Box style={chartsContainerStyle}>
-                <Box style={chartStyle}>
-                    <BytesMetrics />
-                </Box>
-                <Box style={chartStyle}>
-                    <RamMetrics />
-                </Box>
-                <Box style={chartStyle}>
-                    <NetworkMetrics />
-                </Box>
-                <Box style={chartStyle}>
-                    <CpuMetrics />
-                </Box>
+                <Box style={chartStyle}>Chart 1</Box>
+                <Box style={chartStyle}>Chart 2</Box>
+                <Box style={chartStyle}>Chart 3</Box>
+                <Box style={chartStyle}>Chart 4</Box>
             </Box>
             <Box style={metricsBoxStyle}>
                 <Paper
@@ -69,27 +55,27 @@ const DynamicOverview = () => {
                     }}
                 >
                     <Card sx={{ border: "none", boxShadow: "none" }}>
-                        <Typography variant="h5">CPU</Typography>
+                        <Typography variant="h5">Metric 1</Typography>
                         <Typography variant="h5" sx={{ textAlign: "center" }}>
-                            10%
+                            Value 1
                         </Typography>
                     </Card>
                     <Card sx={{ border: "none", boxShadow: "none" }}>
-                        <Typography variant="h5">Ping</Typography>
+                        <Typography variant="h5">Metric 2</Typography>
                         <Typography variant="h5" sx={{ textAlign: "center" }}>
-                            30ms
+                            Value 2
                         </Typography>
                     </Card>
                     <Card sx={{ border: "none", boxShadow: "none" }}>
-                        <Typography variant="h5">Brokers</Typography>
+                        <Typography variant="h5">Metric 3</Typography>
                         <Typography variant="h5" sx={{ textAlign: "center" }}>
-                            2
+                            Value 3
                         </Typography>
                     </Card>
                     <Card sx={{ border: "none", boxShadow: "none" }}>
-                        <Typography variant="h5">Topics</Typography>
+                        <Typography variant="h5">Metric 4</Typography>
                         <Typography variant="h5" sx={{ textAlign: "center" }}>
-                            3
+                            Value 4
                         </Typography>
                     </Card>
                 </Paper>
@@ -98,4 +84,4 @@ const DynamicOverview = () => {
     );
 };
 
-export default DynamicOverview;
+export default HealthMetrics;
