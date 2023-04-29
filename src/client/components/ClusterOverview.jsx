@@ -136,17 +136,19 @@ const ClusterOverview = ({
     <div></div>
   ) : (
     <>
-      <Box sx={{ textAlign: 'right', p: 2, backgroundColor: '#7573cc' }}>
+      <Box sx={{ textAlign: 'center', p: 2, backgroundColor: 'rgb(24, 45, 91)' }}>
         <Button
-          sx={{ marginRight: 5, backgroundColor: '#9695ff' }}
+          sx={{ marginRight: 5 }}
           variant='contained'
+          color="secondary"
           onClick={() => navigate(`/cluster/${cluster._id}`)}
         >
           More Details
         </Button>
         <Button
-          sx={{ marginRight: 5, backgroundColor: '#9695ff' }}
+          sx={{ marginRight: 5 }}
           variant='contained'
+          color="secondary"
           onClick={() => setShowModal(true)}
         >
           Edit Cluster
@@ -257,6 +259,7 @@ const ClusterOverview = ({
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-between',
+                  backgroundColor: 'rgb(24, 45, 91)'
                 }}
               >
                 <Button onClick={() => setDeleteModal(false)}>Cancel</Button>
@@ -283,7 +286,7 @@ const ClusterOverview = ({
           justifyContent: 'center',
           padding: '20px',
           gap: 10,
-          backgroundColor: '#7573cc',
+          backgroundColor: 'rgb(24, 45, 91)',
           margin: 'auto',
         }}
       >

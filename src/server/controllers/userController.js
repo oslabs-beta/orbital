@@ -16,12 +16,16 @@ const UserController = {
 
     verifyUser(req, res, next) {
         const { email, password } = req.body;
+        console.log(email, password)
         User.findOne({ email: email })
             .then((user) => {
+                console.log('user: ', user)
                 if (!user) {
+                    console.log('no user found')
                     res.locals.user = false;
                     return next();
                 } else {
+                    console.log('user found')
                     user.comparePassword(password, (err, isMatch) => {
                         if (err) return next(err);
                         res.locals.user = user;
