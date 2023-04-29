@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Chart from 'chart.js/auto';
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +11,7 @@ import {
 import { Card, CardHeader } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
+// Creates a chart instance for Ram metrics displaying a percentage for RAM usage
 const RamMetrics = ({ ramUsage }) => {
   const ramUsageMetric = ramUsage / 1000 || 0;
 

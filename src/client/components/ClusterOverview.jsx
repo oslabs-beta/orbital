@@ -4,16 +4,18 @@ import CpuMetrics from "../allMetrics/CpuMetrics";
 import RamMetrics from "../allMetrics/RamMetrics";
 import BytesMetrics from "../allMetrics/BytesMetrics";
 import {
-    Box,
-    Button,
-    Modal,
-    Typography,
-    Card,
-    TextField,
-    CardContent,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import NetworkMetrics from "../allMetrics/NetworkMetrics";
+  Box,
+  Button,
+  Modal,
+  Typography,
+  Card,
+  TextField,
+  CardContent,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import NetworkMetrics from '../allMetrics/NetworkMetrics';
+import CreateAlertModal from './CreateAlertModal';
+
 
 const styles = {
     root: {
@@ -63,12 +65,16 @@ const ClusterOverview = ({
     setCluster,
     setIntervalId,
 }) => {
-    const [metrics, setMetrics] = useState(0);
-    const [showModal, setShowModal] = useState(false);
-    const [name, setName] = useState(cluster?.name);
-    const [promUrl, setPromUrl] = useState(cluster?.prometheusUrl);
-    const [deleteModal, setDeleteModal] = useState(false);
-    const [confirmDeleteName, setConfirmDeleteName] = useState("");
+
+  
+  const [metrics, setMetrics] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState(cluster?.name);
+  const [promUrl, setPromUrl] = useState(cluster?.prometheusUrl);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [confirmDeleteName, setConfirmDeleteName] = useState('');
+  const [showAlertModal, setShowAlertModal] = useState(false);
+
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -135,11 +141,80 @@ const ClusterOverview = ({
         }
     };
 
-    return !cluster ? (
-        <div></div>
-    ) : (
-        <>
-            <Box
+
+  return !cluster ? (
+    <div></div>
+  ) : (
+    <>
+			<CreateAlertModal showModal={showAlertModal} setShowModal={setShowAlertModal} />
+      <Box sx={{ textAlign: 'center', p: 2, backgroundColor: 'rgb(24, 45, 91)' }}>
+      <Button
+          sx={{ marginRight: 5 }}
+          variant='contained'
+          color="secondary"
+          onClick={() => setShowAlertModal(true)}
+        >
+          Set Up Alerts
+        </Button>
+        <Button
+          sx={{ marginRight: 5 }}
+          variant='contained'
+          color="secondary"
+          onClick={() => navigate(`/cluster/${cluster._id}`)}
+        >
+          More Details
+        </Button>
+        <Button
+          sx={{ marginRight: 5 }}
+          variant='contained'
+          color="secondary"
+          onClick={() => setShowModal(true)}
+        >
+          Edit Cluster
+        </Button>
+        <Modal
+          open={showModal}
+          // onClose={handleClose}
+          aria-labelledby='parent-modal-title'
+          aria-describedby='parent-modal-description'
+          sx={{
+            width: 500,
+            height: 500,
+            margin: 'auto',
+          }}
+        >
+          <Card sx={styles.card}>
+            <CardContent>
+              <Typography
+                variant='h5'
+                sx={{
+                  // mb: '16px',
+                  textAlign: 'center',
+                }}
+              >
+                Edit Cluster
+              </Typography>
+              <TextField
+                sx={styles.input}
+                label='Cluster Name'
+                variant='outlined'
+                size='small'
+                fullWidth
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                sx={styles.input}
+                label='Enter Brokers'
+                variant='outlined'
+                size='large'
+                multiline
+                rows={5}
+                fullWidth
+                value={promUrl}
+                onChange={(e) => setPromUrl(e.target.value)}
+              />
+              <Box
                 sx={{
                     textAlign: "center",
                     p: 2,

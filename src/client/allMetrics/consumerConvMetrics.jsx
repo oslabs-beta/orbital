@@ -21,6 +21,8 @@ const ConsumerConvMetrics = ({ conConvMetrics }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Consumer Conversion metric charts
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +30,7 @@ const ConsumerConvMetrics = ({ conConvMetrics }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+// Updates Consumer Conversion chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = conConvMetrics;
@@ -37,10 +40,11 @@ const ConsumerConvMetrics = ({ conConvMetrics }) => {
     return () => clearInterval(interval);
   });
 
+// Renders charts for Consumer Conversion metric with appropriate axis labels and scales
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates a chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -96,7 +100,7 @@ const ConsumerConvMetrics = ({ conConvMetrics }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroys previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };

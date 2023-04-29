@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -21,6 +22,7 @@ const ClusterDynamicDetails = ({ currentTab }) => {
                 console.log(res.data);
             });
     }, [clusterName]);
+
 
     switch (currentTab) {
         case "overview":
