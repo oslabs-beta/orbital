@@ -5,6 +5,7 @@ import ClusterOverview from './ClusterOverview';
 import DynamicOverview from './DynamicOverview';
 import DynamicHealth from './DynamicHealth';
 import { useParams } from 'react-router-dom';
+
 const ClusterDynamicDetails = ({ currentTab }) => {
   const [metrics, setMetrics] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
@@ -19,6 +20,7 @@ const ClusterDynamicDetails = ({ currentTab }) => {
         console.log(res.data);
       });
   }, [clusterName]);
+
   switch (currentTab) {
     case 'overview':
       return (
@@ -53,6 +55,11 @@ const ClusterDynamicDetails = ({ currentTab }) => {
           />
         </div>
       );
+    default: 
+        return (
+          <div>default</div>
+        )
+
   }
 };
 

@@ -8,16 +8,10 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Modal } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
@@ -29,6 +23,7 @@ import SchemaIcon from '@mui/icons-material/Schema';
 import LogoutButton from './LogoutButton';
 import AddIcon from '@mui/icons-material/Add';
 import './drawercss.css';
+import orbitalLogo from '../assets/transparent-orbital.png';
 
 const drawerWidth = 100;
 
@@ -78,7 +73,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      backgroundColor: '#484995',
+      backgroundColor: 'rgb(24, 45, 91)',
       marginLeft: 0,
     }),
   })
@@ -170,7 +165,7 @@ export default function PersistentDrawerLeft({ user }) {
       <AppBar
         position='fixed'
         open={open}
-        sx={{ borderBottom: '1px solid black' }}
+        sx={{ borderBottom: '1px solid black', backgroundColor: 'black' }}
       >
         <Toolbar>
           <Typography
@@ -197,10 +192,11 @@ export default function PersistentDrawerLeft({ user }) {
         <DrawerHeader
           sx={{
             // background color for top left Orbital text
-            backgroundColor: '#444444',
-            p: 2,
+            backgroundColor: 'black',
+            p: 0,
           }}
         >
+          <img src={orbitalLogo} alt="Orbital logo" style={{ maxWidth: "65px", maxHeight:"65px", marginLeft:'30px', marginTop:'5px' }} />
           <Typography
             variant='h6'
             noWrap
@@ -208,42 +204,45 @@ export default function PersistentDrawerLeft({ user }) {
             textAlign='center'
             color='white'
             margin='auto'
+            marginLeft="2px"
             fontWeight='bold'
           >
             {'Orbital'}
           </Typography>
         </DrawerHeader>
-        <Divider sx={{ backgroundColor: 'black' }} />
-        <List sx={{ backgroundColor: '#484995', color: 'white' }}>
+        <Divider sx={{ backgroundColor: 'white' }} />
+        <List sx={{ backgroundColor: 'black' }}>
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
-              <ListItemText primary='Add New Cluster' />
-              <AddIcon />
+              <ListItemText primary='Add New Cluster' sx={{textAlign: 'center', color: 'white'}} />
+              <AddIcon sx={{color: 'white'}}/>
             </ListItemButton>
           </ListItem>
         </List>
-        <Divider sx={{ backgroundColor: 'black' }} />
-        <List sx={{ backgroundColor: '#484995', p: 3, height: '100vh' }}>
+        <Divider sx={{ backgroundColor: 'white' }} />
+        <List sx={{ backgroundColor: 'black', p: 3, height: '100vh', width: '20vw', minWidth: '300px' }}>
           {userClusters.map((cluster, index) => {
-            const icon = <SchemaIcon />;
+            const icon = <SchemaIcon color="secondary"/>;
 
             return (
+              <>
               <ListItem
                 key={cluster._id}
                 disablePadding
                 sx={{
-                  backgroundColor: '#484995',
                   color: 'white',
                 }}
               >
                 <ListItemButton
+                  sx={{borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}}
                   onClick={() => {
                     setCurrentCluster(cluster);
                     setCurrentIndex(index);
                     clearInterval(intervalId);
                   }}
                 >
-                  <ListItemIcon>{icon}</ListItemIcon>
+                  {icon}
+                  <ListItemIcon></ListItemIcon>
                   <Typography
                     variant='h6'
                     component='div'
@@ -254,14 +253,15 @@ export default function PersistentDrawerLeft({ user }) {
                   </Typography>
                 </ListItemButton>
               </ListItem>
+              <Divider sx={{ borderColor: 'black', borderWidth: "5px" }} />
+              </>
             );
           })}
-          <Divider sx={{ borderColor: 'black' }} />
           <LogoutButton />
         </List>
       </Drawer>
       <Main open={open}>
-        <DrawerHeader sx={{ backgroundColor: '#484995' }} />
+        <DrawerHeader sx={{ backgroundColor: 'rgb(24, 45, 91)' }} />
         <Box
           sx={{
             width: '500px',
