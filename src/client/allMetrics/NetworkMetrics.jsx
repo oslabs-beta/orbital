@@ -21,6 +21,8 @@ const NetworkMetrics = ({ latency }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Network Latency metric chart
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +30,7 @@ const NetworkMetrics = ({ latency }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+// Updates Network latency chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = latency;
@@ -40,7 +43,7 @@ const NetworkMetrics = ({ latency }) => {
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates a chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -92,7 +95,7 @@ const NetworkMetrics = ({ latency }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroy previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };

@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import NetworkMetrics from '../allMetrics/NetworkMetrics';
+import CreateAlertModal from './CreateAlertModal';
 
 const styles = {
   root: {
@@ -69,6 +70,7 @@ const ClusterOverview = ({
   const [promUrl, setPromUrl] = useState(cluster?.prometheusUrl);
   const [deleteModal, setDeleteModal] = useState(false);
   const [confirmDeleteName, setConfirmDeleteName] = useState('');
+  const [showAlertModal, setShowAlertModal] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -136,7 +138,16 @@ const ClusterOverview = ({
     <div></div>
   ) : (
     <>
+			<CreateAlertModal showModal={showAlertModal} setShowModal={setShowAlertModal} />
       <Box sx={{ textAlign: 'center', p: 2, backgroundColor: 'rgb(24, 45, 91)' }}>
+      <Button
+          sx={{ marginRight: 5 }}
+          variant='contained'
+          color="secondary"
+          onClick={() => setShowAlertModal(true)}
+        >
+          Set Up Alerts
+        </Button>
         <Button
           sx={{ marginRight: 5 }}
           variant='contained'

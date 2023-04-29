@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { Card, CardHeader } from '@mui/material';
 
+
+
 const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
   const chartRef = useRef(null);
   const [labels, setLabels] = useState([
@@ -21,6 +23,8 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
     '',
     'Now',
   ]);
+	
+	// Declares initial state of zero for Bytes In and Bytes Out charts
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +32,8 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+
+// Updates Bytes In and Bytes Out chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = bytesInMetrics;
@@ -39,10 +45,11 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
     return () => clearInterval(interval);
   });
 
+// Renders charts for Bytes In and Bytes Out with appropriate axis labels and scales
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
-
-    // Create chart instance
+  
+  // Creates a chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -122,7 +129,7 @@ const BytesMetrics = ({ bytesOutMetrics, bytesInMetrics }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+// Destroys previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };

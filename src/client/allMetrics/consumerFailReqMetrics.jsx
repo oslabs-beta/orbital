@@ -21,6 +21,8 @@ const ConsumerFailReqMetrics = ({ conFailReqMetrics }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Consumer Failed Request metric chart
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +30,7 @@ const ConsumerFailReqMetrics = ({ conFailReqMetrics }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+// Updates Consumer Failed Request chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = conFailReqMetrics;
@@ -37,10 +40,11 @@ const ConsumerFailReqMetrics = ({ conFailReqMetrics }) => {
     return () => clearInterval(interval);
   });
 
+// Renders charts for Consumer Failed Request metric with appropriate axis labels and scales
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates a chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -96,7 +100,7 @@ const ConsumerFailReqMetrics = ({ conFailReqMetrics }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroys previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };
