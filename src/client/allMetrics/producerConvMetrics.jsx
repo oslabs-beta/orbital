@@ -21,6 +21,8 @@ const ProducerConvMetrics = ({ prodConvMetrics }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Producer Conversion metric chart
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +30,7 @@ const ProducerConvMetrics = ({ prodConvMetrics }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+// Updates Producer Conversion chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = prodConvMetrics;
@@ -40,7 +43,7 @@ const ProducerConvMetrics = ({ prodConvMetrics }) => {
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -96,7 +99,7 @@ const ProducerConvMetrics = ({ prodConvMetrics }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroy previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };

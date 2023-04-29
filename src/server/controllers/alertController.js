@@ -6,16 +6,14 @@ const ZAPIER_HOOK_URL =
 
 const alertController = {
   async getUserAlerts(req, res, next) {
-    const { id } = req.body;
-    const metrics = res.locals.metric;
-    const alerts = await Alert.find({ _id: id });
-    for (const alert of alerts) {
-      const metric = alert.metric;
-      if (metric in metrics) {
-        console.log(metric);
-      }
-    }
-    return next();
+    const { id } = req.params;
+		try {
+    const alerts = await Alert.find({ owner: id });
+		res.locals.alerts = alerts;
+		return next();
+		} catch(e) {
+			return next(e)
+		}
   },
   async createAlert(req, res, next) {
     console.log('creating');
@@ -33,6 +31,16 @@ const alertController = {
     }
     return next();
   },
+	async deleteAlert(req, res, next) {
+		const {id} = req.params;
+		console.log(id)
+		try {
+			res.locals.deleted = await Alert.findOneAndDelete({_id: id});
+			return next();
+		} catch (error) {
+			return next(error)
+		}
+	},
   async sendAlert(req, res, next) {
     const { phoneNumber, message } = req.body;
     await axios.post('https://hooks.zapier.com/hooks/catch/15123291/3uedfdp/', {

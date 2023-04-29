@@ -1,13 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ClusterOverview from './ClusterOverview';
 import DynamicOverview from './DynamicOverview';
 import DynamicHealth from './DynamicHealth';
 import { useParams } from 'react-router-dom';
 
 const ClusterDynamicDetails = ({ currentTab }) => {
-  const [metrics, setMetrics] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [clusterName, setClusterName] = useState('');
   const [cluster, setCluster] = useState({});

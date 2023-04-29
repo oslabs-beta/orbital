@@ -15,9 +15,11 @@ router.get('/clusterById/:id', clusterController.getClusterById, (req, res) => {
 router.post('/', clusterController.createCluster, (req, res) => {
   res.status(200).json(res.locals.savedcluster);
 });
+
 router.patch('/', clusterController.updateCluster, (req, res) => {
   res.status(200).json(res.locals.cluster);
 });
+
 router.delete('/:id', clusterController.deleteCluster, (req, res) => {
   res.status(200).json(res.locals.deletedCluster);
 });

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,8 +11,8 @@ import {
 import { Bar } from "react-chartjs-2";
 import { Card, CardHeader } from "@mui/material";
 
+// Creates a chart instance for CPU metrics displaying a percentage for CPU usage
 const CpuMetrics = ({ cpuMetrics }) => {
-    //   const [currentUsage, setCurrentUsage] = useState(0);
     const cpuMetric = cpuMetrics * 100;
 
     ChartJS.register(
@@ -35,7 +35,7 @@ const CpuMetrics = ({ cpuMetrics }) => {
             y: {
                 max: 100,
                 ticks: {
-                    stepSize: 10, // Adjust this to reflect the units you want to display
+                    stepSize: 10,
                     beginAtZero: true,
                 },
                 title: {

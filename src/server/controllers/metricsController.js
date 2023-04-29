@@ -6,7 +6,6 @@ const axios = require('axios');
 const metricsController = {
   async getCoreMetrics(req, res, next) {
     const { broker } = req.body;
-    // console.log('this is the req body -->', req.body);
     try {
       const cpuMetric = await axios.get(
         `http://${broker}/api/v1/query?query=sum(rate(process_cpu_seconds_total[1m])) * 100`
@@ -87,22 +86,6 @@ const metricsController = {
       consumerFailedRequestsTotal:
         consumerFailedRequestsTotal.data.data.result[0].value[1],
       consumerRequestsTotal: consumerRequestsTotal.data.data.result[0].value[1],
-    };
-    return next();
-  },
-  getFakeMetrics(req, res, next) {
-    res.locals.metric = {
-      producerConversionsTotal: 57485,
-      producerRequestsTotal: 6,
-      producersMessagesInTotal: 847,
-      consumerConversionsTotal: 8923,
-      consumerFailedRequestsTotal: 465,
-      consumerRequestsTotal: 567,
-      cpumetric: 4,
-      bytesintotalmetric: 475847483,
-      bytesOutMetric: 283974893,
-      ramUsageMetric: 4223,
-      latency: 900,
     };
     return next();
   },
