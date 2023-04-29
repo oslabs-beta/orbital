@@ -13,33 +13,35 @@ const containerStyle = {
   flexDirection: 'column',
   alignItems: 'center',
   padding: '20px',
-  gap: '10px',
+  gap: "10px",
   margin: 'auto',
   height: '100%',
 };
 
 const chartsContainerStyle = {
   display: 'flex',
-  justifyContent: 'space-around',
+  justifyContent: "center",
+  gap: "40px",
+  alignItems: 'center',
   flexWrap: 'wrap',
   padding: '16px',
   width: '80%',
   height: 'auto',
   margin: 'auto',
-  marginTop: '50px',
+  marginTop: '20px',
 };
 
 const chartStyle = {
   width: '40%',
   height: '300px',
-  marginBottom: '16px',
+  margin: '16px'
 };
 
 const metricsBoxStyle = {
   flex: 1,
   padding: '5px',
   width: '80%',
-  margin: 'auto',
+  marginLeft: '50px'
 };
 
 const HealthMetrics = ({ cluster, intervalId, setIntervalId }) => {
@@ -61,6 +63,7 @@ const HealthMetrics = ({ cluster, intervalId, setIntervalId }) => {
     return () => clearInterval(id);
   }, [cluster]);
   return (
+    <div>
     <Box style={containerStyle}>
       <Box style={chartsContainerStyle}>
         <Box style={chartStyle}>
@@ -82,7 +85,7 @@ const HealthMetrics = ({ cluster, intervalId, setIntervalId }) => {
           <ProducerMessMetrics
             prodMessMetrics={moreMetrics.producersMessagesInTotal}
           />
-        </Box>{' '}
+        </Box>
         <Box style={chartStyle}>
           <ConsumerConvMetrics
             conConvMetrics={moreMetrics.consumerConversionsTotal}
@@ -144,6 +147,7 @@ const HealthMetrics = ({ cluster, intervalId, setIntervalId }) => {
         </Paper>
       </Box>
     </Box>
+    </div>
   );
 };
 

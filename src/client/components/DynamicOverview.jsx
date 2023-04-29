@@ -14,37 +14,39 @@ const containerStyle = {
   gap: '10px',
   margin: 'auto',
   height: '100%',
+
 };
 
 const chartsContainerStyle = {
   display: 'flex',
-  justifyContent: 'space-around',
+  justifyContent: 'center',
+  gap: "40px",
   flexWrap: 'wrap',
   padding: '16px',
-
+  alignItems: 'center',
   width: '80%',
   height: '80%',
   margin: 'auto',
-  marginTop: '50px',
+  marginTop: '30px',
+
 };
 
 const chartStyle = {
   width: '40%',
   height: '300px',
   marginBottom: '16px',
+  marginRight: '30px'
 };
 
 const metricsBoxStyle = {
   flex: 1,
   padding: '5px',
-  width: '80%',
-  margin: 'auto',
+  width: '60%',
+  marginLeft: '20px'
 };
 
 const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
   const [metrics, setMetrics] = useState(0);
-  //   const [count, setCount] = useState(0);
-  //   setTimeout(() => setCount(count + 1), 1500);
   useEffect(() => {
     if (!cluster) return;
     const id = setInterval(() => {

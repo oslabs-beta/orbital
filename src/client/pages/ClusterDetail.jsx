@@ -163,7 +163,7 @@ export default function PersistentDrawerLeft({ user }) {
       >
         <Toolbar>
           <Typography
-            sx={{ m: 'auto', textAlign: 'right' }}
+            sx={{ ml: currentTab === "health" ? "895px" : "870px" , textAlign: 'right' }}
             variant='h6'
             noWrap
             component='div'
@@ -272,7 +272,7 @@ export default function PersistentDrawerLeft({ user }) {
         </List>
       </Drawer>
       <Main open={open} sx={{
-        backgroundColor: 'rgb(24, 45, 91)'}}>
+        backgroundColor: 'rgb(24, 45, 91)', marginLeft: "100px"}}>
         <ClusterDynamicDetails
           currentTab={currentTab}
           setMetrics={setMetrics}

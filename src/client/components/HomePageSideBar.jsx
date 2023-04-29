@@ -260,7 +260,7 @@ export default function PersistentDrawerLeft({ user }) {
           <LogoutButton />
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={open} >
         <DrawerHeader sx={{ backgroundColor: 'rgb(24, 45, 91)' }} />
         <Box
           sx={{
