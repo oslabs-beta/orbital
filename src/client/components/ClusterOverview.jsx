@@ -79,9 +79,11 @@ const ClusterOverview = ({
     const navigate = useNavigate();
     useEffect(() => {
         if (!cluster) return;
+
         setName(cluster.name);
         setPromUrl(cluster.prometheusUrl);
     }, [cluster]);
+
     useEffect(() => {
         if (!cluster) return;
         const id = setInterval(() => {
@@ -128,6 +130,8 @@ const ClusterOverview = ({
             const response = await axios.delete(
                 `http://localhost:3001/cluster/${cluster._id}`
             );
+
+
             setDeleteModal(false);
             window.location.reload();
         } catch (e) {
@@ -143,7 +147,9 @@ const ClusterOverview = ({
 		) : (
 			<>
 				<CreateAlertModal showModal={showAlertModal} setShowModal={setShowAlertModal} />
+
 				<Box sx={{ textAlign: 'center', p: 2, ml: '10vw', backgroundColor: 'rgb(24, 45, 91)' }}>
+
 					<Button
 						sx={{ marginRight: 5 }}
 						variant='contained'
@@ -308,7 +314,9 @@ const ClusterOverview = ({
 						margin: "auto",
 					}}
 				>
+
 					<Box  sx={{ml: '10vw'}}>
+
 						<CpuMetrics cpuMetrics={metrics.cpumetric} />
 						<BytesMetrics
 							bytesOutMetrics={metrics.bytesOutMetric}

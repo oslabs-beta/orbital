@@ -1,11 +1,12 @@
 const express = require('express');
 const metricsController = require('../controllers/metricsController.js');
-const alertController = require('../controllers/alertController.js');
 const router = express.Router();
+
 
 
 // POST request to metrics endpoint
 router.post('/metrics', metricsController.getCoreMetrics, alertController.checkRanges, (req, res) => {
+
   res.status(200).json(res.locals.metric);
 });
 
@@ -17,8 +18,10 @@ router.post('/topicMetrics', metricsController.getTopicMetrics, alertController.
   res.status(200).json(res.locals.metric);
 });
 
+
 router.post('/producerConsumerMetrics', metricsController.getProducerConsumerMetrics, alertController.checkRanges, (req, res) => {
   res.status(200).json(res.locals.metric);
 });
+
 
 module.exports = router;

@@ -7,6 +7,7 @@ const ZAPIER_HOOK_URL =
 const alertController = {
   async getUserAlerts(req, res, next) {
     const { id } = req.params;
+
 		try {
     const alerts = await Alert.find({ owner: id });
 		res.locals.alerts = alerts;
@@ -14,6 +15,7 @@ const alertController = {
 		} catch(e) {
 			return next(e)
 		}
+
   },
   async createAlert(req, res, next) {
     console.log('creating');
@@ -31,6 +33,7 @@ const alertController = {
     }
     return next();
   },
+
 	async deleteAlert(req, res, next) {
 		const {id} = req.params;
 		console.log(id)
@@ -41,6 +44,7 @@ const alertController = {
 			return next(error)
 		}
 	},
+
   async sendAlert(req, res, next) {
     const { phoneNumber, message } = req.body;
     await axios.post('https://hooks.zapier.com/hooks/catch/15123291/3uedfdp/', {
@@ -86,7 +90,6 @@ const alertController = {
             message: outOfRangeMessage,
           });
         }
-        console.log(outOfRangeMessage);
         next();
       }
     } catch (error) {

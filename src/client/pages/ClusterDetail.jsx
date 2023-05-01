@@ -90,14 +90,12 @@ export default function PersistentDrawerLeft({ user }) {
       }}
     >
       <CssBaseline />
-      <AppBar
-        position='fixed'
-        open={open}
-        sx={{ borderBottom: '1px solid black', backgroundColor: 'black' }}
-      >
-        <Toolbar>
+      <AppBar position='fixed' open={open} sx={{ backgroundColor: 'black' }}>
+        <Toolbar sx={{ borderBottom: '1px solid white' }}>
           <Typography
+
             sx={{width: '100vw' , textAlign: 'center', ml: "15vw" }}
+
             variant='h6'
             noWrap
             component='div'
@@ -124,8 +122,23 @@ export default function PersistentDrawerLeft({ user }) {
             borderBottom: '1px solid white',
           }}
         >
-          <Button color='secondary' sx={{fontWeight: 'bold', fontSize: 18, }} onClick={() => navigate('/home')}>Home</Button>
-          <img src={orbitalLogo} alt="Orbital logo" style={{ maxWidth: "65px", maxHeight:"65px", marginLeft:'30px', marginTop:'5px' }} />
+          <Button
+            color='secondary'
+            sx={{ fontWeight: 'bold', fontSize: 18 }}
+            onClick={() => navigate('/home')}
+          >
+            Home
+          </Button>
+          <img
+            src={orbitalLogo}
+            alt='Orbital logo'
+            style={{
+              maxWidth: '65px',
+              maxHeight: '65px',
+              marginLeft: '30px',
+              marginTop: '5px',
+            }}
+          />
           <Typography
             variant='h6'
             noWrap
@@ -139,15 +152,25 @@ export default function PersistentDrawerLeft({ user }) {
           </Typography>
         </DrawerHeader>
         <Divider sx={{ backgroundColor: 'black' }} />
+
         <List sx={{ backgroundColor: 'black', p: 3, height: '100vh', minWidth: '300px' }}>
+
           <ListItem
             disablePadding
             sx={{
               color: 'white',
             }}
           >
-            <ListItemButton sx={{borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}} onClick={() => setCurrentTab('overview')}>
-            <OverviewIcon color='secondary'/>
+            <ListItemButton
+              sx={{
+                borderRadius: '8px',
+                border: '1px solid black',
+                backgroundColor: 'rgb(24, 45, 91)',
+                '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+              }}
+              onClick={() => setCurrentTab('overview')}
+            >
+              <OverviewIcon color='secondary' />
               <ListItemIcon></ListItemIcon>
               <Typography
                 variant='h6'
@@ -159,15 +182,23 @@ export default function PersistentDrawerLeft({ user }) {
               </Typography>
             </ListItemButton>
           </ListItem>
-          <Divider sx={{ borderColor: 'black', borderWidth: "5px" }} />
+          <Divider sx={{ borderColor: 'black', borderWidth: '5px' }} />
           <ListItem
             disablePadding
             sx={{
               color: 'white',
             }}
           >
-            <ListItemButton sx={{borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}} onClick={() => setCurrentTab('health')}>
-            <HeartIcon color='secondary'/>
+            <ListItemButton
+              sx={{
+                borderRadius: '8px',
+                border: '1px solid black',
+                backgroundColor: 'rgb(24, 45, 91)',
+                '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+              }}
+              onClick={() => setCurrentTab('health')}
+            >
+              <HeartIcon color='secondary' />
               <ListItemIcon></ListItemIcon>
               <Typography
                 variant='h6'
@@ -186,8 +217,16 @@ export default function PersistentDrawerLeft({ user }) {
               color: 'white',
             }}
           >
-            <ListItemButton sx={{ borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}} onClick={() => setCurrentTab('topic')}>
-            <TopicIcon color='secondary'/>
+            <ListItemButton
+              sx={{
+                borderRadius: '8px',
+                border: '1px solid black',
+                backgroundColor: 'rgb(24, 45, 91)',
+                '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+              }}
+              onClick={() => setCurrentTab('topic')}
+            >
+              <TopicIcon color='secondary' />
               <ListItemIcon></ListItemIcon>
               <Typography
                 variant='h6'
@@ -202,8 +241,10 @@ export default function PersistentDrawerLeft({ user }) {
           <LogoutButton />
         </List>
       </Drawer>
+
       <Main open={open} sx={{
         backgroundColor: 'rgb(24, 45, 91)', ml: 6}}>
+
         <ClusterDynamicDetails
           currentTab={currentTab}
           setMetrics={setMetrics}

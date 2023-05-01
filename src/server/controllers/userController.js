@@ -28,7 +28,7 @@ const UserController = {
                     console.log('user found')
                     user.comparePassword(password, (err, isMatch) => {
                         if (err) return next(err)
-												delete user.password;
+                                                delete user.password;
                         res.locals.user = user;
                         console.log("user is verified");
                         return next();
@@ -44,7 +44,7 @@ const UserController = {
         console.log({ id });
         User.findOne({ _id: id })
             .then((data) => {
-								delete data.password
+                                delete data.password
                 res.locals.user = data;
                 next();
             })
