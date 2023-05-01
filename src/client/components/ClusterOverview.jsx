@@ -143,7 +143,7 @@ const ClusterOverview = ({
 		) : (
 			<>
 				<CreateAlertModal showModal={showAlertModal} setShowModal={setShowAlertModal} />
-				<Box sx={{ textAlign: 'center', p: 2, backgroundColor: 'rgb(24, 45, 91)' }}>
+				<Box sx={{ textAlign: 'center', p: 2, ml: '10vw', backgroundColor: 'rgb(24, 45, 91)' }}>
 					<Button
 						sx={{ marginRight: 5 }}
 						variant='contained'
@@ -308,7 +308,7 @@ const ClusterOverview = ({
 						margin: "auto",
 					}}
 				>
-					<Box>
+					<Box  sx={{ml: '10vw'}}>
 						<CpuMetrics cpuMetrics={metrics.cpumetric} />
 						<BytesMetrics
 							bytesOutMetrics={metrics.bytesOutMetric}

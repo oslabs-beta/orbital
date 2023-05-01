@@ -61,21 +61,23 @@ const alertController = {
       if (!user.phoneNumber) {
         return next();
       } else {
-        console.log('number: ', user.phoneNumber);
-
         // Fetch the alerts associated with the user
         const userAlerts = await Alert.find({ owner: userId });
         console.log('userAlerts: ', userAlerts);
         // Iterate through the user alerts and check if any metric is out of range
         for (const alert of userAlerts) {
+					if (alert.lastSent > Date.now() - (60000 * 120)) {
+						continue;
+					}
           const metricKey = alert.metric;
           const metricValue = metrics[metricKey];
-
+					if (!metricValue) {
+						continue;
+					}
           if (metricValue < alert.under || metricValue > alert.over) {
             outOfRangeMessage += `Metric "${metricKey}" is out of range with a value of ${metricValue}. `;
           }
         }
-
         if (outOfRangeMessage) {
           res.locals.outOfRangeMessage = outOfRangeMessage;
           const phoneNumber = user.phoneNumber;
