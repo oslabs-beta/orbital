@@ -9,9 +9,8 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Background from '../assets/Login-background.jpg';
-import TransparentOrbital from '../assets/transparent-orbital.png';
 import TransparentTextLogo from '../assets/Transparent-Logo.png';
 
 

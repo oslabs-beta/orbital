@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 
 // const cpuQuery =
 //   'http://localhost:9090/api/v1/query?query=sum(rate(process_cpu_seconds_total[1m])) * 100';
@@ -6,7 +6,6 @@ const axios = require('axios');
 const metricsController = {
   async getCoreMetrics(req, res, next) {
     const { broker } = req.body;
-    // console.log('this is the req body -->', req.body);
     try {
       const cpuMetric = await axios.get(
         `http://${broker}/api/v1/query?query=sum(rate(process_cpu_seconds_total[1m])) * 100`
@@ -37,36 +36,45 @@ const metricsController = {
     }
   },
 
-  async getAllTopics(req, res, next) {
-    const { broker } = req.body;
-    const topicMetrics = await axios.get(
-      `http://${broker}/api/v1/query?query=count(kafka_topic_partition_current_offset) by (topic)`
-    );
-    res.locals.topics = topicMetrics.data;
-    return next();
-  },
 
-  async getTopicMetrics(req, res, next) {
-    const { topic, broker } = req.body;
-    const topicMetrics = await axios.get(
-      `http://${broker}/api/v1/query?query=kafka_topic_partition_current_offset{topic="${topic}"}`
-    );
-    res.locals.metric = topicMetrics.data;
-    return next();
-  },
+    async getAllTopics(req, res, next) {
+        try {
+            const { broker } = req.body;
+            const topicMetrics = await axios.get(
+                `http://${broker}/api/v1/query?query=count(kafka_topic_partition_current_offset) by (topic)`
+            );
+            res.locals.topics = topicMetrics.data;
+            return next();
+        } catch (e) {
+            return next(e);
+        }
+    },
 
-  async getProducerConsumerMetrics(req, res, next) {
-    const { broker } = req.body;
-    const producerRequestsTotal = await axios.get(
-      `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_totalproducerequests_total[1m])`
-    );
-    const producersMessagesInTotal = await axios.get(
-      `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_messagesin_total[1m])`
-    );
-    const producerConversionsTotal = await axios.get(
-      `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_producemessageconversions_total[1m])`
-    );
+    async getTopicMetrics(req, res, next) {
+        try {
+            const { topic, broker } = req.body;
+            const topicMetrics = await axios.get(
+                `http://${broker}/api/v1/query?query=kafka_topic_partition_current_offset{topic="${topic}"}`
+            );
+            res.locals.metric = topicMetrics.data;
+            return next();
+        } catch (e) {
+            e.message = "Error in getTopicMetrics controller";
+            return next(e);
+        }
+    },
 
+    async getProducerConsumerMetrics(req, res, next) {
+        const { broker } = req.body;
+        const producerRequestsTotal = await axios.get(
+            `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_totalproducerequests_total[1m])`
+        );
+        const producersMessagesInTotal = await axios.get(
+            `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_messagesin_total[1m])`
+        );
+        const producerConversionsTotal = await axios.get(
+            `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_producemessageconversions_total[1m])`
+        );
     const consumerRequestsTotal = await axios.get(
       `http://${broker}/api/v1/query?query=rate(kafka_server_brokertopicmetrics_totalfetchrequests_total[1m])`
     );
@@ -87,22 +95,6 @@ const metricsController = {
       consumerFailedRequestsTotal:
         consumerFailedRequestsTotal.data.data.result[0].value[1],
       consumerRequestsTotal: consumerRequestsTotal.data.data.result[0].value[1],
-    };
-    return next();
-  },
-  getFakeMetrics(req, res, next) {
-    res.locals.metric = {
-      producerConversionsTotal: 57485,
-      producerRequestsTotal: 6,
-      producersMessagesInTotal: 847,
-      consumerConversionsTotal: 8923,
-      consumerFailedRequestsTotal: 465,
-      consumerRequestsTotal: 567,
-      cpumetric: 4,
-      bytesintotalmetric: 475847483,
-      bytesOutMetric: 283974893,
-      ramUsageMetric: 4223,
-      latency: 900,
     };
     return next();
   },

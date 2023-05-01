@@ -21,6 +21,8 @@ const ProducerReqMetrics = ({ prodReqMetrics }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Producer Requests per Second metric chart
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +30,7 @@ const ProducerReqMetrics = ({ prodReqMetrics }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+  // Updates Producer Requests per Second chart data every second 
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = prodReqMetrics;
@@ -40,7 +43,7 @@ const ProducerReqMetrics = ({ prodReqMetrics }) => {
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -96,7 +99,7 @@ const ProducerReqMetrics = ({ prodReqMetrics }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroys previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };

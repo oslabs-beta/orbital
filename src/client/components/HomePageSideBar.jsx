@@ -22,14 +22,13 @@ import ClusterOverview from './ClusterOverview';
 import SchemaIcon from '@mui/icons-material/Schema';
 import LogoutButton from './LogoutButton';
 import AddIcon from '@mui/icons-material/Add';
-import './drawercss.css';
 import orbitalLogo from '../assets/transparent-orbital.png';
 
 const drawerWidth = 100;
 
 const styles = {
   paper: {
-    backgroundColor: 'black', // Change this to the color you want
+    backgroundColor: 'black',
   },
   card: {
     backgroundColor: 'white',
