@@ -16,14 +16,9 @@ router.post('/topics', metricsController.getAllTopics, (req, res) => {
   res.status(200).json(res.locals.topics);
 });
 
-router.post(
-  '/topicMetrics',
-  metricsController.getAllTopics,
-  metricsController.getTopicMetrics,
-  (req, res) => {
-    res.status(200).json(res.locals.metric);
-  }
-);
+router.post('/topicMetrics', metricsController.getTopicMetrics, (req, res) => {
+  res.status(200).json(res.locals.metric);
+});
 
 router.post(
   '/producerConsumerMetrics',
