@@ -1,13 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt");
-
-// user should contain:
-
-/*
-Array of ports
-Array of metrics
-*/
 
 const ClusterSchema = new Schema(
     {

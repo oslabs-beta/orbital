@@ -21,6 +21,8 @@ const ConsumerReqMetrics = ({ conReqMetrics }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Consumer Requests per Second metric chart
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,6 +30,7 @@ const ConsumerReqMetrics = ({ conReqMetrics }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+// Updates Consumer Requests per Second chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
       const newBytesInValue = conReqMetrics;
@@ -37,10 +40,11 @@ const ConsumerReqMetrics = ({ conReqMetrics }) => {
     return () => clearInterval(interval);
   });
 
+// Renders charts for Consumer Requests per Second metric with appropriate axis labels and scales
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates a chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
@@ -96,7 +100,7 @@ const ConsumerReqMetrics = ({ conReqMetrics }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroys previous chart instance before creating a new one
     return () => {
       chart.destroy();
     };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,71 +8,21 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Modal } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
-import { Paper } from '@mui/material';
-import { Card, CardContent, TextField } from '@mui/material';
-import axios from 'axios';
-import ClusterOverview from '../components/ClusterOverview';
-import SchemaIcon from '@mui/icons-material/Schema';
 import LogoutButton from '../components/LogoutButton';
-import AddIcon from '@mui/icons-material/Add';
-import '../components/drawercss.css';
-import { useParams } from 'react-router-dom';
 import ClusterDynamicDetails from '../components/ClusterDynamicDetails';
 import { useNavigate } from 'react-router-dom';
 import orbitalLogo from '../assets/transparent-orbital.png';
 import HeartIcon from '@mui/icons-material/Favorite';
 import TopicIcon from '@mui/icons-material/Article';
 import OverviewIcon from '@mui/icons-material/TravelExplore';
-import { MarginRounded } from '@mui/icons-material';
-
 
 const drawerWidth = 100;
 
-const styles = {
-  paper: {
-    backgroundColor: 'black', // Change this to the color you want
-  },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    width: '100%',
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
-    padding: '16px',
-  },
-  input: {
-    marginBottom: '16px',
-  },
-  submitButton: {
-    marginTop: '16px',
-    marginBottom: '8px',
-    backgroundColor: '#227BA5',
-    color: '#ffffff',
-    '&:hover': {
-      backgroundColor: '#1D6490',
-    },
-  },
-  signupLink: {
-    color: '##227BA5',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-    cursor: 'pointer',
-  },
-};
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -123,27 +73,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ user }) {
-  const theme = useTheme();
   const [open, setOpen] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [clusterName, setClusterName] = useState('');
-  const [brokers, setBrokers] = useState('');
-  const [currentCluster, setCurrentCluster] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [userClusters, setUserClusters] = useState([]);
-  const [updatingCluster, setUpdatingCluster] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [metrics, setMetrics] = useState(0);
   const [currentTab, setCurrentTab] = useState('overview');
-  const params = useParams();
   const navigate = useNavigate();
-  console.log(params);
-  const handleClose = () => {
-    setShowModal(false);
-  };
-  const handleOpen = () => {
-    setShowModal(true);
-  };
 
   // Get array of clusters based on userID
 
@@ -156,14 +90,13 @@ export default function PersistentDrawerLeft({ user }) {
       }}
     >
       <CssBaseline />
-      <AppBar
-        position='fixed'
-        open={open}
-        sx={{ borderBottom: '1px solid black', backgroundColor: 'black' }}
-      >
-        <Toolbar>
+      <AppBar position='fixed' open={open} sx={{ backgroundColor: 'black' }}>
+        <Toolbar sx={{ borderBottom: '1px solid white' }}>
           <Typography
-            sx={{ ml: currentTab === "health" ? "895px" : "870px" , textAlign: 'right' }}
+            sx={{
+              ml: currentTab === 'health' ? '895px' : '870px',
+              textAlign: 'right',
+            }}
             variant='h6'
             noWrap
             component='div'
@@ -190,8 +123,23 @@ export default function PersistentDrawerLeft({ user }) {
             borderBottom: '1px solid white',
           }}
         >
-          <Button color='secondary' sx={{fontWeight: 'bold', fontSize: 18, }} onClick={() => navigate('/home')}>Home</Button>
-          <img src={orbitalLogo} alt="Orbital logo" style={{ maxWidth: "65px", maxHeight:"65px", marginLeft:'30px', marginTop:'5px' }} />
+          <Button
+            color='secondary'
+            sx={{ fontWeight: 'bold', fontSize: 18 }}
+            onClick={() => navigate('/home')}
+          >
+            Home
+          </Button>
+          <img
+            src={orbitalLogo}
+            alt='Orbital logo'
+            style={{
+              maxWidth: '65px',
+              maxHeight: '65px',
+              marginLeft: '30px',
+              marginTop: '5px',
+            }}
+          />
           <Typography
             variant='h6'
             noWrap
@@ -204,18 +152,32 @@ export default function PersistentDrawerLeft({ user }) {
             {'Orbital'}
           </Typography>
         </DrawerHeader>
-        {/* <Divider sx={{ backgroundColor: 'white' }} /> */}
-
         <Divider sx={{ backgroundColor: 'black' }} />
-        <List sx={{ backgroundColor: 'black', p: 3, height: '100vh', width: '20vw', minWidth: '300px' }}>
+        <List
+          sx={{
+            backgroundColor: 'black',
+            p: 3,
+            height: '100vh',
+            width: '20vw',
+            minWidth: '300px',
+          }}
+        >
           <ListItem
             disablePadding
             sx={{
               color: 'white',
             }}
           >
-            <ListItemButton sx={{borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}} onClick={() => setCurrentTab('overview')}>
-            <OverviewIcon color='secondary'/>
+            <ListItemButton
+              sx={{
+                borderRadius: '8px',
+                border: '1px solid black',
+                backgroundColor: 'rgb(24, 45, 91)',
+                '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+              }}
+              onClick={() => setCurrentTab('overview')}
+            >
+              <OverviewIcon color='secondary' />
               <ListItemIcon></ListItemIcon>
               <Typography
                 variant='h6'
@@ -227,15 +189,23 @@ export default function PersistentDrawerLeft({ user }) {
               </Typography>
             </ListItemButton>
           </ListItem>
-          <Divider sx={{ borderColor: 'black', borderWidth: "5px" }} />
+          <Divider sx={{ borderColor: 'black', borderWidth: '5px' }} />
           <ListItem
             disablePadding
             sx={{
               color: 'white',
             }}
           >
-            <ListItemButton sx={{borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}} onClick={() => setCurrentTab('health')}>
-            <HeartIcon color='secondary'/>
+            <ListItemButton
+              sx={{
+                borderRadius: '8px',
+                border: '1px solid black',
+                backgroundColor: 'rgb(24, 45, 91)',
+                '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+              }}
+              onClick={() => setCurrentTab('health')}
+            >
+              <HeartIcon color='secondary' />
               <ListItemIcon></ListItemIcon>
               <Typography
                 variant='h6'
@@ -254,8 +224,16 @@ export default function PersistentDrawerLeft({ user }) {
               color: 'white',
             }}
           >
-            <ListItemButton sx={{ borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}} onClick={() => setCurrentTab('topic')}>
-            <TopicIcon color='secondary'/>
+            <ListItemButton
+              sx={{
+                borderRadius: '8px',
+                border: '1px solid black',
+                backgroundColor: 'rgb(24, 45, 91)',
+                '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+              }}
+              onClick={() => setCurrentTab('topic')}
+            >
+              <TopicIcon color='secondary' />
               <ListItemIcon></ListItemIcon>
               <Typography
                 variant='h6'
@@ -267,12 +245,16 @@ export default function PersistentDrawerLeft({ user }) {
               </Typography>
             </ListItemButton>
           </ListItem>
-
           <LogoutButton />
         </List>
       </Drawer>
-      <Main open={open} sx={{
-        backgroundColor: 'rgb(24, 45, 91)', marginLeft: "100px"}}>
+      <Main
+        open={open}
+        sx={{
+          backgroundColor: 'rgb(24, 45, 91)',
+          marginLeft: '100px',
+        }}
+      >
         <ClusterDynamicDetails
           currentTab={currentTab}
           setMetrics={setMetrics}

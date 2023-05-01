@@ -6,16 +6,14 @@ const ZAPIER_HOOK_URL =
 
 const alertController = {
   async getUserAlerts(req, res, next) {
-    const { id } = req.body;
-    const metrics = res.locals.metric;
-    const alerts = await Alert.find({ _id: id });
-    for (const alert of alerts) {
-      const metric = alert.metric;
-      if (metric in metrics) {
-        console.log(metric);
-      }
+    const { id } = req.params;
+    try {
+      const alerts = await Alert.find({ owner: id });
+      res.locals.alerts = alerts;
+      return next();
+    } catch (e) {
+      return next(e);
     }
-    return next();
   },
   async createAlert(req, res, next) {
     console.log('creating');
@@ -32,6 +30,16 @@ const alertController = {
       return next(e);
     }
     return next();
+  },
+  async deleteAlert(req, res, next) {
+    const { id } = req.params;
+    console.log(id);
+    try {
+      res.locals.deleted = await Alert.findOneAndDelete({ _id: id });
+      return next();
+    } catch (error) {
+      return next(error);
+    }
   },
   async sendAlert(req, res, next) {
     const { phoneNumber, message } = req.body;
@@ -53,8 +61,6 @@ const alertController = {
       if (!user.phoneNumber) {
         return next();
       } else {
-        console.log('number: ', user.phoneNumber);
-
         // Fetch the alerts associated with the user
         const userAlerts = await Alert.find({ owner: userId });
         console.log('userAlerts: ', userAlerts);
@@ -76,7 +82,6 @@ const alertController = {
             message: outOfRangeMessage,
           });
         }
-        console.log(outOfRangeMessage);
         next();
       }
     } catch (error) {
