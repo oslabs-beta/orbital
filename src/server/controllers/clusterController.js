@@ -14,6 +14,7 @@ const clusterController = {
             return next();
         } catch (error) {
             console.log(error);
+            return next(error);
         }
     },
 
