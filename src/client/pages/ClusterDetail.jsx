@@ -93,9 +93,7 @@ export default function PersistentDrawerLeft({ user }) {
       <AppBar position='fixed' open={open} sx={{ backgroundColor: 'black' }}>
         <Toolbar sx={{ borderBottom: '1px solid white' }}>
           <Typography
-
-            sx={{width: '100vw' , textAlign: 'center', ml: "15vw" }}
-
+            sx={{ width: '100vw', textAlign: 'center', ml: '15vw' }}
             variant='h6'
             noWrap
             component='div'
@@ -153,8 +151,14 @@ export default function PersistentDrawerLeft({ user }) {
         </DrawerHeader>
         <Divider sx={{ backgroundColor: 'black' }} />
 
-        <List sx={{ backgroundColor: 'black', p: 3, height: '100vh', minWidth: '300px' }}>
-
+        <List
+          sx={{
+            backgroundColor: 'black',
+            p: 3,
+            height: '100vh',
+            minWidth: '300px',
+          }}
+        >
           <ListItem
             disablePadding
             sx={{
@@ -242,9 +246,14 @@ export default function PersistentDrawerLeft({ user }) {
         </List>
       </Drawer>
 
-      <Main open={open} sx={{
-        backgroundColor: 'rgb(24, 45, 91)', ml: 6}}>
-
+      <Main
+        open={open}
+        sx={{
+          backgroundColor: 'rgb(24, 45, 91)',
+          ml: 6,
+          width: '100%',
+        }}
+      >
         <ClusterDynamicDetails
           currentTab={currentTab}
           setMetrics={setMetrics}
