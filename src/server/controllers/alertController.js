@@ -8,14 +8,13 @@ const alertController = {
   async getUserAlerts(req, res, next) {
     const { id } = req.params;
 
-		try {
-    const alerts = await Alert.find({ owner: id });
-		res.locals.alerts = alerts;
-		return next();
-		} catch(e) {
-			return next(e)
-		}
-
+    try {
+      const alerts = await Alert.find({ owner: id });
+      res.locals.alerts = alerts;
+      return next();
+    } catch (e) {
+      return next(e);
+    }
   },
   async createAlert(req, res, next) {
     console.log('creating');
@@ -34,16 +33,16 @@ const alertController = {
     return next();
   },
 
-	async deleteAlert(req, res, next) {
-		const {id} = req.params;
-		console.log(id)
-		try {
-			res.locals.deleted = await Alert.findOneAndDelete({_id: id});
-			return next();
-		} catch (error) {
-			return next(error)
-		}
-	},
+  async deleteAlert(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      res.locals.deleted = await Alert.findOneAndDelete({ _id: id });
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  },
 
   async sendAlert(req, res, next) {
     const { phoneNumber, message } = req.body;
@@ -56,7 +55,7 @@ const alertController = {
   async checkRanges(req, res, next) {
     const { userId } = req.body;
     const metrics = res.locals.metric;
-    console.log('checking ranges of ' + metrics);
+
     let outOfRangeMessage = '';
 
     try {
@@ -67,17 +66,17 @@ const alertController = {
       } else {
         // Fetch the alerts associated with the user
         const userAlerts = await Alert.find({ owner: userId });
-        console.log('userAlerts: ', userAlerts);
+
         // Iterate through the user alerts and check if any metric is out of range
         for (const alert of userAlerts) {
-					if (alert.lastSent > Date.now() - (60000 * 120)) {
-						continue;
-					}
+          if (alert.lastSent > Date.now() - 60000 * 120) {
+            continue;
+          }
           const metricKey = alert.metric;
           const metricValue = metrics[metricKey];
-					if (!metricValue) {
-						continue;
-					}
+          if (!metricValue) {
+            continue;
+          }
           if (metricValue < alert.under || metricValue > alert.over) {
             outOfRangeMessage += `Metric "${metricKey}" is out of range with a value of ${metricValue}. `;
           }
