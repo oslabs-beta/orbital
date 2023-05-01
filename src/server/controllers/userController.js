@@ -3,8 +3,8 @@ const User = require("../models/userModel.js");
 const UserController = {
     async createUser(req, res, next) {
         try {
-            const { email, password } = req.body;
-            const user = new User({ email: email, password: password });
+            const { email, password, phoneNumber } = req.body;
+            const user = new User({ email: email, password: password, phoneNumber: phoneNumber });
             await user.save();
             res.locals.account_created = user;
             return next();
@@ -24,10 +24,11 @@ const UserController = {
                     console.log('no user found')
                     res.locals.user = false;
                     return next();
-                } else {
+                } else { 
                     console.log('user found')
                     user.comparePassword(password, (err, isMatch) => {
-                        if (err) return next(err);
+                        if (err) return next(err)
+												delete user.password;
                         res.locals.user = user;
                         console.log("user is verified");
                         return next();
@@ -43,6 +44,7 @@ const UserController = {
         console.log({ id });
         User.findOne({ _id: id })
             .then((data) => {
+								delete data.password
                 res.locals.user = data;
                 next();
             })

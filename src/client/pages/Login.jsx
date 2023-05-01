@@ -94,6 +94,7 @@ const Login = ({ setUser }) => {
         axios
             .post("http://localhost:3001/user/login", { email, password })
             .then((response) => {
+							console.log(response.data)
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("userId", `${response.data._id}`);
                 setUser(response.data);
