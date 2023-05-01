@@ -11,9 +11,24 @@ router.post('/topics', metricsController.getAllTopics, (req, res) => {
   res.status(200).json(res.locals.topics);
 });
 
-router.post('/topicMetrics', metricsController.getAllTopics, metricsController.getTopicMetrics, (req, res) => {
+
+router.post('/topicMetrics', metricsController.getTopicMetrics, (req, res) => {
   res.status(200).json(res.locals.metric);
 });
+
+router.post(
+  '/producerConsumerMetrics',
+  metricsController.getProducerConsumerMetrics,
+
+  (req, res) => {
+    res.status(200).json(res.locals.metric);
+  }
+);
+
+router.post(
+  '/fakeMetricsEndpoint',
+  metricsController.getFakeMetrics,
+
 
 router.post('/producerConsumerMetrics', metricsController.getProducerConsumerMetrics, (req, res) => {
   res.status(200).json(res.locals.metric);
