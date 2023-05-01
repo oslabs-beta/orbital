@@ -9,39 +9,34 @@ import ProducerReqMetrics from '../allMetrics/producerReqMetrics';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const containerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
   padding: '20px',
-  gap: "10px",
   margin: 'auto',
-  height: '100%',
+	marginLeft: 150,
+	marginTop: 50,
 };
 
 const chartsContainerStyle = {
   display: 'flex',
-  justifyContent: "center",
+  justifyContent: 'center',
   gap: "40px",
-  alignItems: 'center',
   flexWrap: 'wrap',
   padding: '16px',
-  width: '80%',
-  height: 'auto',
-  margin: 'auto',
-  marginTop: '20px',
+  alignItems: 'center'
 };
+
 
 const chartStyle = {
   width: '40%',
   height: '300px',
-  margin: '16px'
+  marginBottom: '16px',
+  marginRight: '30px'
 };
 
 const metricsBoxStyle = {
   flex: 1,
   padding: '5px',
-  width: '80%',
-  marginLeft: '50px'
+  width: '60%',
+  marginLeft: '20px'
 };
 
 const HealthMetrics = ({ cluster, intervalId, setIntervalId }) => {
