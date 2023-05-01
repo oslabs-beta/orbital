@@ -1,5 +1,5 @@
-const Cluster = require("../models/clusterModel.js");
-const User = require("../models/userModel.js");
+const Cluster = require('../models/clusterModel.js');
+const User = require('../models/userModel.js');
 
 const clusterController = {
     async createCluster(req, res, next) {

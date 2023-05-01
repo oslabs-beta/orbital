@@ -9,31 +9,35 @@ import axios from 'axios';
 const containerStyle = {
   padding: '20px',
   margin: 'auto',
+
 	marginLeft: 150,
 	marginTop: 50,
+
 };
 
 const chartsContainerStyle = {
   display: 'flex',
   justifyContent: 'center',
-  gap: "40px",
+  gap: '40px',
   flexWrap: 'wrap',
   padding: '16px',
+
   alignItems: 'center'
+
 };
 
 const chartStyle = {
   width: '40%',
   height: '300px',
   marginBottom: '16px',
-  marginRight: '30px'
+  marginRight: '30px',
 };
 
 const metricsBoxStyle = {
   flex: 1,
   padding: '5px',
   width: '60%',
-  marginLeft: '20px'
+  marginLeft: '20px',
 };
 
 const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
@@ -102,6 +106,12 @@ const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
               {Math.round(Number(metrics.ramUsageMetric) / 1000)}mb
             </Typography>
           </Card>
+          {/* <Card sx={{ border: 'none', boxShadow: 'none' }}>
+            <Typography variant='h5'>Topics</Typography>
+            <Typography variant='h5' sx={{ textAlign: 'center' }}>
+              {Math.round(Number(metrics.ramUsageMetric) / 1000)}mb
+            </Typography>
+          </Card> */}
         </Paper>
       </Box>
     </Box>
