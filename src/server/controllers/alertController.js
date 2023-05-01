@@ -7,13 +7,15 @@ const ZAPIER_HOOK_URL =
 const alertController = {
   async getUserAlerts(req, res, next) {
     const { id } = req.params;
-    try {
-      const alerts = await Alert.find({ owner: id });
-      res.locals.alerts = alerts;
-      return next();
-    } catch (e) {
-      return next(e);
-    }
+
+		try {
+    const alerts = await Alert.find({ owner: id });
+		res.locals.alerts = alerts;
+		return next();
+		} catch(e) {
+			return next(e)
+		}
+
   },
   async createAlert(req, res, next) {
     console.log('creating');
@@ -31,16 +33,18 @@ const alertController = {
     }
     return next();
   },
-  async deleteAlert(req, res, next) {
-    const { id } = req.params;
-    console.log(id);
-    try {
-      res.locals.deleted = await Alert.findOneAndDelete({ _id: id });
-      return next();
-    } catch (error) {
-      return next(error);
-    }
-  },
+
+	async deleteAlert(req, res, next) {
+		const {id} = req.params;
+		console.log(id)
+		try {
+			res.locals.deleted = await Alert.findOneAndDelete({_id: id});
+			return next();
+		} catch (error) {
+			return next(error)
+		}
+	},
+
   async sendAlert(req, res, next) {
     const { phoneNumber, message } = req.body;
     await axios.post('https://hooks.zapier.com/hooks/catch/15123291/3uedfdp/', {
@@ -66,14 +70,18 @@ const alertController = {
         console.log('userAlerts: ', userAlerts);
         // Iterate through the user alerts and check if any metric is out of range
         for (const alert of userAlerts) {
+					if (alert.lastSent > Date.now() - (60000 * 120)) {
+						continue;
+					}
           const metricKey = alert.metric;
           const metricValue = metrics[metricKey];
-
+					if (!metricValue) {
+						continue;
+					}
           if (metricValue < alert.under || metricValue > alert.over) {
             outOfRangeMessage += `Metric "${metricKey}" is out of range with a value of ${metricValue}. `;
           }
         }
-
         if (outOfRangeMessage) {
           res.locals.outOfRangeMessage = outOfRangeMessage;
           const phoneNumber = user.phoneNumber;

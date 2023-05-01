@@ -1,4 +1,5 @@
 import {
+
   Paper,
   Typography,
   TextField,
@@ -121,6 +122,7 @@ const DynamicTopics = ({ cluster }) => {
       </Box>
     </Paper>
   );
+
 };
 
 export default DynamicTopics;

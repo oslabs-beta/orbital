@@ -25,8 +25,8 @@ const drawerWidth = 100;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    // flexGrow: 1,
+    // padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -50,7 +50,7 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
 
-  backgroundColor: '#444444',
+  backgroundColor: '#000000',
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -58,7 +58,7 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: '#444444',
+    backgroundColor: '#000000',
   }),
 }));
 
@@ -93,10 +93,9 @@ export default function PersistentDrawerLeft({ user }) {
       <AppBar position='fixed' open={open} sx={{ backgroundColor: 'black' }}>
         <Toolbar sx={{ borderBottom: '1px solid white' }}>
           <Typography
-            sx={{
-              ml: currentTab === 'health' ? '895px' : '870px',
-              textAlign: 'right',
-            }}
+
+            sx={{width: '100vw' , textAlign: 'center', ml: "15vw" }}
+
             variant='h6'
             noWrap
             component='div'
@@ -153,15 +152,9 @@ export default function PersistentDrawerLeft({ user }) {
           </Typography>
         </DrawerHeader>
         <Divider sx={{ backgroundColor: 'black' }} />
-        <List
-          sx={{
-            backgroundColor: 'black',
-            p: 3,
-            height: '100vh',
-            width: '20vw',
-            minWidth: '300px',
-          }}
-        >
+
+        <List sx={{ backgroundColor: 'black', p: 3, height: '100vh', minWidth: '300px' }}>
+
           <ListItem
             disablePadding
             sx={{
@@ -248,13 +241,10 @@ export default function PersistentDrawerLeft({ user }) {
           <LogoutButton />
         </List>
       </Drawer>
-      <Main
-        open={open}
-        sx={{
-          backgroundColor: 'rgb(24, 45, 91)',
-          marginLeft: '100px',
-        }}
-      >
+
+      <Main open={open} sx={{
+        backgroundColor: 'rgb(24, 45, 91)', ml: 6}}>
+
         <ClusterDynamicDetails
           currentTab={currentTab}
           setMetrics={setMetrics}

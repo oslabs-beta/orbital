@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 
 // const cpuQuery =
 //   'http://localhost:9090/api/v1/query?query=sum(rate(process_cpu_seconds_total[1m])) * 100';
@@ -35,6 +35,7 @@ const metricsController = {
       return next();
     }
   },
+
 
   async getAllTopics(req, res, next) {
     try {
@@ -103,6 +104,7 @@ const metricsController = {
       e.message = 'Error in getProducerMetricsController';
       return next(e);
     }
+
   },
 };
 

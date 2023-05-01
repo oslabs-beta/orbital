@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Typography, Box, Divider } from '@mui/material';
@@ -33,6 +34,7 @@ const TopicDetail = ({ topic, cluster }) => {
       })}
     </Box>
   );
+
 };
 
 export default TopicDetail;
