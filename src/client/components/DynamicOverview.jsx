@@ -7,14 +7,10 @@ import BytesMetrics from '../allMetrics/BytesMetrics';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const containerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
   padding: '20px',
-  gap: '10px',
   margin: 'auto',
-  height: '100%',
-
+	marginLeft: 150,
+	marginTop: 50,
 };
 
 const chartsContainerStyle = {
@@ -23,12 +19,7 @@ const chartsContainerStyle = {
   gap: "40px",
   flexWrap: 'wrap',
   padding: '16px',
-  alignItems: 'center',
-  width: '80%',
-  height: '80%',
-  margin: 'auto',
-  marginTop: '30px',
-
+  alignItems: 'center'
 };
 
 const chartStyle = {
@@ -57,7 +48,6 @@ const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
         })
         .then((res) => {
           setMetrics(res.data);
-          console.log(res.data);
         });
     }, 1500);
     setIntervalId(id);
