@@ -33,13 +33,6 @@ const ClusterDynamicDetails = ({ currentTab }) => {
                     intervalId={intervalId}
                 />
             );
-        /* 
-            cluster,
-            setUpdatingCluster,
-            clusterId,
-            setCluster,
-            setIntervalId,
-            */
         case "health":
             return (
                 <DynamicHealth
@@ -48,7 +41,6 @@ const ClusterDynamicDetails = ({ currentTab }) => {
                     intervalId={intervalId}
                 />
             );
-
         case "topic":
             return (
                 <DynamicTopics

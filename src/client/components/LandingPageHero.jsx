@@ -6,9 +6,7 @@ import Space from '../assets/Space.jpg';
 import TransparentTextLogo from '../assets/Transparent-Logo.png';
 
 const LandingPageHero = () => {
-    const navigate = useNavigate()
-    
-    
+    const navigate = useNavigate()    
     return (
       <Box
         sx={{
