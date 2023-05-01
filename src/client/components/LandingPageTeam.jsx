@@ -1,5 +1,4 @@
 import { Box, Container, Grid, Typography, Avatar } from "@mui/material";
-import chartjsLogo from "../assets/chartjs-logo.jpg";
 import vicheadshot from "../assets/vic-pic.jpeg";
 import sidheadshot from "../assets/Sid-pic.jpeg";
 import slavaheadshot from "../assets/Slava.jpg";
