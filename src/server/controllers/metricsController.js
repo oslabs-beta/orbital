@@ -104,6 +104,7 @@ const metricsController = {
       e.message = 'Error in getProducerMetricsController';
       return next(e);
     }
+	},
 
     async getProducerConsumerMetrics(req, res, next) {
       try {
