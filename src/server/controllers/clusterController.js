@@ -20,35 +20,35 @@ const clusterController = {
     async saveClusterToUser(req, res, next) {
         const newCluster = res.locals.newcluster;
         try {
-            const user = await User.findOneAndUpdate(
-                { _id: newCluster.owner },
-                { $push: { clusters: newCluster } },
-                { new: true }
-            );
-            res.locals.savedcluster = user;
-            return next();
+          const user = await User.findOneAndUpdate(
+            { _id: newCluster.owner },
+            { $push: { clusters: newCluster } },
+            { new: true }
+          );
+          res.locals.savedcluster = user;
+          return next();
         } catch (error) {
-            console.log(error);
+          console.log(error);
+          return next(error);
         }
-    },
-    async updateCluster(req, res, next) {
+      },
+      async updateCluster(req, res, next) {
         try {
-            const { cluster_id, cluster_name, prom_port } = req.body;
-            console.log(
-                `Cluster ID: ${cluster_id}\nCluster Name: ${cluster_name}\nProm Port: ${prom_port}`
-            );
-            const cluster = await Cluster.findOneAndUpdate(
-                { _id: cluster_id },
-                { name: cluster_name, prometheusUrl: prom_port },
-                { new: true }
-            );
-            console.log(cluster);
-            res.locals.cluster = cluster;
-            return next();
+          const { cluster_id, cluster_name, prom_port } = req.body;
+    
+          const cluster = await Cluster.findOneAndUpdate(
+            { _id: cluster_id },
+            { name: cluster_name, prometheusUrl: prom_port },
+            { new: true }
+          );
+    
+          res.locals.cluster = cluster;
+          return next();
         } catch (error) {
-            console.log(error);
+          console.log(error);
+          return next(error);
         }
-    },
+      },
     async deleteCluster(req, res, next) {
         try {
             const id = req.params.id;

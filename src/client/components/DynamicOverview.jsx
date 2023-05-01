@@ -84,7 +84,7 @@ const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
             boxShadow: `3px 3px 3px rgba(0, 0, 0, 0.5)`,
           }}
         >
-          <Card sx={{ border: 'none', boxShadow: 'none' }}>
+         <Card sx={{ border: 'none', boxShadow: 'none' }}>
             <Typography variant='h5'>CPU</Typography>
             <Typography variant='h5' sx={{ textAlign: 'center' }}>
               {Number((metrics.cpumetric * 100).toFixed(2))}%
@@ -93,19 +93,13 @@ const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
           <Card sx={{ border: 'none', boxShadow: 'none' }}>
             <Typography variant='h5'>Ping</Typography>
             <Typography variant='h5' sx={{ textAlign: 'center' }}>
-              30ms
+              {Math.round(Number(metrics.latency))}ms
             </Typography>
           </Card>
           <Card sx={{ border: 'none', boxShadow: 'none' }}>
-            <Typography variant='h5'>Brokers</Typography>
+            <Typography variant='h5'>RAM</Typography>
             <Typography variant='h5' sx={{ textAlign: 'center' }}>
-              2
-            </Typography>
-          </Card>
-          <Card sx={{ border: 'none', boxShadow: 'none' }}>
-            <Typography variant='h5'>Topics</Typography>
-            <Typography variant='h5' sx={{ textAlign: 'center' }}>
-              3
+              {Math.round(Number(metrics.ramUsageMetric) / 1000)}mb
             </Typography>
           </Card>
         </Paper>
