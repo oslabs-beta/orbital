@@ -111,7 +111,7 @@ const DynamicTopics = ({ cluster }) => {
                     {topic?.metric.topic}
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails sx={{ height: '100px' }}>
+                <AccordionDetails>
                   <TopicDetail topic={topic?.metric.topic} cluster={cluster} />
                 </AccordionDetails>
               </Accordion>
