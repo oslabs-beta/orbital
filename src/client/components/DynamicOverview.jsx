@@ -10,9 +10,8 @@ const containerStyle = {
   padding: '20px',
   margin: 'auto',
 
-	marginLeft: 150,
-	marginTop: 50,
-
+  marginLeft: 150,
+  marginTop: 50,
 };
 
 const chartsContainerStyle = {
@@ -22,8 +21,7 @@ const chartsContainerStyle = {
   flexWrap: 'wrap',
   padding: '16px',
 
-  alignItems: 'center'
-
+  alignItems: 'center',
 };
 
 const chartStyle = {
@@ -46,7 +44,7 @@ const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
     if (!cluster) return;
     const id = setInterval(() => {
       axios
-        .post('http://localhost:3001/jmx/metrics', {
+        .post('/jmx/metrics', {
           broker: cluster.prometheusUrl,
           userId: localStorage.getItem('userId'),
         })
@@ -88,7 +86,7 @@ const DynamicOverview = ({ cluster, intervalId, setIntervalId }) => {
             boxShadow: `3px 3px 3px rgba(0, 0, 0, 0.5)`,
           }}
         >
-         <Card sx={{ border: 'none', boxShadow: 'none' }}>
+          <Card sx={{ border: 'none', boxShadow: 'none' }}>
             <Typography variant='h5'>CPU</Typography>
             <Typography variant='h5' sx={{ textAlign: 'center' }}>
               {Number((metrics.cpumetric * 100).toFixed(2))}%

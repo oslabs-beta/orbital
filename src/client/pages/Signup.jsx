@@ -76,7 +76,7 @@ const Signup = () => {
             return;
         }
         axios
-            .post("http://localhost:3001/user/signup", { email, password, phoneNumber: phoneNumber.replace(/[^0-9]/g, '') })
+            .post("/user/signup", { email, password, phoneNumber: phoneNumber.replace(/[^0-9]/g, '') })
             .then((response) => {
                 localStorage.setItem("userId", response.data._id);
                 localStorage.setItem("isLoggedIn", "true");

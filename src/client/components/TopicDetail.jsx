@@ -7,7 +7,7 @@ const TopicDetail = ({ topic, cluster }) => {
   console.log(cluster);
   useEffect(() => {
     axios
-      .post('http://localhost:3001/jmx/topicMetrics', {
+      .post('/jmx/topicMetrics', {
         broker: cluster.prometheusUrl,
         topic: topic,
       })
