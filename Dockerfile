@@ -9,7 +9,7 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-
+RUN npm run build
 # Copy server files and the React app's build folder
 COPY src/server/ ./src/server/
 COPY build ./build
