@@ -1,8 +1,7 @@
 const axios = require('axios');
 const Alert = require('../models/alertModel');
 const User = require('../models/userModel');
-const ZAPIER_HOOK_URL =
-  'https://hooks.zapier.com/hooks/catch/15123291/3uedfdp/';
+const ZAPIER_HOOK_URL = ''; // Enter your URL here
 
 const alertController = {
   async getUserAlerts(req, res, next) {
