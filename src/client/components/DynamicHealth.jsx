@@ -52,7 +52,7 @@ const HealthMetrics = ({ cluster, intervalId, setIntervalId }) => {
           setMoreMetrics(res.data);
           console.log(res.data);
         });
-    }, 1500);
+    }, 8000);
     setIntervalId(id);
     return () => clearInterval(id);
   }, [cluster]);
