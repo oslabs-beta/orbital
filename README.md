@@ -31,22 +31,22 @@ Orbital enables you to view your cluster information in the following ways using
 
 **1) View Cluster Health Metrics (with Prometheus Connection)** 
 
-Users can view the overall health of their cluster at a glance on the 'Health Metrics' page which includes auto-updating graphs displaying real-time data readings for CPU Usage, JVM Memory Used, and Time spent in GC. It also includes static metrics at the bottom of the page for counts of key cluster elements:
+Users can view the overall health of their cluster at a glance on the 'Health Metrics' page which includes auto-updating graphs displaying real-time data readings for CPU Usage, RAM usage, Bytes In and Out, and Network Latency.
 
-![health-metrics](https://user-images.githubusercontent.com/87503302/161088866-0ed37690-04f8-46f2-bcbe-1e92d3e090ee.gif)
+![cluster](src/client/assets/Cluster.gif)
 
-**2) View Data Throughput at Topic-Level for TOP 5 High-Use Topics (with Prometheus Connection)**
+**2) View Key Insights into Cluster Producer & Consumers (with Prometheus connection)**
 
-The 'Topic Metrics' page displays real-time throughput metrics for the most active Cluster topics. Click on each topic section to expand and view graphs displaying throughput information at the topic level and click again to collapse.
+The 'More Details' page allows users to gain key insights into the Producers and Consumers of their Kafka Cluster, including the number of messages produced and consumed, any failed requests, and conversion data. This allows developers to quickly make optimization decisions about producer and consumer assignments.
 
-![topic-metrics](https://user-images.githubusercontent.com/87503302/161089060-b9c40069-ebe4-420b-99f6-cf096906dc5d.gif)
+![more-details](src/client/assets/More-Details.gif)
 
 
-**3) Insights into cluster topics, partitions, and consumer offsets (with Prometheus connection)**
+**3) View Data at Topic-Level for Top 5 Most Used Topics (with Prometheus Connection)**
 
-The 'Partition Diagrams' page allows users to gain insight into the partitions within each Topic of their Cluster, including the number of partitions and the current offsets, allowing developers to quickly make optimization decisions about partition and consumer assignments.
+The 'Topic Metrics' page displays metrics for the most active Cluster topics. Developers can view their top 5 cluster topics, their partitions, and consumer offsets. Click on each topic section to expand and view graphs displaying throughput information at the topic level and click again to collapse.
 
-![partition-diagram](https://user-images.githubusercontent.com/87503302/161098210-ac1ec57a-2aa8-4033-b6ac-cc9047049537.gif)
+![topics](src/client/assets/topics.gif)
 
 
 
