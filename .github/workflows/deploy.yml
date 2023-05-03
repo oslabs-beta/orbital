@@ -1,0 +1,34 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          docker build -t workflow-img .
+          docker run -d -p 3001:3001 workflow-img
+
+  deploy:
+    needs: unit-testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          version: 3.x
+      - run: python3 -m pip install --upgrade pip
+      - run: python3 -m pip install --user awscli
+      - run: python3 -m pip install --user awsebcli
+      - run: sh ./scripts/deploy.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_SHA: ${{ github.sha }}
