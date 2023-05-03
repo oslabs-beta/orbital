@@ -16,7 +16,7 @@
     # Zip up our codebase, along with modified Dockerrun and our .ebextensions directory
     zip -r cicd1.zip Dockerrun.aws.json
     # Upload zip file to s3 bucket
-    aws s3 cicd1.zip s3://$EB_BUCKET/cicd1.zip
+    aws s3 cp cicd1.zip s3://$EB_BUCKET/cicd1.zip
     # Create a new application version with new Dockerrun
     aws elasticbeanstalk create-application-version --application-name Testing-App --version-label $GITHUB_SHA --source-bundle S3Bucket=$EB_BUCKET,S3Key=cicd1.zip
     # Update environment to use new version number
