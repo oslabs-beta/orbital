@@ -133,7 +133,7 @@ export default function PersistentDrawerLeft({ user }) {
     console.log('useEffect GETS CLUSTER ARRAY fired.');
     try {
       axios
-        .get(`http://localhost:3001/cluster/${localStorage.getItem('userId')}`)
+        .get(`/cluster/${localStorage.getItem('userId')}`)
         .then((response) => {
           setUserClusters(response.data);
           console.log(response.data);
@@ -144,7 +144,7 @@ export default function PersistentDrawerLeft({ user }) {
   }, [showModal, updatingCluster]);
 
   const handleCreateCluster = async () => {
-    await axios.post('http://localhost:3001/cluster', {
+    await axios.post('/cluster', {
       cluster_name: clusterName,
       prom_port: brokers,
       owner: localStorage.getItem('userId'),
@@ -195,7 +195,16 @@ export default function PersistentDrawerLeft({ user }) {
             p: 0,
           }}
         >
-          <img src={orbitalLogo} alt="Orbital logo" style={{ maxWidth: "65px", maxHeight:"65px", marginLeft:'30px', marginTop:'5px' }} />
+          <img
+            src={orbitalLogo}
+            alt='Orbital logo'
+            style={{
+              maxWidth: '65px',
+              maxHeight: '65px',
+              marginLeft: '30px',
+              marginTop: '5px',
+            }}
+          />
           <Typography
             variant='h6'
             noWrap
@@ -203,7 +212,7 @@ export default function PersistentDrawerLeft({ user }) {
             textAlign='center'
             color='white'
             margin='auto'
-            marginLeft="2px"
+            marginLeft='2px'
             fontWeight='bold'
           >
             {'Orbital'}
@@ -213,53 +222,69 @@ export default function PersistentDrawerLeft({ user }) {
         <List sx={{ backgroundColor: 'black' }}>
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
-              <ListItemText primary='Add New Cluster' sx={{textAlign: 'center', color: 'white'}} />
-              <AddIcon sx={{color: 'white'}}/>
+              <ListItemText
+                primary='Add New Cluster'
+                sx={{ textAlign: 'center', color: 'white' }}
+              />
+              <AddIcon sx={{ color: 'white' }} />
             </ListItemButton>
           </ListItem>
         </List>
         <Divider sx={{ backgroundColor: 'white' }} />
-        <List sx={{ backgroundColor: 'black', p: 3, height: '100vh', width: '20vw', minWidth: '300px' }}>
+        <List
+          sx={{
+            backgroundColor: 'black',
+            p: 3,
+            height: '100vh',
+            width: '20vw',
+            minWidth: '300px',
+          }}
+        >
           {userClusters.map((cluster, index) => {
-            const icon = <SchemaIcon color="secondary"/>;
+            const icon = <SchemaIcon color='secondary' />;
 
             return (
               <>
-              <ListItem
-                key={cluster._id}
-                disablePadding
-                sx={{
-                  color: 'white',
-                }}
-              >
-                <ListItemButton
-                  sx={{borderRadius: "8px", border: '1px solid black', backgroundColor: 'rgb(24, 45, 91)', '&:hover': {backgroundColor: 'rgb(48, 90, 182)'}}}
-                  onClick={() => {
-                    setCurrentCluster(cluster);
-                    setCurrentIndex(index);
-                    clearInterval(intervalId);
+                <ListItem
+                  key={cluster._id}
+                  disablePadding
+                  sx={{
+                    color: 'white',
                   }}
                 >
-                  {icon}
-                  <ListItemIcon></ListItemIcon>
-                  <Typography
-                    variant='h6'
-                    component='div'
-                    color='white'
-                    fontWeight={500}
+                  <ListItemButton
+                    sx={{
+                      borderRadius: '8px',
+                      border: '1px solid black',
+                      backgroundColor: 'rgb(24, 45, 91)',
+                      '&:hover': { backgroundColor: 'rgb(48, 90, 182)' },
+                    }}
+                    onClick={() => {
+                      setCurrentCluster(cluster);
+                      setCurrentIndex(index);
+                      clearInterval(intervalId);
+                    }}
                   >
-                    {cluster.name}
-                  </Typography>
-                </ListItemButton>
-              </ListItem>
-              <Divider sx={{ borderColor: 'black', borderWidth: "5px" }} />
+                    {icon}
+                    <ListItemIcon></ListItemIcon>
+                    <Typography
+                      variant='h6'
+                      component='div'
+                      color='white'
+                      fontWeight={500}
+                    >
+                      {cluster.name}
+                    </Typography>
+                  </ListItemButton>
+                </ListItem>
+                <Divider sx={{ borderColor: 'black', borderWidth: '5px' }} />
               </>
             );
           })}
           <LogoutButton />
         </List>
       </Drawer>
-      <Main open={open} >
+      <Main open={open}>
         <DrawerHeader sx={{ backgroundColor: 'rgb(24, 45, 91)' }} />
         <Box
           sx={{

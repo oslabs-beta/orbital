@@ -5,20 +5,19 @@ FROM node:lts
 WORKDIR /orbital
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY . .
 
 # Install dependencies
 RUN npm install
+RUN npm run build
+# Copy server files and the React app's build folder
 
-# Copy server and client files
-COPY src/ ./src/
-COPY public/ ./public/
-# Build the client app
-RUN cd src/client && npm run build
 
-# Expose the ports
-EXPOSE 3000
+# Set the NODE_OPTIONS environment variable
+ENV NODE_OPTIONS="--max_old_space_size=4096"
+
+# Expose the port
 EXPOSE 3001
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "server"]

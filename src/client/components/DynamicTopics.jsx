@@ -30,7 +30,7 @@ const DynamicTopics = ({ cluster }) => {
 
   useEffect(() => {
     axios
-      .post('http://localhost:3001/jmx/topics', {
+      .post('/jmx/topics', {
         broker: cluster.prometheusUrl,
       })
       .then((response) => {

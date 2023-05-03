@@ -1,0 +1,13 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "orbital-osp2:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3001"
+    }
+  ],
+  "Volumes": []
+}

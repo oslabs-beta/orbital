@@ -92,7 +92,7 @@ const Login = ({ setUser }) => {
             return;
         }
         axios
-            .post("http://localhost:3001/user/login", { email, password })
+            .post("/user/login", { email, password })
             .then((response) => {
 							console.log(response.data)
                 localStorage.setItem("isLoggedIn", "true");
