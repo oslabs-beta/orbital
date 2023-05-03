@@ -3,8 +3,10 @@ const metricsController = require('../controllers/metricsController.js');
 const router = express.Router();
 const alertController = require('../controllers/alertController.js');
 
+
 // POST request to metrics endpoint
 router.post('/metrics', metricsController.getCoreMetrics, (req, res) => {
+
   res.status(200).json(res.locals.metric);
 });
 
