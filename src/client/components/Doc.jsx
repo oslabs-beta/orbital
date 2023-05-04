@@ -48,7 +48,6 @@ const Doc = () => {
               "id":123,
               "email": "johndoe@example.com,
               "name": "John Doe"
-              "token": "token123"
             }`}
               </pre>
             </Paper>

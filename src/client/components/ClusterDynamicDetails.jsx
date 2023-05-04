@@ -1,46 +1,61 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import ClusterOverview from "./ClusterOverview";
-import DynamicOverview from "./DynamicOverview";
-const ClusterDynamicDetails = ({ currentTab }) => {
-    const [metrics, setMetrics] = useState(0);
-    const [intervalId, setIntervalId] = useState(null);
-    const [clusterName, setClusterName] = useState("");
-    useEffect(() => {
-        const id = setInterval(() => {
-            axios
-                .post("http://localhost:3001/jmx/metrics", {
-                    broker: "localhost:9090",
-                })
-                .then((res) => {
-                    setMetrics(res.data);
-                    console.log(res.data);
-                });
-        }, 1500);
-        setIntervalId(id);
-        return () => clearInterval(id);
-    }, [clusterName]);
-    switch (currentTab) {
-        case "overview":
-            return <DynamicOverview />;
+import React from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import ClusterOverview from './ClusterOverview';
+import DynamicOverview from './DynamicOverview';
+import DynamicHealth from './DynamicHealth';
+import DynamicTopics from './DynamicTopics';
+import { useParams } from 'react-router-dom';
 
-        /* 
+const ClusterDynamicDetails = ({ currentTab }) => {
+  const [metrics, setMetrics] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
+  const [clusterName, setClusterName] = useState('');
+  const [cluster, setCluster] = useState({});
+  const params = useParams();
+  useEffect(() => {
+    axios.get(`/cluster/clusterById/${params.id}`).then((res) => {
+      setCluster(res.data);
+      console.log(res.data);
+    });
+  }, [clusterName]);
+
+  switch (currentTab) {
+    case 'overview':
+      return (
+        <DynamicOverview
+          cluster={cluster}
+          setIntervalId={setIntervalId}
+          intervalId={intervalId}
+        />
+      );
+    /* 
             cluster,
             setUpdatingCluster,
             clusterId,
             setCluster,
             setIntervalId,
             */
-        case "health":
-            return (
-                <img
-                    style={{ height: "300px" }}
-                    src="https://cdn.pixabay.com/photo/2016/02/19/15/46/labrador-retriever-1210559__480.jpg"
-                    alt=""
-                />
-            );
-    }
+    case 'health':
+      return (
+        <DynamicHealth
+          cluster={cluster}
+          setIntervalId={setIntervalId}
+          intervalId={intervalId}
+        />
+      );
+
+    case 'topic':
+      return (
+        <DynamicTopics
+          cluster={cluster}
+          setIntervalId={setIntervalId}
+          intervalId={intervalId}
+        />
+      );
+    default:
+      return <div>default</div>;
+  }
 };
 
 export default ClusterDynamicDetails;

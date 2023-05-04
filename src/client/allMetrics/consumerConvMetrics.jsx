@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { Card, CardHeader } from '@mui/material';
 
-const NetworkMetrics = ({ latency }) => {
+const ConsumerConvMetrics = ({ conConvMetrics }) => {
   const chartRef = useRef(null);
   const [labels, setLabels] = useState([
     '-15s',
@@ -21,6 +21,8 @@ const NetworkMetrics = ({ latency }) => {
     '',
     'Now',
   ]);
+  
+  // Declares initial state of zero for Consumer Conversion metric charts
   const [bytesInData, setBytesInData] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -28,31 +30,33 @@ const NetworkMetrics = ({ latency }) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
+// Updates Consumer Conversion chart data every second
   useEffect(() => {
     const interval = setInterval(() => {
-      const newBytesInValue = latency;
+      const newBytesInValue = conConvMetrics;
       setBytesInData([...bytesInData.slice(1), newBytesInValue]);
     }, 1000);
 
     return () => clearInterval(interval);
   });
 
+// Renders charts for Consumer Conversion metric with appropriate axis labels and scales
   useEffect(() => {
     const chartCtx = chartRef.current.getContext('2d');
 
-    // Create chart instance
+  // Creates a chart instance
     const chart = new Chart(chartCtx, {
       type: 'line',
       data: {
         labels: labels,
         datasets: [
           {
-            label: 'Latency',
+            label: 'Consumer Conversions',
             data: bytesInData,
-            borderColor: 'rgba(255, 206, 86, 1)',
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-            pointBorderColor: 'rgba(255, 206, 86, 1)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            pointBorderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 3,
           },
         ],
@@ -60,15 +64,19 @@ const NetworkMetrics = ({ latency }) => {
       options: {
         scales: {
           y: {
-            max: 2000,
+            max: (function () {
+              const maxValue = Math.max(...bytesInData);
+              if (maxValue < 5) return 10;
+              if (maxValue >= 10 && maxValue < 1000) return maxValue + 10;
+            })(),
             min: 0,
             ticks: {
-              stepSize: 50,
+              stepSize: 5,
               beginAtZero: true,
             },
             title: {
               display: true,
-              text: 'Milliseconds',
+              text: 'Conversions',
               font: {
                 size: 14,
               },
@@ -92,7 +100,7 @@ const NetworkMetrics = ({ latency }) => {
       },
     });
 
-    // Destroy previous chart instance before creating a new one
+  // Destroys previous chart instance before creating a new one with updated state
     return () => {
       chart.destroy();
     };
@@ -100,10 +108,13 @@ const NetworkMetrics = ({ latency }) => {
 
   return (
     <Card sx={{ width: 500, boxShadow: '0px 0px 4px black' }}>
-      <CardHeader title='Network Latency' style={{ textAlign: 'center' }} />
+      <CardHeader
+        title='Consumer Conversions'
+        style={{ textAlign: 'center' }}
+      />
       <canvas ref={chartRef} style={{ width: 500 }} />
     </Card>
   );
 };
 
-export default NetworkMetrics;
+export default ConsumerConvMetrics;

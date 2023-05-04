@@ -66,6 +66,7 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
     const [userId, setUserId] = useState("");
+		const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
 
     const signUpHandler = () => {
@@ -75,7 +76,7 @@ const Signup = () => {
             return;
         }
         axios
-            .post("http://localhost:3001/user/signup", { email, password })
+            .post("/user/signup", { email, password, phoneNumber: phoneNumber.replace(/[^0-9]/g, '') })
             .then((response) => {
                 localStorage.setItem("userId", response.data._id);
                 localStorage.setItem("isLoggedIn", "true");
@@ -152,6 +153,15 @@ const Signup = () => {
                         type="password"
                         fullWidth
                         onChange={(e) => setConfirmPass(e.target.value)}
+                    />
+										<TextField
+                        sx={styles.input}
+                        label="Phone Number"
+                        variant="outlined"
+                        size="small"
+                        type="phone"
+                        fullWidth
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                     <Button
                         color="secondary"

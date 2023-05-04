@@ -1,0 +1,13 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "public.ecr.aws/z2f9g1i6/cicd:<VERSION>",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3001"
+    }
+  ],
+  "Volumes": []
+}
