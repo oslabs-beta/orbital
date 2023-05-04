@@ -22,7 +22,7 @@ To use this application, follow these instructions:
 
 1. Head over to orbital-view.com
 2. Create an account
-3. Enter your pulbic Prometheus port
+3. Enter your public Prometheus port
 4. Have fun with Orbital!
 
 ## Features
