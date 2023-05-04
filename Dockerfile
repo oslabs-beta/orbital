@@ -2,7 +2,7 @@
 FROM node:lts
 
 # Create app directory
-WORKDIR /orbital
+WORKDIR /orbitals
 
 # Copy package.json and package-lock.json
 COPY . .
