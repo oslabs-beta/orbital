@@ -1,5 +1,5 @@
 # Orbital
-### Orbital is an open-source tool for visualizing and monitoring Kafka clusters. It is deisgned to help developers save time and improve efficiency by providing a real-time view of their Kafka clusters.
+### Orbital is an open-source tool for visualizing and monitoring Kafka clusters. It is designed to help developers save time and improve efficiency by providing a real-time view of their Kafka clusters.
 
 
 
