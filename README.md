@@ -64,7 +64,7 @@ The 'Topic Metrics' page displays metrics for the most active Cluster topics. De
 
 ## Contributors
 
-[Victor Gulyak](https://https://github.com/vicg932) - [LinkedIn](https://www.linkedin.com/in/vic-gul/)
+[Victor Gulyak](https://github.com/vicg932) - [LinkedIn](https://www.linkedin.com/in/vic-gul/)
 <br>
 [Sidney Brodsky](https://github.com/SidneyJB) - [LinkedIn](https://www.linkedin.com/in/sidney-brodsky/)
 <br>
